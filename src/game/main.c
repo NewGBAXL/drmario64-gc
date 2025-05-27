@@ -4,9 +4,14 @@ extern s32 lbl_801F9C08[];
 
 u32 OSGetResetCode(void);
 s32 *fn_80006838(const char*);
+s32 fn_800068EC(void);
+void fn_80006994(void);
 void fn_80006D04(s32);
+void fn_80006D5C(void);
 void fn_80006CF4(void);
 void fn_80006DD8(void);
+void fn_8000C0B8(void);
+void fn_8000C298(void);
 void fn_80012448(void);
 s32 fn_80012854(void);
 void fn_800128C4(void);
@@ -23,26 +28,23 @@ void fn_80019D00(void);
 void fn_8001A22C(void);
 u32 fn_800489E8(void);
 
-s32 lbl_800C6C40[13];
 
-s32 lbl_800BDD38[2] = { 1, 0 };
+s32 lbl_800C6C40[10];
+s32 lbl_800C6C68[3];
 
 int main(void) {
     s32 var_r30;
-    s32* var_r31;
-
-    var_r31 = lbl_800C6C40;
     
-    var_r31[10] = var_r30 = 0;
+    lbl_800C6C68[0] = var_r30 = 0;
     if ((OSGetResetCode() + 0x80000000) == 0) {
         var_r30 = 1;
     }
-    var_r31[11] = var_r30;
+    lbl_800C6C68[1] = var_r30;
     var_r30 = 0;
-    if ((var_r31[11] != 0) && (fn_800489E8() == 1)) {
+    if ((lbl_800C6C68[1] != 0) && (fn_800489E8() == 1)) {
         var_r30 = 1;
     }
-    var_r31[12] = var_r30;
+    lbl_800C6C68[2] = var_r30;
     fn_800128C4();
     fn_80018CD0();
     fn_80018D00(1, 0);
@@ -99,7 +101,21 @@ s32 fn_800068EC(void) {
     return 0;
 }
 
+s32 lbl_800BDD38[2] = { 1, 0 };
+
 void fn_80006968(void) {
     fn_80006CF4();
     lbl_800BDD38[0] = 0;
+}
+
+void fn_80006DD8(void) {
+    s32 *temp = lbl_800C6C68;
+    if (temp[2] != 0) {
+        fn_8000C298();
+    } else {
+        fn_8000C0B8();
+    }
+    fn_800068EC();
+    fn_80006D5C();
+    while (1) fn_80006994();
 }

@@ -13,9 +13,9 @@ Sections:
 	.sdata2     type:rodata align:32
 
 game/main.c:
-	.text       start:0x80006780 end:0x80006CF4
+	.text       start:0x80006780 end:0x80006E14
 	.data       start:0x800BDCA0 end:0x800BDD40
-	.bss        start:0x800C6C40 end:0x800C6C68
+	.bss        start:0x800C6C40 end:0x800CAF90
 
 musyx/runtime/StdReverb/reverb.c:
 	extab       start:0x80005C50 end:0x80005C68
@@ -240,3 +240,9 @@ dolphin/card/CARDStat.c:
 dolphin/card/CARDNet.c:
 	.text       start:0x80061BC0 end:0x80061C3C
 	.sdata      start:0x8022D670 end:0x8022D678
+
+dolphin/gx/GXInit.c:
+	.text       start:0x80061C3C end:0x80062D90
+
+dolphin/amcstubs/AmcExi2Stubs.c:
+	.text       start:0x8006A7F4 end:0x8006A824
