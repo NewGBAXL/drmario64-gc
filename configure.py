@@ -359,7 +359,7 @@ config.libs = [
         "pad",
         [
             Object(Matching, "dolphin/pad/PadClamp.c"),
-            Object(NonMatching, "dolphin/pad/pad.c"),
+            Object(Matching, "dolphin/pad/pad.c"),
         ],
     ),
     DolphinLib(
@@ -465,6 +465,27 @@ config.libs = [
         "os",
         [
             Object(Matching, "dolphin/os/__start.c"),
+            Object(NonMatching, "dolphin/os/OS.c"),
+            Object(NonMatching, "dolphin/os/OSAlarm.c"),
+            Object(Matching, "dolphin/os/OSArena.c"),
+            Object(Matching, "dolphin/os/OSAudioSystem.c"),
+            Object(Matching, "dolphin/os/OSCache.c"),
+            Object(NonMatching, "dolphin/os/OSContext.c"),
+            #Object(NonMatching, "dolphin/os/OSError.c"),
+            #Object(NonMatching, "dolphin/os/OSFatal.c"),
+            #Object(NonMatching, "dolphin/os/OSFont.c"),
+            #Object(NonMatching, "dolphin/os/OSInterrupt.c"),
+            #Object(NonMatching, "dolphin/os/OSLink.c"),
+            #Object(NonMatching, "dolphin/os/OSMessage.c"),
+            #Object(NonMatching, "dolphin/os/OSMemory.c"),
+            #Object(NonMatching, "dolphin/os/OSMutex.c"),
+            #Object(NonMatching, "dolphin/os/OSReboot.c"),
+            #Object(NonMatching, "dolphin/os/OSReset.c"),
+            #Object(NonMatching, "dolphin/os/OSResetSW.c"),
+            #Object(NonMatching, "Dolphin/os/OSRtc.c"),
+            #Object(NonMatching, "Dolphin/os/OSSync.c"),
+            #Object(NonMatching, "Dolphin/os/OSThread.c"),
+            #Object(NonMatching, "Dolphin/os/OSTime.c"),
             Object(Matching, "dolphin/os/__ppc_eabi_init.c")
         ]
     ),

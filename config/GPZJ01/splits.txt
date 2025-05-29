@@ -89,6 +89,34 @@ dolphin/GBA/GBAKey.c:
 	.text       start:0x8004230C end:0x80042574
 	.data       start:0x800C2910 end:0x800C2CB8
 
+dolphin/os/OS.c:
+	.text       start:0x80042658 end:0x80042FA0
+	.data       start:0x800C2CB8 end:0x800C3258
+	.bss        start:0x8022BB20 end:0x8022BBC0
+	.sdata      start:0x8022D580 end:0x8022D590
+	.sbss       start:0x8022D8C0 end:0x8022D8F0
+
+dolphin/os/OSAlarm.c:
+	.text       start:0x80042FA0 end:0x80043CD4
+	.sbss       start:0x8022D8F0 end:0x8022D908
+
+dolphin/os/OSArena.c:
+	.text       start:0x80043CD4 end:0x80043CF4
+	.sdata      start:0x8022D590 end:0x8022D598
+	.sbss       start:0x8022D908 end:0x8022D910
+
+dolphin/os/OSAudioSystem.c:
+	.text       start:0x80043CF4 end:0x80043F88
+	.data       start:0x800C3258 end:0x800C32D8
+
+dolphin/os/OSCache.c:
+	.text       start:0x80043F88 end:0x800443EC
+	.data       start:0x800C32D8 end:0x800C3508
+
+dolphin/os/OSContext.c:
+	.text       start:0x800443EC end:0x80044C5C
+	.data       start:0x800C3508 end:0x800C36E0
+
 dolphin/os/__start.c:
 	.init       start:0x800051EC end:0x80005440
 
