@@ -500,6 +500,13 @@ config.libs = [
             Object(NonMatching, "TRK_MINNOW_DOLPHIN/mslsupp.c"),
         ],
     },
+    DolphinLib(
+        "si",
+        [
+            Object(Matching, "dolphin/si/SIBios.c"),
+            Object(Matching, "dolphin/si/SISamplingRate.c"),
+        ],
+    ),
     MusyX(
         objects={
             Object(NonMatching, "musyx/runtime/seq.c"),

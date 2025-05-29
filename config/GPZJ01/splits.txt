@@ -104,6 +104,18 @@ dolphin/exi/EXIUart.c:
 	.text       start:0x8004BEFC end:0x8004C190
 	.sbss       start:0x8022D988 end:0x8022D998
 
+dolphin/si/SIBios.c:
+	.text       start:0x8004C190 end:0x8004D9E0
+	.data       start:0x800C4710 end:0x800C4828
+	.bss        start:0x8022C6F0 end:0x8022C8F0
+	.sdata      start:0x8022D5B8 end:0x8022D5C0
+	.sbss       start:0x8022D998 end:0x8022D9A8
+
+dolphin/si/SISamplingRate.c:
+	.text       start:0x8004D9E0 end:0x8004DAE8
+	.data       start:0x800C4828 end:0x800C48C0
+	.sbss       start:0x8022D9A8 end:0x8022D9B0
+
 dolphin/dvd/dvdlow.c:
 	.text       start:0x8004E3A0 end:0x8004F1E0
 	.bss        start:0x8022C8F0 end:0x8022C9C0

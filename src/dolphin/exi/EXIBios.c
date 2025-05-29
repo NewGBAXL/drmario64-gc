@@ -202,7 +202,7 @@ BOOL EXISync(s32 chan)
             enabled = OSDisableInterrupts();
             if (exi->state & STATE_SELECTED) {
                 CompleteTransfer(chan);
-                if (__OSGetDIConfig() != 0xff || exi->immLen != 4 || (REG(chan, 0) & 0x00000070) != (EXI_FREQ_1M << 4)
+                if (__OSGetDIConfig() != 0xff || (OSGetConsoleType() & 0xf0000000) == 0x20000000 || exi->immLen != 4 || (REG(chan, 0) & 0x00000070) != (EXI_FREQ_1M << 4)
                     || (REG(chan, 4) != EXI_USB_ADAPTER && REG(chan, 4) != EXI_IS_VIEWER && REG(chan, 4) != 0x04220001) || __OSDeviceCode == 0x8200) {
                     rc = TRUE;
                 }
