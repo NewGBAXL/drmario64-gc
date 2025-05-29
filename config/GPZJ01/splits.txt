@@ -157,6 +157,13 @@ dolphin/dvd/fstload.c:
 	.sdata      start:0x8022D5F0 end:0x8022D600
 	.sbss       start:0x8022DA78 end:0x8022DA88
 
+dolphin/vi.c:
+	.text       start:0x800529AC end:0x800548AC
+	.data       start:0x800C4C78 end:0x800C5048
+	.bss        start:0x8022CAE8 end:0x8022CC30
+	.sdata      start:0x8022D600 end:0x8022D610
+	.sbss       start:0x8022DA88 end:0x8022DAE0
+
 dolphin/pad/PadClamp.c:
 	.text       start:0x800566E0 end:0x80056924
 	.rodata     start:0x800BDC90 end:0x800BDC9A

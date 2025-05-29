@@ -507,6 +507,12 @@ config.libs = [
             Object(Matching, "dolphin/si/SISamplingRate.c"),
         ],
     ),
+    DolphinLib(
+        "vi",
+        [
+            Object(NonMatching, "dolphin/vi.c"),
+        ],
+    ),
     MusyX(
         objects={
             Object(NonMatching, "musyx/runtime/seq.c"),
