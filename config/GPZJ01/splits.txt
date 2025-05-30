@@ -92,7 +92,7 @@ dolphin/GBA/GBAKey.c:
 dolphin/os/OS.c:
 	.text       start:0x80042658 end:0x80042FA0
 	.data       start:0x800C2CB8 end:0x800C3258
-	.bss        start:0x8022BB20 end:0x8022BBC0
+	.bss        start:0x8022BB20 end:0x8022BB70
 	.sdata      start:0x8022D580 end:0x8022D590
 	.sbss       start:0x8022D8C0 end:0x8022D8F0
 
@@ -116,6 +116,47 @@ dolphin/os/OSCache.c:
 dolphin/os/OSContext.c:
 	.text       start:0x800443EC end:0x80044C5C
 	.data       start:0x800C3508 end:0x800C36E0
+
+dolphin/os/OSError.c:
+	.text       start:0x80044C5C end:0x80045308
+	.data       start:0x800C36E0 end:0x800C3A00
+	.bss        start:0x8022BB70 end:0x8022BBC0
+	.sdata      start:0x8022D598 end:0x8022D5A0
+
+dolphin/os/OSFont.c:
+	.text       start:0x80045308 end:0x80046068
+	.data       start:0x800C3A00 end:0x800C4510
+	.sdata      start:0x8022D5A0 end:0x8022D5A8
+	.sbss       start:0x8022D910 end:0x8022D920
+
+dolphin/os/OSInterrupt.c:
+	.text       start:0x80046068 end:0x800468D4
+	.data       start:0x800C4510 end:0x800C4540
+	.sbss       start:0x8022D920 end:0x8022D938
+
+dolphin/os/OSLink.c:
+	.text       start:0x800468D4 end:0x800472C0
+	.data       start:0x800C4540 end:0x800C4590
+
+dolphin/os/OSMemory.c:
+	.text       start:0x800472C0 end:0x800475A0
+	.data       start:0x800C4590 end:0x800C45A0
+
+dolphin/os/OSMutex.c:
+	.text       start:0x800475A0 end:0x80047610
+
+dolphin/os/OSReboot.c:
+	.text       start:0x80047610 end:0x8004796C
+	.bss        start:0x8022BBC0 end:0x8022BBE0
+	.sbss       start:0x8022D938 end:0x8022D948
+
+dolphin/os/OSReset.c:
+	.text       start:0x8004796C end:0x80047D50
+	.sbss       start:0x8022D948 end:0x8022D950
+
+dolphin/os/OSResetSW.c:
+	.text       start:0x80047D50 end:0x800480DC
+	.sbss       start:0x8022D950 end:0x8022D970
 
 dolphin/os/__start.c:
 	.init       start:0x800051EC end:0x80005440

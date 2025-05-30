@@ -105,8 +105,8 @@ BOOL OSUnlink(OSModuleInfo* oldModule);
 OSModuleInfo* OSSearchModule(void* ptr, u32* section, u32* offset);
 
 // debugger notification
-void OSNotifyLink(void);
-void OSNotifyUnlink(void);
+void OSNotifyLink(OSModuleInfo* module);
+void OSNotifyUnlink(OSModuleInfo* module);
 
 #ifdef __cplusplus
 }

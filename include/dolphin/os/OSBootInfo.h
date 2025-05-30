@@ -4,7 +4,7 @@
 #include "dolphin/DVDPriv.h"
 #include "dolphin/types.h"
 
-typedef struct OSBootInfo_s {
+typedef struct OSBootInfo {
   DVDDiskID DVDDiskID;
   u32 magic;
   u32 version;
@@ -45,6 +45,6 @@ typedef struct BI2Debug {
 #define OS_DVD_MAGIC_NINTENDO 0xC2339F3D
 #define OS_THREAD_STACK_MAGIC 0xDEADBABE
 
-#define OS_BOOTROM_ADDR ((void*)0x81300000)
+#define OS_BOOTROM_ADDR 0x81300000
 
 #endif // _DOLPHIN_OSBOOTINFO

@@ -1,7 +1,6 @@
 #ifndef _DOLPHIN_OSALARM
 #define _DOLPHIN_OSALARM
 
-#include <dolphin/os.h>
 #include <dolphin/os/OSContext.h>
 #include <types.h>
 

@@ -1,8 +1,8 @@
+#include <dolphin/os.h>
 #include "dolphin/os/OSAlarm.h"
 #include <dolphin/DVDPriv.h>
 #include <dolphin/dvd.h>
 #include <dolphin/hw_regs.h>
-#include <dolphin/os.h>
 #include <dolphin/os/OSBootInfo.h>
 
 const char* __DVDVersion = "<< Dolphin SDK - DVD\trelease build: Sep  5 2002 05:34:06 (0x2301) >>";
