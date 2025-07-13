@@ -311,6 +311,7 @@ def MusyX(objects, mw_version="GC/1.2.5", debug=False, major=1, minor=5, patch=4
             f"-DMUSY_VERSION_MINOR={minor}",
             f"-DMUSY_VERSION_PATCH={patch}",
         ],
+        "progress_category": "musyx",
         "objects": objects,
     }
 
@@ -483,7 +484,7 @@ config.libs = [
             Object(Matching, "dolphin/os/OSMutex.c"),
             Object(NonMatching, "dolphin/os/OSReboot.c"),
             Object(Matching, "dolphin/os/OSReset.c"),
-            Object(NonMatching, "dolphin/os/OSResetSW.c"),
+            Object(Matching, "dolphin/os/OSResetSW.c"),
             Object(NonMatching, "dolphin/os/OSRtc.c"),
             Object(NonMatching, "dolphin/os/OSSync.c"),
             Object(NonMatching, "dolphin/os/OSThread.c"),
@@ -572,14 +573,29 @@ config.libs = [
         }
     ),
     {
-        "lib": "Game",
+        "lib": "Loader",
         "mw_version": config.linker_version,
         "cflags": cflags_game,
         "host": False,
         "objects": [
-            Object(NonMatching, "game/main.c")
+            Object(NonMatching, "game/main.c"),
+            Object(Matching, "game/n642Dolphin.c"),
+            Object(NonMatching, "game/nu/nusys.c"),
+            Object(NonMatching, "game/memory.c"),
         ]
-    }
+    },
+    Rel("Dr_MARIO", [
+        Object(NonMatching, "Dr_MARIO/gc/src/joy.c"),
+        Object(NonMatching, "Dr_MARIO/gc/src/sound.c"),
+        Object(NonMatching, "Dr_MARIO/gc/src/dm_virus_init.c"),
+        Object(NonMatching, "Dr_MARIO/gc/src/game_etc.c"),
+        Object(NonMatching, "Dr_MARIO/gc/src/vr_init.c"),
+        Object(NonMatching, "Dr_MARIO/gc/src/graphic.c"),
+        Object(NonMatching, "Dr_MARIO/gc/src/font.c"),
+        Object(NonMatching, "Dr_MARIO/gc/src/msgwnd.c"),
+        Object(NonMatching, "Dr_MARIO/gc/src/boot_data.c"),
+        Object(NonMatching, "Dr_MARIO/gc/src/record.c"),
+    ])
 ]
 
 
@@ -605,6 +621,7 @@ def link_order_callback(module_id: int, objects: List[str]) -> List[str]:
 config.progress_categories = [
     ProgressCategory("game", "Game Code"),
     ProgressCategory("sdk", "SDK Code"),
+    ProgressCategory("musyx", "MusyX"),
 ]
 config.progress_each_module = args.verbose
 # Optional extra arguments to `objdiff-cli report generate`

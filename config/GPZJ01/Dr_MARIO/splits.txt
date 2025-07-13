@@ -5,3 +5,33 @@ Sections:
 	.rodata     type:rodata align:8
 	.data       type:data align:8
 	.bss        type:bss align:32
+
+Dr_MARIO/gc/src/joy.c:
+	.text       start:0x00020C7C end:0x00021184
+
+Dr_MARIO/gc/src/sound.c:
+	.text       start:0x00021184 end:0x000218DC
+
+Dr_MARIO/gc/src/dm_virus_init.c:
+	.text       start:0x000218DC end:0x00022CEC
+
+Dr_MARIO/gc/src/game_etc.c:
+	.text       start:0x00022CEC end:0x00026054
+
+Dr_MARIO/gc/src/vr_init.c:
+	.text       start:0x00026054 end:0x000266DC
+
+Dr_MARIO/gc/src/graphic.c:
+	.text       start:0x000266DC end:0x00026B90
+
+Dr_MARIO/gc/src/font.c:
+	.text       start:0x00026B90 end:0x00028560
+
+Dr_MARIO/gc/src/msgwnd.c:
+	.text       start:0x00028560 end:0x000299B4
+
+Dr_MARIO/gc/src/boot_data.c:
+	.text       start:0x000299B4 end:0x0002A984
+
+Dr_MARIO/gc/src/record.c:
+	.text       start:0x0002A984 end:0x0002DF5C

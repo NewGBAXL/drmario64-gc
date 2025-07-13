@@ -7,7 +7,7 @@ s32 *fn_80006838(const char*);
 s32 fn_800068EC(void);
 void fn_80006994(void);
 void fn_80006D04(s32);
-void fn_80006D5C(void);
+void gc_soundInit(void);
 void fn_80006CF4(void);
 void fn_80006DD8(void);
 void fn_8000C0B8(void);
@@ -18,15 +18,15 @@ void fn_800128C4(void);
 s32 fn_800158C4(void);
 void fn_800160CC(const char *, s32, s32, s32);
 s32 *fn_800160FC(void);
-void fn_80018CD0(void);
-void fn_80018D00(int, int);
+void CreateResetThread(void);
+void GCHandover_write(int, int);
 void fn_800196A8(int);
 void fn_8001970C(void);
 void fn_80019C68(void);
 void fn_80019C78(void);
 void fn_80019D00(void);
 void fn_8001A22C(void);
-u32 fn_800489E8(void);
+u32 OSGetProgressiveMode(void);
 
 
 s32 lbl_800C6C40[10];
@@ -41,14 +41,14 @@ int main(void) {
     }
     lbl_800C6C68[1] = var_r30;
     var_r30 = 0;
-    if ((lbl_800C6C68[1] != 0) && (fn_800489E8() == 1)) {
+    if ((lbl_800C6C68[1] != 0) && (OSGetProgressiveMode() == 1)) {
         var_r30 = 1;
     }
     lbl_800C6C68[2] = var_r30;
     fn_800128C4();
-    fn_80018CD0();
-    fn_80018D00(1, 0);
-    fn_80018D00(7, 0);
+    CreateResetThread();
+    GCHandover_write(1, 0);
+    GCHandover_write(7, 0);
     lbl_801F9C08[0] = 1;
     fn_800196A8(1);
     fn_8001970C();
@@ -69,12 +69,12 @@ s32 *fn_80006838(const char *arg0) {
         }
         fn_80006D04(var_r31);
         if (var_r31 == 36) {
-            if (fn_80012854() == 0) {
+            if (gc_GetDVDDrive() == 0) {
                 fn_8001A22C();
                 continue;
             }
             fn_80019D00();
-            if (fn_80012854() != 0x18) {
+            if (gc_GetDVDDrive() != 0x18) {
                 continue;
             }
             while (1) {}
@@ -116,6 +116,6 @@ void fn_80006DD8(void) {
         fn_8000C0B8();
     }
     fn_800068EC();
-    fn_80006D5C();
+    gc_soundInit();
     while (1) fn_80006994();
 }

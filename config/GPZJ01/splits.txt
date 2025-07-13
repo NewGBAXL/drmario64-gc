@@ -17,6 +17,15 @@ game/main.c:
 	.data       start:0x800BDCA0 end:0x800BDD40
 	.bss        start:0x800C6C40 end:0x800CAF90
 
+game/n642Dolphin.c:
+	.text       start:0x8000A5D8 end:0x8000A618
+
+game/nusys.c:
+	.text       start:0x8000C478 end:0x800105B8
+
+game/memory.c:
+	.text       start:0x800123FC end:0x800124A0
+
 musyx/runtime/StdReverb/reverb.c:
 	extab       start:0x80005C50 end:0x80005C68
 	extabindex  start:0x80006718 end:0x8000673C
