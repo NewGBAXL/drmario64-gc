@@ -580,7 +580,7 @@ config.libs = [
         "objects": [
             Object(NonMatching, "game/main.c"),
             Object(Matching, "game/n642Dolphin.c"),
-            Object(NonMatching, "game/nu/nusys.c"),
+            Object(NonMatching, "game/nusys.c"),
             Object(NonMatching, "game/memory.c"),
         ]
     },

@@ -6,6 +6,48 @@ Sections:
 	.data       type:data align:8
 	.bss        type:bss align:32
 
+Dr_MARIO/gc/src/drmario_gc.c:
+	.text       start:0x00000000 end:0x00000248
+
+Dr_MARIO/gc/src/drmario_gc_gc.c:
+	.text       start:0x00000248 end:0x000003B4
+
+Dr_MARIO/gc/src/drmario_gc_unk.c:
+	.text       start:0x000003B4 end:0x000005D0
+
+Dr_MARIO/gc/src/main_story.c:
+	.text       start:0x000005D0 end:0x00003130
+
+Dr_MARIO/gc/src/story_mario.h:
+	.text       start:0x00003130 end:0x00004F20
+
+Dr_MARIO/gc/src/story_wario.h:
+	.text       start:0x00004F20 end:0x00005884
+
+Dr_MARIO/gc/src/tex_func.c:
+	.text       start:0x00005884 end:0x00005C70
+
+common/drmario_tex_func.c:
+	.text       start:0x00005C70 end:0x0000A024
+
+Dr_MARIO/gc/src/calcsub.c:
+	.text       start:0x0000A024 end:0x0000ABBC
+
+Dr_MARIO/gc/src/dm_title_main.c:
+	.text       start:0x0000ABBC end:0x0000B3F4
+
+Dr_MARIO/gc/src/main.c:
+	.text       start:0x0000B3F4 end:0x0000B5B4
+
+Dr_MARIO/gc/src/lws.c:
+	.text       start:0x0000B5B4 end:0x0000BC54
+
+Dr_MARIO/gc/src/calc.c:
+	.text       start:0x0000BC54 end:0x0000C00C
+
+Dr_MARIO/gc/src/dm_game_main.c:
+	.text       start:0x0000C00C end:0x00020C7C
+
 Dr_MARIO/gc/src/joy.c:
 	.text       start:0x00020C7C end:0x00021184
 
@@ -35,3 +77,27 @@ Dr_MARIO/gc/src/boot_data.c:
 
 Dr_MARIO/gc/src/record.c:
 	.text       start:0x0002A984 end:0x0002DF5C
+
+Dr_MARIO/gc/src/main_menu.c:
+	.text       start:0x0002DF5C end:0x0004D87C
+
+Dr_MARIO/gc/src/aiset.c:
+	.text       start:0x0004D87C end:0x000560F8
+
+Dr_MARIO/gc/src/main1x.c:
+	.text       start:0x000560F8 end:0x00056F48
+
+Dr_MARIO/gc/src/static.c:
+	.text       start:0x00056F48 end:0x000573C0
+
+Dr_MARIO/gc/src/dm_manual_main.c:
+	.text       start:0x000573C0 end:0x0005B334
+
+Dr_MARIO/gc/src/replay.c:
+	.text       start:0x0005B334 end:0x0005B858
+
+common/constract.cpp:
+	.text       start:0x0005B858 end:0x0005B8F8
+
+common/gc.c:
+	.text       start:0x0005B8F8 end:0x00061128

@@ -26,11 +26,144 @@ game/nusys.c:
 game/memory.c:
 	.text       start:0x800123FC end:0x800124A0
 
+musyx/runtime/seq.c:
+	extab       start:0x80005550 end:0x800055B8
+	extabindex  start:0x80005C98 end:0x80005D34
+	.text       start:0x8001C13C end:0x8001F348
+
+musyx/runtime/synth.c:
+	extab       start:0x800055B8 end:0x80005660
+	extabindex  start:0x80005D34 end:0x80005E30
+	.text       start:0x8001F348 end:0x800224D8
+
+musyx/runtime/seq_api.c:
+	extab       start:0x80005660 end:0x80005698
+	extabindex  start:0x80005E30 end:0x80005E84
+	.text       start:0x800224D8 end:0x800226D4
+
+musyx/runtime/snd_synthapi.c:
+	extab       start:0x80005698 end:0x80005710
+	extabindex  start:0x80005E84 end:0x80005F38
+	.text       start:0x800226D4 end:0x80022E9C
+
+musyx/runtime/stream.c:
+	extab       start:0x80005710 end:0x80005728
+	extabindex  start:0x80005F38 end:0x80005F5C
+	.text       start:0x80022E9C end:0x800239B0
+
+musyx/runtime/synthdata.c:
+	extab       start:0x80005728 end:0x800057D0
+	extabindex  start:0x80005F5C end:0x80006058
+	.text       start:0x800239B0 end:0x80025758
+
+musyx/runtime/synthmacros.c:
+	extab       start:0x800057D0 end:0x800058A8
+	extabindex  start:0x80006058 end:0x8000619C
+	.text       start:0x80025758 end:0x80029300
+
+musyx/runtime/synthvoice.c:
+	extab       start:0x800058A8 end:0x800058E8
+	extabindex  start:0x8000619C end:0x800061FC
+	.text       start:0x80029300 end:0x8002AC64
+
+musyx/runtime/synth_ac.c:
+	extab       start:0x800058E8 end:0x800058F0
+	extabindex  start:0x800061FC end:0x80006208
+	.text       start:0x8002AC64 end:0x8002AD90
+
+musyx/runtime/synth_adsr.c:
+	extab       start:0x800058F0 end:0x80005920
+	extabindex  start:0x80006208 end:0x80006250
+	.text       start:0x8002AD90 end:0x8002B43C
+
+musyx/runtime/synth_vsamples.c:
+	extab       start:0x80005920 end:0x80005940
+	extabindex  start:0x80006250 end:0x80006280
+	.text       start:0x8002B43C end:0x8002BBA4
+
+musyx/runtime/s_data.c:
+	extab       start:0x80005940 end:0x80005980
+	extabindex  start:0x80006280 end:0x800062E0
+	.text       start:0x8002BBA4 end:0x8002C3D8
+
+musyx/runtime/hw_dspctrl.c:
+	extab       start:0x80005980 end:0x800059C0
+	extabindex  start:0x800062E0 end:0x80006340
+	.text       start:0x8002C3D8 end:0x8002FB78
+
+musyx/runtime/hw_volconv.c:
+	extab       start:0x800059C0 end:0x800059C8
+	extabindex  start:0x80006340 end:0x8000634C
+	.text       start:0x8002FB78 end:0x800303D4
+
+musyx/runtime/snd3d.c:
+	extab       start:0x800059C8 end:0x80005A10
+	extabindex  start:0x8000634C end:0x800063B8
+	.text       start:0x800303D4 end:0x80031A54
+
+musyx/runtime/snd_init.c:
+	extab       start:0x80005A10 end:0x80005A18
+	extabindex  start:0x800063B8 end:0x800063C4
+	.text       start:0x80031A54 end:0x80031BC8
+
+musyx/runtime/snd_math.c:
+	.text       start:0x80031BC8 end:0x80031D28
+
+musyx/runtime/snd_midictrl.c:
+	extab       start:0x80005A18 end:0x80005AC0
+	extabindex  start:0x800063C4 end:0x800064C0
+	.text       start:0x80031D28 end:0x80033874
+
+musyx/runtime/snd_service.c:
+	extab       start:0x80005AC0 end:0x80005AD8
+	extabindex  start:0x800064C0 end:0x800064E4
+	.text       start:0x80033874 end:0x80033B64
+
+musyx/runtime/hardware.c:
+	extab       start:0x80005AD8 end:0x80005B68
+	extabindex  start:0x800064E4 end:0x800065BC
+	.text       start:0x80033B64 end:0x8003498C
+
+musyx/runtime/hw_aramdma.c:
+	extab       start:0x80005B68 end:0x80005B98
+	extabindex  start:0x800065BC end:0x80006604
+	.text       start:0x8003498C end:0x800350B0
+
+musyx/runtime/hw_dolphin.c:
+	extab       start:0x80005B98 end:0x80005BF8
+	extabindex  start:0x80006604 end:0x80006694
+	.text       start:0x800350B0 end:0x80035540
+
+musyx/runtime/hw_memory.c:
+	extab       start:0x80005BF8 end:0x80005C08
+	extabindex  start:0x80006694 end:0x800066AC
+	.text       start:0x80035540 end:0x80035594
+
+musyx/runtime/CheapReverb/creverb_fx.c:
+	extab       start:0x80005C08 end:0x80005C20
+	extabindex  start:0x800066AC end:0x800066D0
+	.text       start:0x80035594 end:0x80035650
+
+musyx/runtime/CheapReverb/creverb.c:
+	extab       start:0x80005C20 end:0x80005C38
+	extabindex  start:0x800066D0 end:0x800066F4
+	.text       start:0x80035650 end:0x80035F00
+
+musyx/runtime/StdReverb/reverb_fx.c:
+	extab       start:0x80005C38 end:0x80005C50
+	extabindex  start:0x800066F4 end:0x80006718
+	.text       start:0x80035F00 end:0x80035FC0
+
 musyx/runtime/StdReverb/reverb.c:
 	extab       start:0x80005C50 end:0x80005C68
 	extabindex  start:0x80006718 end:0x8000673C
 	.text       start:0x80035FC0 end:0x80036D04
 	.sdata2     start:0x8022DE70 end:0x8022DEA4
+
+musyx/runtime/Chorus/chorus_fx.c:
+	extab       start:0x80005C68 end:0x80005C80
+	extabindex  start:0x8000673C end:0x80006760
+	.text       start:0x80036D04 end:0x8003767C
 
 Runtime/__va_arg.c:
 	.text       start:0x8003767C end:0x80037770
