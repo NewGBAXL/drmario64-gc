@@ -240,7 +240,8 @@ guBlinkRdpDL(u64 *rdp_dl_in, u64 nbytes_in,
 #define GU_PARSEGBI_NOTEXTURES		128
 */
 extern void guParseGbiDL(u64 *gbi_dl, u32 nbytes, u8 flags);
-extern void guDumpGbiDL(OSTask *tp,u8 flags);
+//extern void guDumpGbiDL(OSTask *tp,u8 flags);
+//todo: fix OSTask
 
 #define  GU_PARSE_GBI_TYPE    1
 #define  GU_PARSE_RDP_TYPE    2
