@@ -66,18 +66,15 @@ OSContPad B_800EB4D8[MAXCONTROLLERS];
 /**
  * Original filename: joyInit
  */
-s32 joyInit(s32 arg0) {
-    //OSMesgQueue mq;
-    //OSMesg sp28[1];
-    u8 bitpattern;
-    s32 i;
+s32 joyInit(s32 arg0 /*num pads, unused*/) {
+    //new
 
-    //osCreateMesgQueue(&mq, sp28, ARRAY_COUNT(sp28));
-    //osSetEventMesg(OS_EVENT_SI, &mq, NULL);
-    osContSetCh(MAXCONTROLLERS);
-    //osContInit(&mq, &bitpattern, B_800F5358);
-    //osCreateMesgQueue(&B_800F3E38, B_800F3E60, ARRAY_COUNT(B_800F3E60));
-    //osSetEventMesg(OS_EVENT_SI, &B_800F3E38, NULL);
+    s32 i = 0;
+    
+    //joycur = 0;
+    //joyupd = 0;
+    //joyold = 0;
+    //joynew = 0;
 
     for (i = 0; i < ARRAY_COUNT(gControllerPressedButtons); i++) {
         joycur[i] = 0;
@@ -85,8 +82,8 @@ s32 joyInit(s32 arg0) {
         gControllerPrevHoldButtons[i] = 0;
         gControllerHoldButtons[i] = 0;
     }
-
-    for (i = 0; i < ARRAY_COUNT(joycnt); i++) {
+    
+    for (i = 2; i != 0; i--) {
         s32 j;
 
         for (j = 0; j < ARRAY_COUNT(joycnt[i]); j++) {
@@ -100,7 +97,10 @@ s32 joyInit(s32 arg0) {
 
     joycur1 = 0x14;
     joycur2 = 4;
-    return 4;
+    nuContInit();
+    //joyResponseCheck();
+    //ResetMain();
+    return 4; //todo: change to void ret
 }
 
 /**
@@ -113,7 +113,8 @@ void joyProcCore(void) {
 
     //osContStartReadData(&B_800F3E38);
     //osRecvMesg(&B_800F3E38, NULL, OS_MESG_BLOCK);
-    osContGetReadData(B_800EB4D8);
+    //osContGetReadData(B_800EB4D8);
+    nuContDataGetExAll(B_800EB4D8);
 
     for (i = 0; i < ARRAY_COUNT(joycnt); i++) {
         u16 j;
@@ -176,7 +177,8 @@ s32 joyResponseCheck(void) {
 
     //osContStartQuery(&B_800F3E38);
     //osRecvMesg(&B_800F3E38, NULL, OS_MESG_BLOCK);
-    osContGetQuery(padStatus);
+    //osContGetQuery(padStatus);
+    nuContQueryRead(padStatus);
 
     for (i = 0; i < 4; i++) {
         main_joy[i] = 4;

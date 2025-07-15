@@ -9,7 +9,7 @@
 
 #include "macros_defines.h"
 
-//#include "audio/sound.h"
+#include "audio/sound.h"
 #include "graphic.h"
 #include "msgwnd.h"
 #include "joy.h"
@@ -292,7 +292,7 @@ void dm_manual_attack_capsel_down(void) {
     }
 
     if (playSound) {
-        //dm_snd_play(SND_INDEX_55);
+        dm_snd_play(SND_INDEX_55);
     }
 }
 
@@ -379,13 +379,13 @@ s32 dm_manual_main_cnt(struct_game_state_data* gameStateData, GameMapCell* mapCe
                             animeState_set(get_virus_anime_state(i), 4);
                             animeSmog_start(get_virus_smog_state(i));
                             if (gameStateData->unk_025 != 0) {
-                                //dm_snd_play(SND_INDEX_74);
+                                dm_snd_play(SND_INDEX_74);
                             }
                         }
                     }
                     else if (gameStateData->unk_03C[3] & (0x10 << i)) {
                         animeState_set(get_virus_anime_state(i), 2);
-                        //dm_snd_play(SND_INDEX_74);
+                        dm_snd_play(SND_INDEX_74);
                     }
                 }
                 break;
@@ -404,17 +404,17 @@ s32 dm_manual_main_cnt(struct_game_state_data* gameStateData, GameMapCell* mapCe
             }
             if (((gameStateData->unk_025 != 0) && (gameStateData->unk_025 < 4U)) && (temp_s3->unk_170 == 0)) {
                 temp_s3->unk_170 = 1;
-                //dm_snd_play(SND_INDEX_80);
-                //dm_seq_play_in_game((evs_seqnumb * 2) | 1);
+                dm_snd_play(SND_INDEX_80);
+                dm_seq_play_in_game((evs_seqnumb * 2) | 1);
             }
 
             gameStateData->unk_039++;
             if (gameStateData->unk_03C[3] & 8) {
                 gameStateData->unk_03C[3] &= ~8;
-                //dm_snd_play(SND_INDEX_56);
+                dm_snd_play(SND_INDEX_56);
             }
             else {
-                //dm_snd_play(SND_INDEX_61);
+                dm_snd_play(SND_INDEX_61);
             }
         }
         break;
@@ -478,7 +478,7 @@ s32 dm_manual_main_cnt(struct_game_state_data* gameStateData, GameMapCell* mapCe
                 gameStateData->unk_03C[3] &= ~8;
             }
             else {
-                //dm_snd_play(SND_INDEX_61);
+                dm_snd_play(SND_INDEX_61);
             }
         }
         break;
@@ -745,7 +745,7 @@ bool dm_manual_1_main(void) {
 
     case 0x3E:
         if (var_s5 == 6) {
-            //dm_seq_play(SEQ_INDEX_14);
+            dm_seq_play(SEQ_INDEX_14);
             temp_s2->unk_014 = 0;
             temp_s2->unk_018 = 0x78;
             temp_s2->unk_164++;
@@ -821,7 +821,7 @@ bool dm_manual_1_main(void) {
 
     case 0x49:
         if (var_s5 == -1) {
-            //dm_seq_play(SEQ_INDEX_17);
+            dm_seq_play(SEQ_INDEX_17);
             temp_s2->unk_164++;
         }
         break;
@@ -2090,7 +2090,7 @@ void dm_manual_all_init(void) {
             if (temp_s2->unk_014 >= temp_s2->unk_018) {
                 temp_s2->unk_014 = 0;
                 temp_s2->unk_018 = 0;
-                //dm_seq_play_in_game(evs_seqnumb * 2);
+                dm_seq_play_in_game(evs_seqnumb * 2);
             }
         }
         if (temp_s2->unk_00C == 0) {

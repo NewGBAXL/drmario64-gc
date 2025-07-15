@@ -33,7 +33,7 @@ void gfxproc_onRetrace(void);
 void func_8002B710(void);
 void func_8002B728(void);
 void func_8002B754(void);
-void gfxCreateGraphicThread(struct NNSched *sc);
+void gfxCreateGraphicThread();
 s16 gfxWaitMessage(void);
 //todo: fix OSScTask
 //void gfxTaskStart(OSScTask *scTask, void *data_ptr, size_t data_size, s32 arg3, u32 flags);
@@ -76,5 +76,12 @@ extern s16 gfx_msg_no;
 //extern OSMesg gfx_msgbuf[8];
 //extern OSMesgQueue *sched_gfxMQ;
 //extern OSThread gfxThread;
+
+//todo: fix function pntrs etc
+extern void* subproc_nuGfxFunc;
+extern s32 taskStartFrameCopyFunc;
+extern s32 wb_flag;
+extern s32 DAT_807b2040;
+extern s32 lbl_2_bss_B168;
 
 #endif

@@ -12,7 +12,7 @@
 
 //#include "boot_main.h"
 
-//#include "audio/sound.h"
+#include "audio/sound.h"
 //#include "buffers.h"
 #include "dm_game_main.h"
 //#include "dm_manual_main.h"
@@ -243,10 +243,6 @@ void gfxproc_onRetrace(void) {
         }
         break;
     }
-
-#ifdef NN_SC_PERF
-    func_8002BD04_cn();
-#endif
 }
 
 /**
@@ -283,11 +279,38 @@ void func_8002B754(void) {
  *
  * Create and activate graphic thread
  */
-/*void gfxCreateGraphicThread(NNSched* sc) {
-    //todo: fix
-    osCreateThread(&gfxThread, THREAD_ID_GRAPHIC, gfxproc, sc, STACK_TOP(sGraphicStack), THREAD_PRI_GRAPHIC);
-    osStartThread(&gfxThread);
-}*/
+void gfxCreateGraphicThread(void) {
+    subproc_nuGfxFunc = gfxproc;
+    return;
+}
+
+void gfxTaskStartFrameCopyFunc_set(s32 arg0) {
+    taskStartFrameCopyFunc = arg0;
+    return;
+}
+
+void gfxTaskStart(s32 arg0, s32 arg1, s32 arg2, u32 arg3) {
+    int iVar1;
+
+    nuGfxTaskStart2(arg0, arg1, 0, 1, taskStartFrameCopyFunc);
+    if ((arg3 & 0x40) != 0) {
+        DAT_807b2040 ^= 1;
+    }
+    wb_flag = (wb_flag + 1) % 3;
+    fn_800198F8(); //main.dol
+    iVar1 = GCHandover_read(1);
+    if (iVar1 != 0) {
+        gc_PutResetNone();
+    }
+    joyResponseCheck();
+    if (gc_GetResetFlag() == 3) {
+        dm_audio_stop();
+        dm_seq_stop();
+		fn_80019B88(); //main.dol
+        gc_WaitForReset();
+        gclongjmp(&lbl_2_bss_B168, 100);
+    }
+}
 
 /**
  * Original name: gfxWaitMessage

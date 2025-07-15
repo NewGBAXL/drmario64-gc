@@ -189,7 +189,7 @@ u8 dm_check_color(struct_virus_map_data* virusMapData, u16 arg1, u16 arg2, u8 ar
     u8 temp_a0 = ((arg2 - 1) << 3) + arg1;
     u8 sp8[2];
 
-    if ((arg1 >= 2U) && (virusMapData[temp_a0 - 1].unk_0 == arg3) && (virusMapData[temp_a0 - 2].unk_0 == arg3)) {
+    if ((arg1 > 1U /*US >= 2U*/) && (virusMapData[temp_a0 - 1].unk_0 == arg3) && (virusMapData[temp_a0 - 2].unk_0 == arg3)) {
         return false;
     }
 
@@ -233,7 +233,7 @@ u8 dm_check_color_2(struct_virus_map_data* virusMapData, u16 arg1, u16 arg2, u8 
     u8 temp_t0;
 
     temp_t0 = ((arg2 - 1) << 3) + arg1;
-    if (arg1 >= 2U) {
+    if (arg1 > 1U /*>= 2U*/) {
         if (virusMapData[temp_t0 - 2].unk_0 == arg3) {
             return false;
         }
@@ -246,7 +246,7 @@ u8 dm_check_color_2(struct_virus_map_data* virusMapData, u16 arg1, u16 arg2, u8 
     }
 
     temp_t0 = ((arg2 - 3) << 3) + arg1;
-    if (arg2 >= 6U) {
+    if (arg2 > 5U /* >= 6U*/) {
         if (virusMapData[temp_t0].unk_0 == arg3) {
             return false;
         }

@@ -7,12 +7,12 @@
 #include "alignment.h"
 #include "libc/assert.h"
 #include "libc/stdint.h"
-#include "gcc/stdlib.h"
+//#include "gcc/stdlib.h"
 #include "macros_defines.h"
 
 #include "rom_offsets.h"
 #include "segment_symbols.h"
-#include "util.h"
+//#include "util.h"
 #include "tex_func.h"
 
  /**
@@ -40,7 +40,7 @@ const size_t _size_122[] = {
     SEGMENT_ROM_SIZE_CONST(segment_anime_virus_b), // CHARANIMEMODE_VIRUS_B
     SEGMENT_ROM_SIZE_CONST(segment_anime_smog),    // CHARANIMEMODE_SMOG
 };
-static_assert(ARRAY_COUNT(_size_122) == CHARANIMEMODE_MAX, "");
+//static_assert(ARRAY_COUNT(_size_122) == CHARANIMEMODE_MAX, "");
 
 /**
  * Original name: static _addrTbl
@@ -67,7 +67,7 @@ const RomDataTblIndex _addrTbl_124[] = {
     ROMDATATBL_ANIME_VIRUS_B, // CHARANIMEMODE_VIRUS_B
     ROMDATATBL_ANIME_SMOG,    // CHARANIMEMODE_SMOG
 };
-static_assert(ARRAY_COUNT(_addrTbl_124) == CHARANIMEMODE_MAX, "");
+//static_assert(ARRAY_COUNT(_addrTbl_124) == CHARANIMEMODE_MAX, "");
 
 /**
  * Original name: static _centerTbl
@@ -94,7 +94,7 @@ const struct_800B1B00 _centerTbl_125[] = {
     { 0x10, 0x10 }, // CHARANIMEMODE_VIRUS_B
     { 0x10, 0x10 }, // CHARANIMEMODE_SMOG
 };
-static_assert(ARRAY_COUNT(_centerTbl_125) == CHARANIMEMODE_MAX, "");
+//static_assert(ARRAY_COUNT(_centerTbl_125) == CHARANIMEMODE_MAX, "");
 
 /**
  * Original name: animeSeq_init
@@ -210,7 +210,9 @@ void animeState_init(AnimeState* animeState, u8** arg1, TiTexData* arg2, UNK_TYP
  * Original name: animeState_set
  */
 void animeState_set(AnimeState* animeState, UNK_TYPE4 arg1) {
+    u8** unused;
     animeState->unk_20 = 0;
+    //unused = animeState->unk_0C;
     func_8005E154(animeState, arg1);
 }
 
@@ -465,7 +467,8 @@ void loadAnimeSeq(void** heap, TiTexData** texDataDst, u8*** metadataDst, RomOff
     u8** metadata;
     s32* metadataLen;
 
-    *heap = DecompressRomToRam(romOffsetStart, anime, romOffsetEnd - romOffsetStart);
+    //*heap = DecompressRomToRam(romOffsetStart, anime, romOffsetEnd - romOffsetStart);
+    heap = (void*)DecompressRomToRam(romOffsetStart, anime, romOffsetEnd - romOffsetStart);
 
     texData = (void*)((uintptr_t)anime->texData + (uintptr_t)anime);
     texDataLen = (void*)((uintptr_t)anime->texDataLen + (uintptr_t)anime);

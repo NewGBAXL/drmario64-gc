@@ -4,6 +4,7 @@
 #include "libultra.h"
 #include "unk.h"
 #include "libc/stdbool.h"
+#include <stddef.h>
 
 struct MenuRank_unk_001C;
 struct struct_evs_cfg_4p;

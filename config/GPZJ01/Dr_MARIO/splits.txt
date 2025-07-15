@@ -72,7 +72,7 @@ Dr_MARIO/gc/src/font.c:
 Dr_MARIO/gc/src/msgwnd.c:
 	.text       start:0x00028560 end:0x000299B4
 
-Dr_MARIO/gc/src/boot_data.c:
+Dr_MARIO/gc/src/char_anime.c:
 	.text       start:0x000299B4 end:0x0002A984
 
 Dr_MARIO/gc/src/record.c:
