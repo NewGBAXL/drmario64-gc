@@ -235,12 +235,16 @@ void init_pause_disp(void) {
 }
 
 void disp_logo_setup(Gfx** gfxP) {
-    Gfx* gfx = *gfxP;
+    int gfx = (int)gfxP;
 
     init_objMtx();
-    gSPMatrix(gfx++, OS_K0_TO_PHYSICAL(&etc_viewMtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-    gSPSegment(gfx++, 0x05, osVirtualToPhysical(etcLwsAddress));
-    *gfxP = gfx;
+    //gSPMatrix(gfx++, OS_K0_TO_PHYSICAL(&etc_viewMtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+    //gSPSegment(gfx++, 0x05, osVirtualToPhysical(etcLwsAddress));
+    //gfx[0] = 0xda380007;
+    //gfx[1] = etc_viewMtx;
+    //gfx[2] = 0xdb060014;
+    //gfx[3] = etcLwsAddress;
+    //*gfxP = gfx;
 }
 
 UNK_TYPE disp_count_logo(Gfx** gfxP, s32 arg1, UNK_TYPE arg2) {

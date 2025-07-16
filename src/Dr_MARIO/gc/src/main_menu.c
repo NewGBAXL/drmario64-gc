@@ -10041,7 +10041,8 @@ void _eep_writingCallback(void* arg) {
 void func_80059A58(void* arg) {
     struct_watchMenu* a = arg;
 
-    EepRom_WriteAll(_eep_writingCallback, a);
+    //todo: fix
+    //EepRom_WriteAll(_eep_writingCallback, a);
     a->unk_111D8--;
 }
 

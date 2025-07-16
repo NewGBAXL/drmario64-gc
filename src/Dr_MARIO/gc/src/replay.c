@@ -161,6 +161,10 @@ void replay_play_init(void) {
     }
 }
 
+void fn_2_5B74C(void) {
+    return;
+}
+
 /**
  * Original name: replay_play
  */

@@ -10,7 +10,6 @@
 
 struct struct_game_state_data;
 struct GameMapCell;
-struct NNSched;
 struct struct_watchManual;
 
 //temp !!
@@ -100,7 +99,7 @@ void func_80074EF0(struct struct_game_state_data *gameStateData, struct struct_8
 void disp_cont(void);
 void dm_manual_draw_fg(Mtx **mtxP, Vtx **vtxP);
 void dm_manual_all_init(void);
-enum_main_no dm_manual_main(struct NNSched *sc);
+enum_main_no dm_manual_main();
 void dm_manual_graphic(void);
 
 // COMMON

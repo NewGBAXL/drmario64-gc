@@ -506,14 +506,14 @@ void dm_game_init_static(void);
 void dm_game_init_snap_bg(void);
 void dm_game_draw_snap_bg(Gfx **gfxP, Mtx **mtxP, Vtx **vtxP, UNK_TYPE arg3);
 void func_8006F628(Gfx **gfxP);
-enum_main_no dm_game_main(struct NNSched *sc);
+enum_main_no dm_game_main();
 s32 dm_game_main2(void);
 enum_main_no dm_game_main3(UNK_TYPE arg0);
 void dm_game_graphic(void);
 void dm_game_graphic2(void);
 void dm_game_graphic_onDoneSawp(void);
 void func_80071A44(void);
-enum_main_no main_techmes(struct NNSched *sc);
+enum_main_no main_techmes();
 void graphic_techmes(void);
 
 // data

@@ -1250,7 +1250,7 @@ EepRomStatus EepRom_InitFirst(EepRom_WriteDif_arg3 arg0, void* arg1) {
         return EEPROM_STATUS_1;
     }
 
-    return EepRom_WriteAll(arg0, arg1);
+    return 0; //EepRom_WriteAll(arg0, arg1);
 }
 
 /**
@@ -1306,7 +1306,7 @@ EepRomStatus EepRom_WriteDif(u8* arg0, u8* arg1, size_t size, EepRom_WriteDif_ar
 /**
  * Original name: EepRom_ReadAll
  */
-EepRomStatus EepRom_ReadAll(void) {
+/*EepRomStatus EepRom_ReadAll(void) {
     struct_800365B0_arg0 sp10;
     char sp28[4];
     s32 temp_s0;
@@ -1327,12 +1327,74 @@ EepRomStatus EepRom_ReadAll(void) {
         return EEPROM_STATUS_0;
     }
     return EEPROM_STATUS_5;
+}*/
+
+EepRomStatus EepRom_ReadAll(void) {
+    u32 uVar1;
+    u32 uVar2;
+    s32 iVar3;
+    s32 iVar4;
+    char auStack_24[8];
+    struct_800365B0_arg0* local_1c;
+    u32 local_18;
+    u32 local_14;
+    u32 local_10;
+    u32 local_c;
+
+    DAT_807e89e0 = gc_memoryCardLoad(0, DAT_807e87e0);
+    if (DAT_807e89e0 != 0) {
+        memset(&DAT_807e87e0, 0, 0x200);
+    }
+    memcpy(eeprom_bufferp, &DAT_807e87e0, 0x200);
+    local_1c = 0x0;
+    uVar1 = countLeadingZeros(0);
+    DAT_807e87cc = uVar1 >> 5;
+    if (_cached != 0) {
+        local_1c = &_cache;
+    }
+    printf("eepRom_longRead    recode_gc_memoryCardLoad_result = %d\n", DAT_807e89e0);
+    switch (DAT_807e89e0) {
+    case 2:
+        return EEPROM_STATUS_1;
+    case 9:
+        return EEPROM_STATUS_3;
+	case 0x26:
+        return EEPROM_STATUS_6;
+    case 0:
+        if (local_1c == 0x0) {
+            EepRom_DumpErrMes(3);
+            return 3;
+        }
+        else {
+            auStack_24[0] = 0x200;
+            auStack_24[1] = 0; // = { 0x200, 0, 0, 0 };
+            auStack_24[2] = 0;
+            auStack_24[3] = 0;
+            iVar3 = RecAll_Extract(local_1c, auStack_24);
+            iVar4 = memcmp(auStack_24, &eeprom_header, 4);
+            if (iVar4 == 0) {
+                if (iVar3 == 0) {
+                    return EEPROM_STATUS_0;
+                }
+                else {
+                    return EEPROM_STATUS_5;
+                }
+            }
+            else {
+                return EEPROM_STATUS_2;
+            }
+        }
+    default:
+        return EEPROM_STATUS_7;
+    }
 }
+
+
 
 /**
  * Original name: EepRom_WriteAll
  */
-EepRomStatus EepRom_WriteAll(EepRom_WriteDif_arg3 arg0, void* arg1) {
+/*EepRomStatus EepRom_WriteAll(EepRom_WriteDif_arg3 arg0, void* arg1) {
     struct_800365B0_arg0 sp20;
     u8 sp38[0x200];
     u8* __dest = func_80038938(true);
@@ -1351,6 +1413,49 @@ EepRomStatus EepRom_WriteAll(EepRom_WriteDif_arg3 arg0, void* arg1) {
 
     bcopy(sp38, __dest, sizeof(sp38));
     return EEPROM_STATUS_0;
+}*/
+
+EepRomStatus EepRom_WriteAll(EepRom_WriteDif_arg3 arg0, void* arg1, u32 arg2, u32 arg3,
+    u32 arg4) {
+    u32 uVar1;
+    u32* puVar2;
+    u32 uVar3;
+    int iVar4;
+    u32 auStack_238[512];
+    struct_800365B0_arg0 local_38;
+    u32 local_34;
+    u32 local_30;
+    u32 local_2c;
+    u32 local_28;
+
+    if (DAT_807e87cc == 0) {
+        DAT_807e89e0 = gc_memoryCardLoad(0, DAT_807e87e0);
+        if (DAT_807e89e0 != 0) {
+            memset(&DAT_807e87e0, 0, 0x200);
+        }
+        memcpy(eeprom_bufferp, &DAT_807e87e0, 0x200);
+        DAT_807e87cc = countLeadingZeros(0) >> 5;
+    }
+    if (DAT_807e87cc == 0x0 || DAT_807e87e0 == 0x0) {
+        EepRom_DumpErrMes(3);
+        return 3;
+    }
+    else {
+        bzero(auStack_238, 0x200);
+        //local_38->buffer = 0x200;
+        //local_30[1] = 0;
+        //local_2c[2] = 0;
+        //local_28[3] = 0;
+        RecAll_Compress(&local_38);
+        //if (/*arg0 != 2*/ && EepRom_WriteDif(0, puVar2, auStack_238, 0x200, arg1, arg2, arg3, arg4) == 0*/) {
+        //    bcopy(auStack_238, puVar2, 0x200);
+        //    return 0;
+        //}
+        //else {
+            EepRom_DumpErrMes(4);
+            return 4;
+        //}
+    }
 }
 
 /**

@@ -151,42 +151,8 @@ void gfxInit(void* arg0) {
  */
 //todo: fix refs
 void gfxproc(void* arg) {
-    //NNSched* sc = arg;
-    s16* msg_type = NULL;
-
     pendingGFX = 0;
-
-    /* create message queue for VI reatrace */
-    //osCreateMesgQueue(&gfx_msgQ, gfx_msgbuf, ARRAY_COUNT(gfx_msgbuf));
-    //nnScAddClient(sc, &gfx_client, &gfx_msgQ);
-
-    /* Acquire graphic message queue */
-    //sched_gfxMQ = nnScGetGfxMQ(sc);
-
-    //while (true) {
-        //osRecvMesg(&gfx_msgQ, (OSMesg*)&msg_type, OS_MESG_BLOCK);
-
-        //switch (*msg_type) {
-        //case NN_SC_RETRACE_MSG:
-            /* Retrace message processing */
-            //gfxproc_onRetrace();
-            //break;
-
-        //case NN_SC_DONE_MSG:
-            /* graphic task end message*/
-            //func_8002B710();
-            //break;
-
-        //case NN_SC_GTASKEND_MSG:
-            //func_8002B728();
-            //break;
-
-        //case NN_SC_PRE_NMI_MSG:
-            /* PRE NMI message */
-            //func_8002B754();
-            //break;
-        //}
-    //}
+    gfxproc_onRetrace();
 }
 
 /**

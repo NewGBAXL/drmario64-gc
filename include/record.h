@@ -26,7 +26,9 @@ typedef enum EepRomStatus {
     /* 2 */ EEPROM_STATUS_2,
     /* 3 */ EEPROM_STATUS_3,
     /* 4 */ EEPROM_STATUS_4,
-    /* 5 */ EEPROM_STATUS_5
+    /* 5 */ EEPROM_STATUS_5,
+	/* 6 */ EEPROM_STATUS_6,
+    /* 7 */ EEPROM_STATUS_7
 } EepRomStatus;
 
 
@@ -176,7 +178,8 @@ void EepRom_InitVars(void);
 u8 *func_80038938(bool arg0);
 EepRomStatus EepRom_WriteDif(u8 *arg0, u8 *arg1, size_t size, EepRom_WriteDif_arg3 arg3, void *arg4);
 EepRomStatus EepRom_ReadAll(void);
-EepRomStatus EepRom_WriteAll(EepRom_WriteDif_arg3 arg0, void *arg1);
+//EepRomStatus EepRom_WriteAll(EepRom_WriteDif_arg3 arg0, void *arg1);
+EepRomStatus EepRom_WriteAll(EepRom_WriteDif_arg3 arg0, void* arg1, u32 arg2, u32 arg3, u32 arg4);
 void EepRom_DumpErrMes(EepRomStatus status);
 void EepRom_DumpDataSize(void);
 void setSleepTimer(s32 milliseconds);
@@ -187,6 +190,14 @@ extern struct_mess_panel_tex_size mess_panel_tex_size;
 extern u16 mess_panel_lut[];
 extern u8 mess_panel_tex[];
 extern bool _cached_1332;
+
+extern s32 DAT_807e89e0;
+extern s32 DAT_807e87e0;
+extern s32 eeprom_bufferp;
+extern s32 DAT_807e87cc;
+extern s32 _cached;
+struct_800365B0_arg0 _cache;
+extern s32 gc_memoryCardLoad(s32 arg0, s32 arg1);
 
 
 

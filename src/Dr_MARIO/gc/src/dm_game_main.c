@@ -2634,10 +2634,11 @@ void func_80064940(void* arg0) {
     struct_watchGame* watchGameP = watchGame;
 
     if (watchGameP->unk_3B0 != 0) {
-        EepRomStatus status = EepRom_WriteAll(dm_game_eep_write_callback, watchGameP);
+        //todo: fix
+        //EepRomStatus status = EepRom_WriteAll(dm_game_eep_write_callback, watchGameP);
 
         watchGameP->unk_3B0 = 0;
-        EepRom_DumpErrMes(status);
+        //EepRom_DumpErrMes(status);
     }
 }
 

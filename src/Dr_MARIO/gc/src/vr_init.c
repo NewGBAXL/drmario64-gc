@@ -35,6 +35,10 @@ void sgenrand(u32 arg0) {
     }
 }
 
+void fn_2_26148(void) {
+    return;
+}
+
 /**
  * Original name: genrand
  */

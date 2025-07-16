@@ -48,7 +48,7 @@ s32 demo_title(Gfx **gfxP, bool arg1);
 void func_8007865C(void);
 
 void func_8007A9DC(void);
-void main_story(struct NNSched *sc);
+void main_story();
 void init_objMtx(void);
 void graphic_story(void);
 // void func_8007B62C();

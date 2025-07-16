@@ -231,7 +231,7 @@ bool animeState_isEnd(AnimeState* animeState) {
 /**
  * Original name: animeState_initDL
  */
-void animeState_initDL(AnimeState* animeState, Gfx** gfxP) {
+/*void animeState_initDL(AnimeState* animeState, Gfx** gfxP) {
     Gfx* gfx = *gfxP;
 
     gSPDisplayList(gfx++, normal_texture_init_dl);
@@ -244,6 +244,29 @@ void animeState_initDL(AnimeState* animeState, Gfx** gfxP) {
     }
 
     *gfxP = gfx;
+}*/
+
+void animeState_initDL(AnimeState* animeState, Gfx** gfxP) {
+    /*u32* puVar1;
+    u32* puVar2;
+
+    puVar1 = (AnimeState*)*gfxP;
+    *puVar1 = 0xde000000;
+    puVar1[1] = &normal_texture_init_dl;
+    puVar1[2] = 0xfc119623;
+    puVar1[3] = 0xff2fffff;
+    puVar1[4] = 0xfa000000;
+    puVar1[5] = *(uint*)(animeState + 0x3c) & 0xff |
+        (*(uint*)(animeState + 0x38) & 0xff) << 8 |
+        *(int*)(animeState + 0x30) << 0x18 | (*(uint*)(animeState + 0x34) & 0xff) << 0x10;
+    puVar2 = puVar1 + 6;
+    if (animeState->primColor[3]) < 0xff) {
+        *puVar2 = 0xe200001c;
+        puVar1[7] = 0x504240;
+        puVar2 = puVar1 + 8;
+    }
+    *gfxP = puVar2;*/
+    return;
 }
 
 /**
