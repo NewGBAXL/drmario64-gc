@@ -500,9 +500,9 @@ u8* func_80036F1C(MenuRank_unk_001C* arg0, u32 arg1, s32 arg2) {
 /**
  * Original name: _get1PLess
  */
-bool _get1PLess(struct_evs_mem_data* arg0, struct_evs_mem_data* arg1, u32 arg2, s32 arg3) {
-    s32 var_t0;
-    s32 var_v1;
+u32 _get1PLess(struct_evs_mem_data* arg0, struct_evs_mem_data* arg1, u32 arg2, s32 arg3) {
+    s32 var_t0 = 0;
+    s32 var_v1 = 0;
 
     switch (arg2) {
     case 0x0: {
@@ -1499,7 +1499,7 @@ void RecWritingMsg_calc(RecordWritingMessage* recMessage) {
     }
 
     msgWnd_update(&recMessage->messageWnd);
-    recMessage->unk_84++;
+    //recMessage->unk_84++;
 }
 
 /**

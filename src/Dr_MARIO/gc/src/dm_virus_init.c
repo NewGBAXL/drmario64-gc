@@ -11,12 +11,12 @@
 
 void init_map_all(GameMapCell* mapCells) {
     s32 row;
+    s32 column;
 
     bzero(mapCells, sizeof(GameMapCell) * GAME_MAP_ROWS * GAME_MAP_COLUMNS);
 
     for (row = 0; row < GAME_MAP_ROWS; row++) {
-        s32 column;
-
+        
         for (column = 0; column < GAME_MAP_COLUMNS; column++) {
             mapCells[GAME_MAP_GET_INDEX(row, column)].unk_0 = column;
             mapCells[GAME_MAP_GET_INDEX(row, column)].unk_1 = row + 1;
@@ -160,7 +160,7 @@ void set_virus(GameMapCell* mapCells, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     mapCells[temp].unk_4[3] = var_t0;
 }
 
-u16 func_8005F2B0(void) {
+/*u16 func_8005F2B0(void) {
     u16 temp_v0 = random(6);
     u16 var_v0;
 
@@ -174,7 +174,7 @@ u16 func_8005F2B0(void) {
         var_v0 = random(7) + 10;
     }
     return var_v0;
-}
+}*/
 
 u8 func_8005F310(struct_virus_map_data* virusMapData, u16 arg1, u16 arg2) {
     u8 temp = ((arg2 - 1) << 3) + arg1;
@@ -264,7 +264,7 @@ u8 dm_check_color_2(struct_virus_map_data* virusMapData, u16 arg1, u16 arg2, u8 
 
 void dm_virus_map_copy(struct_virus_map_data* virusMapSrc, struct_virus_map_data* virusMapDst,
     u8 virusDispOrderSrc[VIRUS_MAP_DISP_ORDER_LEN], u8 virusDispOrderDst[VIRUS_MAP_DISP_ORDER_LEN]) {
-    s32 i;
+    u32 i;
 
     for (i = 0; i < 16 * 8; i++) {
         virusMapDst[i].unk_0 = -1;
@@ -290,11 +290,11 @@ s32 dm_get_first_virus_count(enum_evs_gamemode evsGamemode, struct_game_state_da
         break;
 
     default:
-        if (arg1->unk_026 <= 0x17) {
-            ret = arg1->unk_026;
+        if (arg1->unk_026 > 0x17) {
+            ret = 0x17;
         }
         else {
-            ret = 0x17;
+            ret = arg1->unk_026;
         }
         ret = (ret + 1) * 4;
         break;

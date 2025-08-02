@@ -437,7 +437,7 @@ typedef struct MenuPlay2Panel {
     /* 0x0000 */ struct struct_watchMenu *watchMenuRef;
     /* 0x0004 */ s32 unk_0004;
     /* 0x0008 */ s32 unk_0008;
-    /* 0x000C */ s32 unk_000C;
+    /* 0x000C */ u32 unk_000C;
     /* 0x0010 */ s32 unk_0010;
     /* 0x0014 */ s32 unk_0014;
     /* 0x0018 */ s32 unk_0018;

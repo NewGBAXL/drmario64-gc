@@ -164,34 +164,19 @@ s32 dm_make_score(struct_game_state_data* gameStateDataRef) {
     else {
         switch (evs_gamesel) {
         case ENUM_EVS_GAMESEL_0:
-            temp = gameStateDataRef->unk_02C;
-            break;
-
-        case ENUM_EVS_GAMESEL_1:
-            temp = gameStateDataRef->unk_02C;
-            break;
-
-        case ENUM_EVS_GAMESEL_2:
-            temp = gameStateDataRef->unk_02C;
-            break;
-
-        case ENUM_EVS_GAMESEL_3:
-            temp = gameStateDataRef->unk_02C;
-            break;
-
         case ENUM_EVS_GAMESEL_4:
             temp = gameStateDataRef->unk_02C;
             break;
 
+        case ENUM_EVS_GAMESEL_1:
+        case ENUM_EVS_GAMESEL_3:
         case ENUM_EVS_GAMESEL_5:
             temp = gameStateDataRef->unk_02C;
             break;
 
+        case ENUM_EVS_GAMESEL_2:
         case ENUM_EVS_GAMESEL_6:
             temp = gameStateDataRef->unk_02C;
-            break;
-
-        default:
             break;
         }
     }
@@ -408,12 +393,12 @@ void erase_anime(GameMapCell* mapCells) {
             cell->unk_2++;
 
             if (cell->unk_4[4] >= 0) {
-                if (cell->unk_2 >= 0xF) {
+                if (cell->unk_2 > 0xE) {
                     clear_map(mapCells, cell->unk_0, cell->unk_1);
                 }
             }
             else {
-                if (cell->unk_2 >= 7) {
+                if (cell->unk_2 > 6) {
                     clear_map(mapCells, cell->unk_0, cell->unk_1);
                 }
             }
@@ -631,7 +616,7 @@ void dm_make_magazine(void) {
     }
 }
 
-void func_80060F60(struct_game_state_data_unk_178* arg0, s32 arg1, s32 arg2) {
+void dm_init_capsel(struct_game_state_data_unk_178* arg0, s32 arg1, s32 arg2) {
     arg0->unk_0[0] = 3;
     arg0->unk_0[1] = 4;
     arg0->unk_2[1] = 0;

@@ -31,7 +31,9 @@ s32 gc_songPlay(u32 arg0, s32 arg1) {
 	s32 iVar2;
 	s32 uVar3; //custom data
 
+	//gc_songStop
 	fn_2_5BBC8(arg1);
+
 	if (fn_2_3B4(songTbl, arg0) == 0) {
 		lastsong_id = 0xffffffff;
 	}

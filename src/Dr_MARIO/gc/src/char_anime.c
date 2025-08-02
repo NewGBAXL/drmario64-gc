@@ -212,7 +212,7 @@ void animeState_init(AnimeState* animeState, u8** arg1, TiTexData* arg2, UNK_TYP
 void animeState_set(AnimeState* animeState, UNK_TYPE4 arg1) {
     u8** unused;
     animeState->unk_20 = 0;
-    //unused = animeState->unk_0C;
+    //unused = animeState->unk_0C; //todo: define animeState->0xc in .h
     func_8005E154(animeState, arg1);
 }
 

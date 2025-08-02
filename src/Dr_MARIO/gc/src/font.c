@@ -719,7 +719,7 @@ s32 fontStr_nextChar(const unsigned char* arg0) {
     unsigned char firstChar = arg0[0];
     s32 var_v1;
 
-    if (firstChar < 0x80) {
+    if (firstChar <= 0x7F) {
         var_v1 = 1;
         if (firstChar == '~') {
             if (arg0[1] == 'z') {
@@ -783,14 +783,21 @@ s32 fontStr_charSize(const unsigned char* arg0, s32 arg1) {
  */
 s32 font2index(const unsigned char* arg0) {
     s32 var_a1 = arg0[0];
+    s32 DAT_80796b80; //todo: make global
 
-    if (var_a1 - 0x81 < 0x1FU) {
+    if (var_a1 >= 0x81 || var_a1 <= 0x9F /*var_a1 - 0x81 < 0x1FU*/) {
         var_a1 = (var_a1 - 0x80) << 8;
         var_a1 += arg0[1];
     }
-    else if ((var_a1 - 0xE0) < 0x10U) {
+    else if (var_a1 < 0xE0 && var_a1 > 0xEF/*(var_a1 - 0xE0) < 0x10U*/) {
         var_a1 = (var_a1 - 0xC0) << 8;
         var_a1 += arg0[1];
+    }
+    if ((var_a1 < 0x740) || (0x74c < var_a1)) {
+        var_a1 = (u32) * (u16*)(&DAT_80796b80 + var_a1 * 2);
+    }
+    else {
+        var_a1 += 0x78c0;
     }
 
     return char_code_tbl[var_a1];
