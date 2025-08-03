@@ -10,7 +10,7 @@
 //#include "066840.h"
 
 static s32 randomindex;
-static s32 randomtable[55];
+static u32 randomtable[55];
 
 s32 D_800AAE60[] = {
     0,  1,  2,  3,  4,  5,  6,  8,  9,  10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28,
@@ -290,7 +290,7 @@ f32 func_8007C480(s16 arg0) {
  *
  * Convert float angle in degrees to a binary angle.
  */
-s16 angleF2S(f32 arg0) {
+s32 angleF2S(f32 arg0) {
     return (s32)(f32)(arg0 * (0x10000 / 360.0));
 }
 
@@ -676,7 +676,7 @@ s32 irandom(void) {
         randomize00();
         randomindex = 0;
     }
-    return (u16)randomtable[randomindex];
+    return randomtable[randomindex] & 0xFFFF;
 }
 
 /**

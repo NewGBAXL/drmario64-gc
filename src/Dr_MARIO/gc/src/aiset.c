@@ -1654,12 +1654,12 @@ s32 aifMiniPointK3(u8* arg0, u8 arg1, u8* arg2, u8 arg3, u8 arg4, u8 arg5) {
     else if (arg0[9] == 0) {
         if (arg0[5] >= 4) {
             if (arg3) {
-                if ((arg5 == 0) || (arg4 != 0) || (arg0[3] >= 3)) {
+                if ((arg5 == 0) || (arg4 != 0) || (arg0[3] > 2)) {
                     var_t1 = HeiLinesAllp[arg0[3]];
                 }
             }
             else {
-                if ((arg5 == 0) || (arg4 != 1) || (arg0[3] >= 3)) {
+                if ((arg5 == 0) || (arg4 != 1) || (arg0[3] > 2)) {
                     var_t1 = WidLinesAllp[arg0[3]];
                 }
             }

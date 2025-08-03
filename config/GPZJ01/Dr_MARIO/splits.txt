@@ -32,6 +32,7 @@ common/drmario_tex_func.c:
 
 Dr_MARIO/gc/src/calcsub.c:
 	.text       start:0x0000A024 end:0x0000ABBC
+	.rodata     start:0x00000190 end:0x00000998
 
 Dr_MARIO/gc/src/dm_title_main.c:
 	.text       start:0x0000ABBC end:0x0000B3F4
@@ -44,60 +45,92 @@ Dr_MARIO/gc/src/lws.c:
 
 Dr_MARIO/gc/src/calc.c:
 	.text       start:0x0000BC54 end:0x0000C00C
+	.rodata     start:0x00000B28 end:0x00000B30
+	.bss        start:0x0000C3B8 end:0x0000C498
 
 Dr_MARIO/gc/src/dm_game_main.c:
 	.text       start:0x0000C00C end:0x00020C7C
+	.rodata     start:0x00000B58 end:0x000010F0
+	.data       start:0x0000420C end:0x00004988
+	.bss        start:0x0000C498 end:0x0000C4B4
 
 Dr_MARIO/gc/src/joy.c:
 	.text       start:0x00020C7C end:0x00021184
 
 Dr_MARIO/gc/src/sound.c:
 	.text       start:0x00021184 end:0x000218DC
+	.bss        start:0x0000F178 end:0x0000F1A8
 
 Dr_MARIO/gc/src/dm_virus_init.c:
 	.text       start:0x000218DC end:0x00022CEC
+	.rodata     start:0x00001124 end:0x00001178
 
 Dr_MARIO/gc/src/game_etc.c:
 	.text       start:0x00022CEC end:0x00026054
+	.rodata     start:0x00001198 end:0x00001240
+	.data       start:0x00004A94 end:0x00004CF0
+	.bss        start:0x0000F1A8 end:0x000102E0
 
 Dr_MARIO/gc/src/vr_init.c:
 	.text       start:0x00026054 end:0x000266DC
+	.data       start:0x00004CF0 end:0x00004D00
+	.bss        start:0x000102E0 end:0x00010CA0
 
 Dr_MARIO/gc/src/graphic.c:
 	.text       start:0x000266DC end:0x00026B90
+	.data       start:0x00004D00 end:0x00004D20
+	.bss        start:0x00010CA4 end:0x00010CB8
 
 Dr_MARIO/gc/src/font.c:
 	.text       start:0x00026B90 end:0x00028560
+	.data       start:0x0001DEFC end:0x0001DF08
 
 Dr_MARIO/gc/src/msgwnd.c:
 	.text       start:0x00028560 end:0x000299B4
+	.rodata     start:0x00001298 end:0x000012D8
+	.data       start:0x0001DF08 end:0x0001DFA0
 
 Dr_MARIO/gc/src/char_anime.c:
 	.text       start:0x000299B4 end:0x0002A984
+	.rodata     start:0x00001330 end:0x00001438
 
 Dr_MARIO/gc/src/record.c:
 	.text       start:0x0002A984 end:0x0002DF5C
+	.rodata     start:0x00001438 end:0x00001448
+	.data       start:0x00022120 end:0x00022160
+	.bss        start:0x00046CC4 end:0x00047414
 
 Dr_MARIO/gc/src/main_menu.c:
 	.text       start:0x0002DF5C end:0x0004D87C
+	.rodata     start:0x00001458 end:0x00003BAC
+	.data       start:0x00022160 end:0x00023858
 
 Dr_MARIO/gc/src/aiset.c:
 	.text       start:0x0004D87C end:0x000560F8
+	.rodata     start:0x00003BFC end:0x00003C20
+	.data       start:0x00023A60 end:0x00023ADC
+	.bss        start:0x00047688 end:0x00047828
 
 Dr_MARIO/gc/src/main1x.c:
 	.text       start:0x000560F8 end:0x00056F48
+	.data       start:0x00024DC0 end:0x00024E74
 
 Dr_MARIO/gc/src/static.c:
 	.text       start:0x00056F48 end:0x000573C0
 
 Dr_MARIO/gc/src/dm_manual_main.c:
 	.text       start:0x000573C0 end:0x0005B334
+	.rodata     start:0x00003CAC end:0x00004A30
+	.data       start:0x000250A0 end:0x00025120
+	.bss        start:0x0004A6B0 end:0x0004A6C0
 
 Dr_MARIO/gc/src/replay.c:
 	.text       start:0x0005B334 end:0x0005B858
+	.bss        start:0x001FA6C0 end:0x001FA720
 
 common/constract.cpp:
 	.text       start:0x0005B858 end:0x0005B8F8
 
 common/gc.c:
 	.text       start:0x0005B8F8 end:0x00061128
+	.data       start:0x00025124 end:0x00025158

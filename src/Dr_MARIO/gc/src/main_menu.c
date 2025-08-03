@@ -484,6 +484,7 @@ void func_800467E0(MenuItem* item) {
     func_800466B8(item, 1.0f, 1.0f);
 }
 
+//todo: fix the clamps etc
 /*void func_80046844(MenuItem* item, Gfx** gfxP) {
     Gfx* gfx = *gfxP;
     Color_RGBA32 color = {
@@ -2920,7 +2921,9 @@ void menuNameSelPanel_input1(MenuNameSelPanel* nameSelPanel, s32 arg1) {
         }
     }
 
-    SND_PLAY_INDEX(soundIndex);
+    if (soundIndex >= 0) {
+        dm_snd_play(soundIndex);
+    }
 }
 
 /**
@@ -3426,7 +3429,7 @@ bool menuSndSelPanel_input(MenuSndSelPanel* sndSelPanel, s32 arg1) {
         }
     }
 
-    SND_PLAY_INDEX(soundIndex);
+    dm_snd_play(soundIndex);
 
     return true;
 }
@@ -3827,7 +3830,7 @@ void menuPlay2Panel_input(MenuPlay2Panel* play2Panel, s32 arg1, s32 arg2, s32 ar
         break;
     }
 
-    SND_PLAY_INDEX(soundIndex);
+    dm_snd_play(soundIndex);
 }
 
 void menuPlay2Panel_update(MenuPlay2Panel* play2Panel, MenuItem* parentItem) {
@@ -4214,7 +4217,7 @@ bool menuPlay2PanelSub_input(MenuPlay2PanelSub* play2PanelSub, s32 arg1) {
         break;
     }
 
-    SND_PLAY_INDEX(soundIndex);
+    dm_snd_play(soundIndex);
 
     return true;
 }
@@ -5782,7 +5785,7 @@ void menuMain_input(MenuMain* menuMain) {
         _menuMain_lastSelect[i] = menuMain->unk_000C[i];
     }
 
-    SND_PLAY_INDEX(soundIndex);
+    dm_snd_play(soundIndex);
 }
 
 void menuMain_update(MenuMain* menuMain) {
@@ -6361,7 +6364,7 @@ void menuStory_input(MenuStory* menuStory) {
         dm_snd_play_strange_sound();
     }
     else {
-        SND_PLAY_INDEX(soundIndex);
+        dm_snd_play(soundIndex);
     }
 }
 
@@ -7287,7 +7290,7 @@ void menuChSel_input1(MenuChSel* menuChSel, s32 arg1, s32 arg2) {
         break;
     }
 
-    SND_PLAY_INDEX(soundIndex);
+    dm_snd_play(soundIndex);
 }
 
 void menuChSel_inputMan(MenuChSel* menuChSel) {
@@ -7845,7 +7848,7 @@ void func_800551BC(MenuPlay2* menuPlay2, s32 index) {
     for (i = 0; i < menuPlay2->unk_00C4; i++) {
         MenuPlay2Panel* temp_a0 = &menuPlay2->unk_00C8[i];
 
-        if (temp_a0->unk_0028 <= 0) {
+        if (temp_a0->unk_0028 < 1) {
             menuPlay2Panel_copyConfig(temp_a0, temp_s3);
         }
     }
@@ -7858,7 +7861,7 @@ void func_80055254(MenuPlay2* menuPlay2, s32 arg1) {
     for (i = 0; i < menuPlay2->unk_00C4; i++) {
         MenuPlay2Panel* temp_a0 = &menuPlay2->unk_00C8[i];
 
-        if (temp_a0->unk_0028 <= 0) {
+        if (temp_a0->unk_0028 < 1) {
             menuPlay2Panel_copyCursor(temp_a0, temp_s3);
         }
     }
@@ -8034,7 +8037,7 @@ void menuPlay2_input(MenuPlay2* menuPlay2) {
 
                 play2Panel->unk_0028 = 1;
             }
-            SND_PLAY_INDEX(SND_INDEX_62);
+            dm_snd_play(SND_INDEX_62);
         }
     }
 
@@ -8597,7 +8600,7 @@ void menuNmEnt_input(MenuNmEnt* menuNmEnt) {
         soundIndex = SND_INDEX_68;
     }
 
-    SND_PLAY_INDEX(soundIndex);
+    dm_snd_play(soundIndex);
 }
 
 void menuNmEnt_update(MenuNmEnt* menuNmEnt) {
@@ -9888,7 +9891,7 @@ void menuRank_input(MenuRank* menuRank) {
         menuRank_setSlide(menuRank, menuRank->unk_0014, 1, 0.0f, direction * 0x140);
     }
 
-    SND_PLAY_INDEX(sndIndex);
+    dm_snd_play(sndIndex);
 }
 
 void menuRank_update(MenuRank* menuRank) {

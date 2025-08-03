@@ -46,6 +46,7 @@ s32 _dm_seq_is_stopped(s32 arg0);
 
 // data
 u32 sound_song_seqNo;
+u32 sound_sound_id;
 u32 sound_song_id;
 u32 DAT_002d4284;
 u32 DAT_002d427c;

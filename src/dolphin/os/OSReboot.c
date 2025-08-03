@@ -63,7 +63,13 @@ static void Callback() { Prepared = TRUE; }
 
 void ReadApploader(OSTime time1, OSTime time2) {}
 
+//todo: fix this function
 void __OSReboot(u32 resetCode, u32 bootDol) {
+    u32 uVar1;
+	u32 uVar4;
+    s32 uVar2;
+    s32 oldTime;
+
     OSDisableInterrupts();
     //OSClearContext();
 	//OSSetCurrentContext(NULL);
@@ -76,63 +82,59 @@ void __OSReboot(u32 resetCode, u32 bootDol) {
     __OSUnmaskInterrupts(0x400);
     OSEnableInterrupts();
 
-    /*while (!Prepared)
-    {
-        if (!DVDCheckDisk() || (uVar5 = OSGetTime(), 0x80000000 < (uint)(uVar1 < (uint)uVar5 - (uint)uVar4) +
-                ((int)((ulonglong)uVar5 >> 0x20) -
-((uint)((uint)uVar5 < (uint)uVar4) + (int)((ulonglong)uVar4 >> 0x20)) ^ 0x80000000))) {
-            __OSDoHotReset(_DAT_817ffffc);
-        }
-    }
+    uVar1 = 0;//DAT_800000f8 >> 2;
 
+    ///*while (!Prepared)
+    //{
+    //    if (!DVDCheckDisk() || (0x80000000 < (u32)(uVar1 < (u32)OSGetTime() - (u32)uVar4) +
+    //            ((int)((u64)OSGetTime() >> 0x20) - ((u32)((u32)OSGetTime() < (u32)uVar4) +
+    //                (int)((u64)uVar4 >> 0x20)) ^ 0x80000000))) {
+    //        __OSDoHotReset(0/*_DAT_817ffffc*/);
+    //    }
+    //}*/
 
-    if (!__OSIsGcam && DVDGetCurrentDiskID()->is_streaming) {
+    //I have a suspicion there's some inlining going on here
+
+    if (!__OSIsGcam /*&& DVDGetCurrentDiskID()->is_streaming*/) {
         AISetStreamVolLeft(0);
         AISetStreamVolRight(0);
-        DVDPrepareStreamAbsAsync(auStack_310, 0);
+        DVDPrepareStreamAbsAsync(0/*auStack_310*/, 0);
         uVar4 = OSGetTime();
-        uVar1 = DAT_800000f8 >> 2;
-        while (iVar3 = DVDGetCommandBlockStatus(auStack_310), iVar3 != 0) {
-            iVar3 = DVDCheckDisk();
-            if ((iVar3 == 0) ||
-                (uVar5 = OSGetTime(),
-                    0x80000000 <
-                    (uint)(uVar1 < (uint)uVar5 - (uint)uVar4) +
-                    ((int)((ulonglong)uVar5 >> 0x20) -
-                        ((uint)((uint)uVar5 < (uint)uVar4) + (int)((ulonglong)uVar4 >> 0x20)) ^ 0x80000000))) {
-                __OSDoHotReset(_DAT_817ffffc);
+        uVar1 = 0;//DAT_800000f8 >> 2;
+        while (DVDGetCommandBlockStatus(0/*auStack_310*/)) {
+            if (!DVDCheckDisk() || (0x80000000 < (u32)(uVar1 < (u32)OSGetTime() - (u32)uVar4) +
+                    ((int)((u64)OSGetTime() >> 0x20) - ((u32)((u32)OSGetTime() < (u32)uVar4) +
+                        (int)((u64)uVar4 >> 0x20)) ^ 0x80000000))) {
+                __OSDoHotReset(0/*_DAT_817ffffc*/);
             }
         }
         AISetStreamPlayState(0);
     }
 
-    DVDReadAbsAsyncPrio(auStack_340, &DAT_8022bbc0, 0x20, 0x2440, 0, 0);
-    uVar4 = OSGetTime();
-    uVar1 = DAT_800000f8 >> 2;
-    while (DVDGetCommandBlockStatus(auStack_340)) {
-        if (!DVDCheckDisk()) ||
-            (uVar5 = OSGetTime(),
-                0x80000000 <
-                (uint)(uVar1 < (uint)uVar5 - (uint)uVar4) +
-                ((int)((ulonglong)uVar5 >> 0x20) -
-                    ((uint)((uint)uVar5 < (uint)uVar4) + (int)((ulonglong)uVar4 >> 0x20)) ^ 0x80000000))) {
-            __OSDoHotReset(_DAT_817ffffc);
-        }
-    }
-    uVar2 = DAT_8022bbd8 + 0x1fU & 0xffffffe0;
-
-    DVDReadAbsAsyncPrio(auStack_370, 0x81300000, uVar2, DAT_8022bbd4 + 0x2460, 0, 0);
-    int oldTime = OSGetTime();
-    uVar1 = DAT_800000f8 >> 2;
-    while (DVDGetCommandBlockStatus(auStack_370)) {
+    //DVDReadAbsAsyncPrio(auStack_340, &DAT_8022bbc0, 0x20, 0x2440, 0, 0);
+    oldTime = OSGetTime();
+    uVar1 = 0;//DAT_800000f8 >> 2;
+    while (DVDGetCommandBlockStatus(0/*auStack_340*/)) {
 		int newTime = OSGetTime();
         if (!DVDCheckDisk() ||
-                0x80000000 <
-                (uint)(uVar1 < newTime - oldTime) +
-                (newTime >> 0x20) - (newTime < oldTime) + (oldTime >> 0x20))) ^ 0x80000000))) {
-            __OSDoHotReset(_DAT_817ffffc);
+                0x80000000 < (u32)(oldTime < (u32)newTime - (u32)oldTime) + ((int)((u64)newTime >> 0x20) -
+                    ((u32)((u32)newTime < (u32)oldTime) + (int)((u64)oldTime >> 0x20)) ^ 0x80000000)) {
+            __OSDoHotReset(0/*_DAT_817ffffc*/);
         }
-    }*/
+    }
+    uVar2 = 0;//DAT_8022bbd8 + 0x1fU & 0xffffffe0;
+
+    //DVDReadAbsAsyncPrio(auStack_370, 0x81300000, uVar2, DAT_8022bbd4 + 0x2460, 0, 0);
+    oldTime = OSGetTime();
+    uVar1 = 0;//DAT_800000f8 >> 2;
+    while (DVDGetCommandBlockStatus(0/*auStack_370*/)) {
+		int newTime = OSGetTime();
+        if (!DVDCheckDisk() ||
+                0x80000000 < (u32)(uVar1 < newTime - oldTime) + (newTime >> 0x20) - (newTime < oldTime) +
+            (oldTime >> 0x20) ^ 0x80000000) {
+            __OSDoHotReset(0/*_DAT_817ffffc*/);
+        }
+    }
 
     //ICInvalidateRange(0x81300000, uVar2);
     OSDisableInterrupts();

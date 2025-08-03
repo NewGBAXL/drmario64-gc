@@ -101,9 +101,9 @@ void dm_seq_stop(void) {
 void _dm_seq_stop(s32 arg0) {
     s32 uVar1;
 
-    uVar1 = (&sound_song_id)[arg0];
+    uVar1 = (&sound_sound_id)[arg0];
     _gc_songStop(uVar1, uVar1);
-    (&sound_song_id)[arg0] = 0xffffffff;
+    (&sound_sound_id)[arg0] = 0xffffffff;
     return;
 }
 

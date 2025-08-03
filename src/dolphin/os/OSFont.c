@@ -123,14 +123,21 @@ static u16 Zenkaku2Code[] = {
 };
 
 static int GetFontCode(unsigned short code) {
+  int i;
+  int j;
+    
   if (OSGetFontEncode() == OS_FONT_ENCODE_SJIS) {
     if (code >= 0x20 && code <= 0xDF) {
       return HankakuToCode[code - 0x20];
     }
 
-    if (code > 0x889E) {
-      int i = ((code >> 8) - 0x88) * 188;
-      int j = (code & 0xFF) - 0x40;
+    if (code > 0x889E && code <= 0x9872) {
+      if ((0x3f < code) || (code < 0xfd) || (code != 0x7f)) {
+          return 0;
+      }
+
+      i = ((code >> 8) - 0x88) * 188;
+      j = (code & 0xFF) - 0x40;
 
       if (j >= 0x40) {
         j--;
@@ -139,9 +146,13 @@ static int GetFontCode(unsigned short code) {
       return (i + j + 0x2BE);
     }
 
-    if (code < 0x879E) {
-      int i = ((code >> 8) - 0x81) * 188;
-      int j = (code & 0xFF) - 0x40;
+    if (code < 0x879E && code >= 0x813F) {
+      if ((0x3f < code) || (code < 0xfd) || (code != 0x7f)) {
+        return 0;
+      }
+        
+      i = ((code >> 8) - 0x81) * 188;
+      j = (code & 0xFF) - 0x40;
 
       if (j >= 0x40) {
         j--;

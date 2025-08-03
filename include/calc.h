@@ -13,7 +13,7 @@ void func_8007BFE0(f32 arg0, f32 arg1, f32 arg2, s16 *arg3, s16 *arg4);
 f32 func_8007C0C4(f32 arg0);
 f32 func_8007C244(f32 arg0, f32 arg1);
 f32 func_8007C480(s16 arg0);
-s16 angleF2S(f32 arg0);
+s32 angleF2S(f32 arg0);
 void func_8007C4D8(f32 mtxf[4][4], Mtx *mtx);
 void func_8007C540(Mtx *mtx, f32 mtxf[4][4]);
 void func_8007C5A8(Mtx *mtx, f32 mtxf[4][4]);

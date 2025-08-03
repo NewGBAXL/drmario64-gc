@@ -49,7 +49,7 @@ void _gc_song_stop(s32 arg0) {
 	}
 }
 
-void gc_songStop(s32 arg0) {
+void gc_songStop(u32 arg0) {
 	if ((&lbl_2_bss_212DB4)[arg0] != 0xffff) {
 		sndSeqStop();
 	}

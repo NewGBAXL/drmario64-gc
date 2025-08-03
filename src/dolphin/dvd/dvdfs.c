@@ -354,3 +354,8 @@ BOOL DVDReadPrio(DVDFileInfo* fileInfo, void* addr, s32 length, s32 offset, s32 
 
 /* This is based on the revolution SDK, these may not match in all cases */
 static void cbForReadSync(s32 result, DVDCommandBlock* block) { OSWakeupThread(&__DVDThreadQueue); }
+
+//todo: fix return type
+void* fn_8004FA48() {
+	return BootInfo->FSTLocation;
+}

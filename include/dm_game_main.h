@@ -252,7 +252,7 @@ typedef struct struct_game_state_data {
     /* 0x014 */ EnumGameStateDataUnk014 unk_014;
     /* 0x018 */ EnumGameStateDataUnk014 unk_018;
     /* 0x01C */ UNK_TYPE4 unk_01C;
-    /* 0x020 */ u32 unk_020; // TODO: enum?
+    /* 0x020 */ s32 unk_020; // TODO: enum?
     /* 0x024 */ u8 unk_024;
     /* 0x025 */ u8 unk_025;
     /* 0x026 */ u8 unk_026;

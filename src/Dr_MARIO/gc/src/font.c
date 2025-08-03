@@ -765,10 +765,10 @@ s32 fontStr_length(const unsigned char* arg0) {
  * Original name: fontStr_charSize
  */
 s32 fontStr_charSize(const unsigned char* arg0, s32 arg1) {
-    s32 character = arg0[0];
+    s32 character;
     s32 index;
     s32 size;
-
+    character = arg0[0];
     if (character < 0x80) {
         ascii2index(character, arg1, &index, &size);
     }

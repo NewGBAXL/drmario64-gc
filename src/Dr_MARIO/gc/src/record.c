@@ -577,19 +577,19 @@ u32 _get1PLess(struct_evs_mem_data* arg0, struct_evs_mem_data* arg1, u32 arg2, s
  * Original name: _sort1PMode
  */
 void _sort1PMode(MenuRank_unk_001C* arg0, u32 arg1, s32 arg2) {
+    s32 i;
+    s32 var_s1;
     struct_evs_mem_data* ptr = evs_mem_data;
     u8* temp_s6 = func_80036EC8(arg0, arg1, arg2);
     u8* sp18 = func_80036F1C(arg0, arg1, arg2);
-    s32 i;
-    s32 var_s1;
-
+    
     for (i = 0; i < 8; i++) {
         temp_s6[i] = i;
     }
 
     i = 0;
     while (i < 7) {
-        s32 j;
+        s32 j = 0;
 
         for (j = i + 1; j < 8; j++) {
             s32 temp_s1 = ptr[temp_s6[i]].unk_00 & 1;
@@ -605,8 +605,8 @@ void _sort1PMode(MenuRank_unk_001C* arg0, u32 arg1, s32 arg2) {
 
         i++;
     }
-
-    sp18[0] = var_s1 = 1;
+    var_s1 = 1;
+    sp18[0] = var_s1;
     for (i = 1; i < 8; i++) {
         if (_get1PLess(&ptr[temp_s6[i]], &ptr[temp_s6[i - 1]], arg1, arg2)) {
             var_s1 += 1;

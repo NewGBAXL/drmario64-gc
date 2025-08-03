@@ -98,8 +98,7 @@ s32 joyInit(s32 arg0 /*num pads, unused*/) {
     joycur1 = 0x14;
     joycur2 = 4;
     nuContInit();
-    //joyResponseCheck();
-    //ResetMain();
+    joyResponseCheck();
     return 4; //todo: change to void ret
 }
 
@@ -111,9 +110,6 @@ void joyProcCore(void) {
 
     /*bool*/ int pressingOppositeDirections = 0 /*false */ ;
 
-    //osContStartReadData(&B_800F3E38);
-    //osRecvMesg(&B_800F3E38, NULL, OS_MESG_BLOCK);
-    //osContGetReadData(B_800EB4D8);
     nuContDataGetExAll(B_800EB4D8);
 
     for (i = 0; i < ARRAY_COUNT(joycnt); i++) {
@@ -175,9 +171,6 @@ s32 joyResponseCheck(void) {
     s8 j;
     s8 i;
 
-    //osContStartQuery(&B_800F3E38);
-    //osRecvMesg(&B_800F3E38, NULL, OS_MESG_BLOCK);
-    //osContGetQuery(padStatus);
     nuContQueryRead(padStatus);
 
     for (i = 0; i < 4; i++) {
@@ -201,6 +194,18 @@ s32 joyResponseCheck(void) {
             }
         }
     }
+
+    /*for (i = 0; i < ARRAY_COUNT(padStatus); i++) {
+        *puVar1 = 0;
+        if ((*puVar2 & 1) != 0) {
+            *puVar1 = 1;
+            connectedControllers++;
+            *pcVar3 = cVar4;
+            pcVar3 += 1;
+        }
+        puVar1 += 1;
+        puVar2 += 2;
+    }*/
 
     return connectedControllers;
 }

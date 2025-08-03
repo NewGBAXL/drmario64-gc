@@ -631,7 +631,7 @@ void dm_init_capsel(struct_game_state_data_unk_178* arg0, s32 arg1, s32 arg2) {
 }
 
 void func_80060FA0(struct_game_state_data_unk_178* arg0, s32 arg1, s32 arg2) {
-    func_80060F60(arg0, arg1, arg2);
+    dm_init_capsel(arg0, arg1, arg2);
     arg0->unk_9 = 1;
 }
 
@@ -647,7 +647,7 @@ void dm_set_capsel(struct_game_state_data* arg0) {
         arg0->unk_032 = 1;
     }
 
-    func_80060F60(&arg0->unk_184, CAPSMAGAZINE_GET_A(CapsMagazine[arg0->unk_032]),
+    dm_init_capsel(&arg0->unk_184, CAPSMAGAZINE_GET_A(CapsMagazine[arg0->unk_032]),
         CAPSMAGAZINE_GET_B(CapsMagazine[arg0->unk_032]));
 }
 
@@ -692,7 +692,7 @@ s32 update_flash_virus_count(struct_game_state_data* arg0, GameMapCell* mapCells
         s32 index = GAME_MAP_GET_INDEX_ALT(arg0->unk_0D4[i][1], arg0->unk_0D4[i][0]);
 
         if (((mapCells[index].unk_4[0] == 0) || (mapCells[index].unk_4[2] != 0) || (mapCells[index].unk_4[4] < 0))) {
-            if (arg2 != 0) {
+            if ((u32)arg2 != 0) {
                 arg0->unk_0D4[i][2] = -1;
             }
         }
@@ -1067,7 +1067,7 @@ void dm_w_erase_chack_set(struct_game_state_data* arg0, GameMapCell* mapCells) {
                     arg0->unk_03A++;
                 }
 
-                if (column >= 5) {
+                if (column > 4) {
                     var_fp = true;
                 }
                 else {
@@ -1221,7 +1221,7 @@ bool dm_broken_set(struct_game_state_data* gameStateData, GameMapCell* mapCells)
 }
 
 void dm_calc_erase_score_pos(struct_game_state_data* arg0, GameMapCell* mapCells, dm_calc_erase_score_pos_arg2* arg2) {
-    s32 row;
+    s32 row = 0;
     s32 var_t2 = 0;
 
     arg2->unk_4 = 0;

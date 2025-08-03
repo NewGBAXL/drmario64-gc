@@ -605,7 +605,7 @@ config.libs = [
         Object(NonMatching, "Dr_MARIO/gc/src/sound.c"),
         Object(NonMatching, "Dr_MARIO/gc/src/dm_virus_init.c"),
         Object(NonMatching, "Dr_MARIO/gc/src/game_etc.c"),
-        Object(NonMatching, "Dr_MARIO/gc/src/vr_init.c"),
+        Object(Matching, "Dr_MARIO/gc/src/vr_init.c"),
         Object(NonMatching, "Dr_MARIO/gc/src/graphic.c"),
         Object(NonMatching, "Dr_MARIO/gc/src/font.c"),
         Object(NonMatching, "Dr_MARIO/gc/src/msgwnd.c"),

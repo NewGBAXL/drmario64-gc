@@ -108,6 +108,7 @@ void animeSeq_init(AnimeSeq* animeSeq, u8** arg1, UNK_TYPE4 arg2) {
     animeSeq_update(animeSeq, 0);
 }
 
+//todo: fix animeSeq_init prototype
 void func_8005E154(AnimeState* animeState, UNK_TYPE4 arg1) {
     animeSeq_init(&animeState->animeSeq, animeState->animeSeq.unk_0C, arg1);
 }
