@@ -3,9 +3,9 @@
 
 //todo: fix
 int lbl_2_bss_20;
-int DAT_805c88d4;
-int DAT_805c97a4;
-int DAT_805bda60;
+int lbl_2_rodata_10E424;
+int lbl_2_rodata_10F2F4;
+int lbl_2_rodata_1035B0;
 
 s32 soundSubInit(int arg0, int arg1) {
     int local_20[2];
@@ -19,8 +19,8 @@ s32 soundSubInit(int arg0, int arg1) {
     } while (local_20[0] == 0x28);
     fn_2_3CC();
     fn_80019C78();
-    sndPushGroup(&DAT_805c88d4, 1, lbl_2_bss_20, &DAT_805c97a4, &DAT_805bda60);
-    sndPushGroup(&DAT_805c88d4, 0, lbl_2_bss_20, &DAT_805c97a4, &DAT_805bda60);
+    sndPushGroup(&lbl_2_rodata_10E424, 1, lbl_2_bss_20, &lbl_2_rodata_10F2F4, &lbl_2_rodata_1035B0);
+    sndPushGroup(&lbl_2_rodata_10E424, 0, lbl_2_bss_20, &lbl_2_rodata_10F2F4, &lbl_2_rodata_1035B0);
     
     //todo
     /**(undefined*)(arg0 + 0x1c4) = 0;

@@ -3,6 +3,7 @@
 
 #include <types.h>
 #include "libultra/gbi.h"
+#include "libultra/mbi.h"
 #include "libultra/gu.h"
 #include "macros_defines.h"
 

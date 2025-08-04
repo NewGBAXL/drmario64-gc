@@ -50,7 +50,7 @@ void mainproc(void* arg) {
     osViSetSpecialFeatures(0x4a);
     joyInit(4);
     aifFirstInit();
-    while (__setjmp(&env), drmario_exit_flag == 0) {
+    while (drmario_exit_flag == 0 && __setjmp(&env)) {
         iVar2 = gc_GetResetFlag();
         if (iVar2 == 3) {
             gfxTaskStartFrameCopyFunc_set(0);

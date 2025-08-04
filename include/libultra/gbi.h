@@ -21,6 +21,7 @@
 #define	_GBI_H_
 
 #include <PR/ultratypes.h>
+#include <libultra/mbi.h>
 
 /*
  * To use the F3DEX ucodes, define F3DEX_GBI before include this file.
@@ -1477,11 +1478,13 @@ typedef union {
 		{	{{ {{0,0,0},0,{0,0,0},0,{rightx,righty,rightz},0}}, \
 			{ {{0,0x80,0},0,{0,0x80,0},0,{upx,upy,upz},0}}}   }
 
+#pragma options align=packed
+
 /*
  *  Graphics DMA Packet
  */
 typedef struct {
-	int		cmd:8;
+	unsigned int	cmd:8;
 	unsigned int	par:8;
 	unsigned int	len:16;
 	unsigned int	addr;
@@ -1500,18 +1503,18 @@ typedef struct {
 		int		cmd:8;
 		int		pad1:24;
 		int             pad2:24;
-		unsigned char	param:8;
+		//unsigned char	param:8;
 } Gpopmtx;
 
-/*
- * typedef struct {
- * 		int		cmd:8;
- * 		int		pad0:24;
- * 		int		pad1:4;
- * 		int		number:4;
- * 		int		base:24;
- * } Gsegment;
- */
+
+/*typedef struct {
+		int		cmd:8;
+		int		pad0:24;
+		int		pad1:4;
+		int		number:4;
+		int		base:24;
+} Gsegment;*/
+
 typedef struct {
 		int		cmd:8;
 		int		pad0:8;
@@ -1662,6 +1665,7 @@ typedef struct {
     unsigned long w3;
 } TexRect;
 
+
 /*
  * Generic Gfx Packet
  */
@@ -1693,8 +1697,11 @@ typedef union {
 	Gloadtile	loadtile;	/* use for loadblock also, th is dxt */
 	Gsettilesize	settilesize;
 	Gloadtlut	loadtlut;
-        long long int	force_structure_alignment;
+    //    long long int	force_structure_alignment;
+	unsigned char   force_structure_alignment[0x8];
 } Gfx;
+
+#pragma options align=reset
 
 /*
  * Macros to assemble the graphics display list

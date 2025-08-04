@@ -125,7 +125,7 @@ void set_map(GameMapCell* mapCells, s32 column, s32 rowPlusOne, s32 arg3, s32 ar
     s32 var_t0;
 
     var_t0 = arg4;
-    if (var_t0 >= 3) {
+    if (arg4 > 2) {
         var_t0 -= 3;
     }
 
@@ -145,7 +145,7 @@ void set_virus(GameMapCell* mapCells, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     s32 temp;
 
     var_t0 = arg3;
-    if (var_t0 >= 3) {
+    if (arg3 > 2) {
         var_t0 -= 3;
     }
 

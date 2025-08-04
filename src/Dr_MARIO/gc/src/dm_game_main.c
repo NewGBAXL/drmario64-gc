@@ -74,16 +74,6 @@ u8 virus_map_disp_order[4][VIRUS_MAP_DISP_ORDER_LEN];
 struct_watchGame* watchGame;
 
 /**
- * Original name: evs_gamemode
- */
-enum_evs_gamemode evs_gamemode;
-
-/**
- * Original name: CapsMagazine
- */
-u8 CapsMagazine[0x100];
-
-/**
  * Original name: gameBackup
  */
 struct_gameBackup* gameBackup[2];
@@ -150,15 +140,15 @@ void func_80060270(struct_game_state_data* gameStateDataRef, s32 arg1) {
 }
 
 s32 dm_make_score(struct_game_state_data* gameStateDataRef) {
-    s32 temp_v0;
-    s32 temp;
+    s32 temp_v0 = 0;
+    s32 temp = 0;
 
     if (evs_story_flg != 0) {
-        if (evs_story_level < 3) {
-            temp = evs_story_level;
+        if (evs_story_level > 2) {
+            temp = 2;
         }
         else {
-            temp = 2;
+            temp = evs_story_level;
         }
     }
     else {
@@ -350,7 +340,7 @@ void go_down(struct_game_state_data* gameStateData, GameMapCell* mapCells, s32 a
         }
     }
 
-    if (var_a0) {
+    if ((u32)var_a0 != 0) {
         dm_snd_play_in_game(SND_INDEX_55);
     }
 
@@ -458,24 +448,24 @@ void throw_rotate_capsel(struct_game_state_data_unk_178* arg0) {
 void translate_capsel(GameMapCell* mapCells, struct_game_state_data* arg1, s32 arg2, s32 arg3) {
     s32 var_s1 = 0;
     struct_game_state_data_unk_178* temp_s5 = &arg1->unk_178;
-
+    
     if ((temp_s5->unk_2[0] <= 0) || (temp_s5->unk_8 == 0)) {
         return;
     }
 
     if (arg2 == 1) {
         if (temp_s5->unk_0[0] == temp_s5->unk_0[1]) {
-            if ((temp_s5->unk_0[1] < 7) && (get_map_info(mapCells, temp_s5->unk_0[1] + 1, temp_s5->unk_2[0]) != arg2)) {
+            if ((temp_s5->unk_0[1] < 7) && (get_map_info(mapCells, temp_s5->unk_0[1] + 1, temp_s5->unk_2[0]) != 1)) {
                 if (temp_s5->unk_2[1] == 0) {
                     var_s1 = 1;
                 }
-                else if (get_map_info(mapCells, temp_s5->unk_0[0] + 1, temp_s5->unk_2[1]) != arg2) {
+                else if (get_map_info(mapCells, temp_s5->unk_0[0] + 1, temp_s5->unk_2[1]) != 1) {
                     var_s1 = 1;
                 }
             }
         }
         else if (temp_s5->unk_0[1] < 7) {
-            if (get_map_info(mapCells, temp_s5->unk_0[1] + 1, temp_s5->unk_2[0]) != arg2) {
+            if (get_map_info(mapCells, temp_s5->unk_0[1] + 1, temp_s5->unk_2[0]) != 1) {
                 var_s1 = 1;
             }
         }
@@ -6335,11 +6325,22 @@ void key_control_main(struct_game_state_data* gameStateDataRef, GameMapCell* map
     struct_watchGame* temp_s5 = watchGame;
     s32 sp18[2];
     s32 sp20[2];
+    s32 mask = 0;
+    volatile u32 dummy = 0; //todo: there's an extra var being optimized out, fix
+
 
     func_80063FF4();
 
+    //todo: document which buttons the mask are
+    if (fn_80017E08(arg3) != 0) {
+        mask = 0x2000;
+    }
+    else {
+        mask = 0xF;
+    }
+
     if ((gameStateDataRef->unk_04C != 1) && ((gameStateDataRef->unk_04C == 1) || (arg2 != 0) || (aiDebugP1 < 0))) {
-        if (gControllerPressedButtons[arg3] & (U_CBUTTONS | L_CBUTTONS | R_CBUTTONS | D_CBUTTONS)) {
+        if (gControllerPressedButtons[arg3] & mask /*(U_CBUTTONS | L_CBUTTONS | R_CBUTTONS | D_CBUTTONS)*/) {
             visible_fall_point[arg2] = !visible_fall_point[arg2];
         }
     }

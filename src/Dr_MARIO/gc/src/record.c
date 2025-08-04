@@ -1180,7 +1180,7 @@ void RecAll_Compress(struct_800365B0_arg0* arg0) {
 s32 RecAll_Extract(struct_800365B0_arg0* arg0, char arg1[4]) {
     s32 var_s4 = 0;
     s32 i;
-    s32 temp;
+    u32 temp;
 
     arg0->unk_10 = 0;
     func_800378B0(arg0);
@@ -1372,16 +1372,16 @@ EepRomStatus EepRom_ReadAll(void) {
             auStack_24[3] = 0;
             iVar3 = RecAll_Extract(local_1c, auStack_24);
             iVar4 = memcmp(auStack_24, &eeprom_header, 4);
-            if (iVar4 == 0) {
-                if (iVar3 == 0) {
+            if (iVar4 != 0) {
+                return EEPROM_STATUS_2;
+            }
+            else {
+                if (iVar3 != 0) {
                     return EEPROM_STATUS_0;
                 }
                 else {
                     return EEPROM_STATUS_5;
                 }
-            }
-            else {
-                return EEPROM_STATUS_2;
             }
         }
     default:
@@ -1415,10 +1415,9 @@ EepRomStatus EepRom_ReadAll(void) {
     return EEPROM_STATUS_0;
 }*/
 
-EepRomStatus EepRom_WriteAll(EepRom_WriteDif_arg3 arg0, void* arg1, u32 arg2, u32 arg3,
-    u32 arg4) {
+EepRomStatus EepRom_WriteAll(EepRom_WriteDif_arg3 arg0, void* arg1, u32 arg2, u32 arg3, u32 arg4) {
     u32 uVar1;
-    u32* puVar2;
+    u8* puVar2;
     u32 uVar3;
     int iVar4;
     u32 auStack_238[512];
@@ -1442,19 +1441,16 @@ EepRomStatus EepRom_WriteAll(EepRom_WriteDif_arg3 arg0, void* arg1, u32 arg2, u3
     }
     else {
         bzero(auStack_238, 0x200);
-        //local_38->buffer = 0x200;
-        //local_30[1] = 0;
-        //local_2c[2] = 0;
-        //local_28[3] = 0;
+        local_38.buffer = (u8*)2;//0x200;
         RecAll_Compress(&local_38);
-        //if (/*arg0 != 2*/ && EepRom_WriteDif(0, puVar2, auStack_238, 0x200, arg1, arg2, arg3, arg4) == 0*/) {
-        //    bcopy(auStack_238, puVar2, 0x200);
-        //    return 0;
-        //}
-        //else {
+        if (arg0 != 0 /* && EepRom_WriteDif((u8*)0, puVar2, auStack_238, local_38, arg1) == 0*/) {
+            bcopy(auStack_238, puVar2, 0x200);
+            return 0;
+        }
+        else {
             EepRom_DumpErrMes(4);
             return 4;
-        //}
+        }
     }
 }
 

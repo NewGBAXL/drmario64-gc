@@ -274,7 +274,7 @@ void gfxTaskStart(s32 arg0, s32 arg1, s32 arg2, u32 arg3) {
         dm_seq_stop();
 		fn_80019B88(); //main.dol
         gc_WaitForReset();
-        gclongjmp(&lbl_2_bss_B168, 100);
+        gclongjmp(&drmario_exit_flag, 100);
     }
 }
 

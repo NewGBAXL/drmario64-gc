@@ -11,19 +11,14 @@
 #include "main.h"
 #include "unk.h"
 
+#include "main.h"
+
 struct struct_virus_map_data;
 struct NNSched;
 
-typedef enum enum_evs_gamemode {
-    /* 0 */ ENUM_EVS_GAMEMODE_0,
-    /* 1 */ ENUM_EVS_GAMEMODE_1,
-    /* 2 */ ENUM_EVS_GAMEMODE_2,
-    /* 3 */ ENUM_EVS_GAMEMODE_3
-} enum_evs_gamemode;
-
 typedef struct struct_gameGeom {
     /* 0x0000 */ Mtx mtxBuf[3][0x20];
-    /* 0x1800 */ Vtx vtxBuf[3][0x80];
+    /* 0x2000 */ Vtx vtxBuf[3][0x80];
 } struct_gameGeom; // size = 0x3000
 
 typedef struct dm_calc_erase_score_pos_arg2 {

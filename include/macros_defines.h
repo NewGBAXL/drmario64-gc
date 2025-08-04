@@ -13,8 +13,8 @@
 #  define UNREACHABLE
 #endif
 
-#define SCREEN_WIDTH  320
-#define SCREEN_HEIGHT 240
+#define SCREEN_WIDTH  640 //320
+#define SCREEN_HEIGHT 480 //240
 
 
 #define CHECK_FLAG_ALL(flags, mask) (((flags) & (mask)) == (mask))

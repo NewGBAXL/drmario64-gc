@@ -3,6 +3,8 @@
 
 #include "libultra.h"
 
+#define VERSION_US 1
+
 typedef enum enum_main_no {
     /*  0 */ MAIN_NO_0,
     /*  1 */ MAIN_NO_1,
@@ -28,6 +30,23 @@ extern enum_main_no main_old;
 //extern s32 __jmp_buf_tag;
 extern s32 drmario_exit_flag;
 extern s32 env;
+
+typedef enum enum_evs_gamemode {
+    /* 0 */ ENUM_EVS_GAMEMODE_0,
+    /* 1 */ ENUM_EVS_GAMEMODE_1,
+    /* 2 */ ENUM_EVS_GAMEMODE_2,
+    /* 3 */ ENUM_EVS_GAMEMODE_3
+} enum_evs_gamemode;
+
+/**
+ * Original name: evs_gamemode
+ */
+enum_evs_gamemode evs_gamemode;
+
+/**
+ * Original name: CapsMagazine
+ */
+u8 CapsMagazine[0x100];
 
 
 #endif
