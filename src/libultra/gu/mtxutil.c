@@ -10,7 +10,7 @@
  *									  *
  **************************************************************************/
 
-#include "guint.h"
+#include "libultra/guint.h"
 
 void guMtxF2L(float mf[4][4], Mtx *m)
 {

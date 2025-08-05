@@ -30,7 +30,7 @@
  *
  */
 
-#include "guint.h"
+#include "libultra/guint.h"
 
 void guMtxCatF(float mf[4][4], float nf[4][4], float res[4][4])
 {

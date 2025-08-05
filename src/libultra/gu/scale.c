@@ -10,7 +10,7 @@
  *									  *
  **************************************************************************/
 
-#include "guint.h"
+#include "libultra/guint.h"
 
 void guScaleF(float mf[4][4], float x, float y, float z)
 {

@@ -10,7 +10,7 @@
  *									  *
  **************************************************************************/
 
-#include "guint.h"
+#include "libultra/guint.h"
 
 /*
  *  Return rotation matrix given roll, pitch, and yaw in degrees

@@ -264,6 +264,16 @@ cflags_rel = [
     "-sdata2 0",
 ]
 
+# Metrowerks library flags
+cflags_msl = [
+    *cflags_base,
+    "-char signed",
+    "-use_lmw_stmw on",
+    "-str reuse,pool,readonly",
+    "-common off",
+    "-inline auto,deferred",
+]
+
 cflags_trk = [
     *cflags_base,
     "-use_lmw_stmw on",
@@ -356,6 +366,14 @@ config.libs = [
             Object(Matching, "Runtime/__init_cpp_exceptions.cpp"),
             Object(NonMatching, "Runtime/Gecko_ExceptionPPC.cpp", extra_cflags=["-Cpp_exceptions on", "-RTTI on"]),
             Object(NonMatching, "Runtime/GCN_mem_alloc.c"),
+        ],
+    },
+    {
+        "lib": "MSL_C.PPCEABI.bare.H",
+        "mw_version": "GC/1.3",
+        "cflags": cflags_msl,
+        "objects": [
+            Object(NonMatching, "MSL_C.PPCEABI.bare.H/printf.c"),
         ],
     },
     DolphinLib(
@@ -532,9 +550,24 @@ config.libs = [
         ],
     ),
     DolphinLib(
+        "mtx",
+        [
+            Object(NonMatching, "dolphin/mtx/mtx.c"),
+            Object(NonMatching, "dolphin/mtx/mtx44vec.c"),
+            Object(NonMatching, "dolphin/mtx/vec.c"),
+        ],
+    ),
+    DolphinLib(
         "vi",
         [
             Object(NonMatching, "dolphin/vi.c"),
+        ],
+    ),
+    DolphinLib(
+        "demo",
+        [
+            Object(Matching, "dolphin/demo/DEMOPuts.c"),
+            Object(NonMatching, "dolphin/demo/DEMOStats.c"),
         ],
     ),
     MusyX(
@@ -548,7 +581,7 @@ config.libs = [
             Object(NonMatching, "musyx/runtime/synthmacros.c"),
             Object(NonMatching, "musyx/runtime/synthvoice.c"),
             Object(NonMatching, "musyx/runtime/synth_ac.c"),
-            Object(NonMatching, "musyx/runtime/synth_dbtab.c"),
+            Object(Matching, "musyx/runtime/synth_dbtab.c"),
             Object(NonMatching, "musyx/runtime/synth_adsr.c"),
             Object(NonMatching, "musyx/runtime/synth_vsamples.c"),
             Object(NonMatching, "musyx/runtime/s_data.c"),
@@ -582,6 +615,27 @@ config.libs = [
             Object(Matching, "game/n642Dolphin.c"),
             Object(NonMatching, "game/nusys.c"),
             Object(NonMatching, "game/memory.c"),
+            Object(NonMatching, "game/sys.c"),
+        ]
+    },
+    {
+        "lib": "libultra/gu",
+        "mw_version": config.linker_version,
+        "cflags": cflags_game,
+        "host": False,
+        "objects": [
+            Object(NonMatching, "libultra/gu/coss.c"),
+            Object(Matching, "libultra/gu/mtxcatl.c"),
+            Object(NonMatching, "libultra/gu/mtxcatf.c"),
+            Object(NonMatching, "libultra/gu/mtxutil.c"),
+            Object(NonMatching, "libultra/gu/normalize.c"),
+            Object(NonMatching, "libultra/gu/ortho.c"),
+            Object(NonMatching, "libultra/gu/perspective.c"),
+            Object(NonMatching, "libultra/gu/rotate.c"),
+            Object(NonMatching, "libultra/gu/rotaterpy.c"),
+            Object(NonMatching, "libultra/gu/scale.c"),
+            Object(NonMatching, "libultra/gu/sins.c"),
+            Object(NonMatching, "libultra/gu/translate.c"),
         ]
     },
     Rel("Dr_MARIO", [

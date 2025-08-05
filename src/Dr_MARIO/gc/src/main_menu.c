@@ -2184,7 +2184,7 @@ void menuMusicItem_draw1(MenuMusicItem* musicItemArr[], s32 count, Gfx** gxfP) {
 void menuMusicItem_draw2(MenuMusicItem** musicItemArr, s32 count, Gfx** gxfP) {
     Gfx* gfx = *gxfP;
     //MenuCursor* arr[count];
-    MenuCursor** arr = (MenuCursor**)malloc(sizeof(MenuCursor*) * count);
+    MenuCursor** arr = (MenuCursor**)DoMalloc(sizeof(MenuCursor*) * count);
 
     s32 i;
 
@@ -2198,7 +2198,7 @@ void menuMusicItem_draw2(MenuMusicItem** musicItemArr, s32 count, Gfx** gxfP) {
 
     *gxfP = gfx;
 
-	free(arr);
+	DoFree(arr);
 }
 
 void func_8004A814(MenuMusicItem* musicItemArr[], s32 arg1, Gfx** gfxP) {
@@ -2860,8 +2860,8 @@ void menuNameSelPanel_input1(MenuNameSelPanel* nameSelPanel, s32 arg1) {
             }
         }
         else {
-            s32 var_s2 = var_s1 & 1;
             s32 var_s0 = var_s1 >> 1;
+            s32 var_s2 = var_s1 & 1;
             s32 var_s4 = 0;
             s32 var_s1_2 = 0;
 
@@ -2879,7 +2879,7 @@ void menuNameSelPanel_input1(MenuNameSelPanel* nameSelPanel, s32 arg1) {
                 var_s4++;
             }
 
-            if ((var_s1_2 != 0) || (var_s4 != 0)) {
+            if ((var_s4 != 0) || (var_s1_2 != 0)) {
                 do {
                     var_s2 = WrapI(0, 2, var_s2 + var_s1_2);
                     var_s0 += var_s4;

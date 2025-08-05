@@ -30,8 +30,8 @@
  *
  */
 
-#include "guint.h"
-#include "os_version.h"
+#include "libultra/guint.h"
+//#include "os_version.h"
 
 void guMtxCatL(Mtx *m, Mtx *n, Mtx *res)
 {

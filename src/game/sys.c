@@ -1,3 +1,5 @@
+//NOTICE: DO NOT ADD TO THIS FILE, IT WILL BE LATER MERGED WITH GC.H AND DOUBLEY LINKED WITH DRMARIO
+
 #include <types.h>
 
 int lbl_800be198 = 0;
@@ -11,9 +13,9 @@ int lbl_801d96f0 = 0;
 int lbl_801d9a18 = 0;
 int lbl_801daffc = 0;
 
-void fn_800124A0(SND_FXID fid, u4 vol, u4 pan) {
-	sndFXStartEx(fix, vol, pan, 0);
-}
+//void fn_800124A0(s32 /*SND_FXID*/ fid, u4 vol, u4 pan) {
+//	sndFXStartEx(fix, vol, pan, 0);
+//}
 
 void fn_800124C8(u8 mode) {
     switch (mode) {
@@ -37,7 +39,7 @@ void fn_800124C8(u8 mode) {
 	}
 }
 
-u4 fn_80012568(u4 param_1) {
+u8 fn_80012568(u8 param_1) {
     lbl_800be198 = param_1;
     lbl_801daffc = 1;
     return 0;
@@ -47,7 +49,7 @@ u4 fn_80012568(u4 param_1) {
     int param_6) {
 } */
 
-u4 gc_GetDVDDrive(void) {
+u8 gc_GetDVDDrive(void) {
     int ret = 0;
     switch (DVDGetDriveStatus()) {
     default:
@@ -79,7 +81,7 @@ void fn_800128C4(void) {
 /* undefined4 fn_800128E8(void) {
 } */
 
-u4 gc_memoryCard_errorCheck(int code, char* name) {
+u8 gc_memoryCard_errorCheck(int code, char* name) {
     switch (code) { //byte casting?
     case 0:
 		return 0;
@@ -116,7 +118,7 @@ u4 gc_memoryCard_errorCheck(int code, char* name) {
     }
 }
 
-u4 fn_80013294(void) {
+u8 fn_80013294(void) {
     lbl_801c13a8 = 1;
     return 0;
 }
@@ -124,7 +126,7 @@ u4 fn_80013294(void) {
 //mount the memory card
 void fn_800132A8(int chan) {
     int iVar1;
-    u4 uVar2;
+    u8 uVar2;
     if (fn_8001337c() == 0) {
         do {
             uVar2 = CARDMount(chan, chan * 0xa000 + -0x7fe3ec40, fn_80013294); //fix struct
@@ -132,18 +134,21 @@ void fn_800132A8(int chan) {
         } while (iVar1 == 0x12);
         if (((iVar1 == 0) || (iVar1 == 5)) || (iVar1 == 4)) {
             do {
-                iVar1 = gc_memoryCard_errorCheck(CARDCheck(param_1), s_CARDCheck_800BE1DC);
+                iVar1 = gc_memoryCard_errorCheck(CARDCheck(chan), "CARDCheck");
             } while (iVar1 == 0x12);
         }
     }
     return;
 }
 
+s32 lbl_801c13a4; //fix later
+s32 DAT_801c13a4; //this too
+
 //probe the memory card
-int fn_8001337C(u4 chan) {
-    u4 uVar1;
+int fn_8001337C(u8 chan) {
+    u8 uVar1;
     int iVar2;
-    undefined auStack_14[8];
+    s32 auStack_14[8];
 
     do {
         uVar1 = CARDProbeEx(chan, auStack_14, &lbl_801c13a4);
@@ -155,18 +160,18 @@ int fn_8001337C(u4 chan) {
     return iVar2;
 }
 
-void fn_80013400(u4 val) {
+void fn_80013400(u8 val) {
     lbl_801c13a0 = val;
 }
 
 //format the memory card
-int fn_8001340C(u4 chan) {
-    int iVar1;
-    undefined4 uVar2;
+int fn_8001340C(u8 chan) {
+    int iVar1 = 0;
+    s32 uVar2;
     int iVar3;
 
     lbl_801c13a8 = 0;
-    iVar1 = fn_800132A8(); //CARDMount
+    //iVar1 = fn_800132A8(); //CARDMount
     if ((iVar1 == 0) || (iVar1 - 4U < 2)) {
         do {
             iVar1 = gc_memoryCard_errorCheck(CARDFormat(chan), "CARDFormat");
@@ -189,7 +194,7 @@ int fn_8001340C(u4 chan) {
 }*/
 
 //create save data
-u4 fn_80013694(int param_1) {
+/*u8 fn_80013694(int param_1) {
     memcpy(param_1, &lbl_8006b1c0, 0x40);
     memcpy(param_1 + 0x40, &save_banner, 0xc00);
     memcpy(param_1 + 0xc40, &lbl_8006cd50, 0x200);
@@ -198,7 +203,7 @@ u4 fn_80013694(int param_1) {
     memcpy(param_1 + 0x1640, &lbl_8006bd50, 0x400);
     memcpy(param_1 + 0x1a40, &lbl_8006b750, 0x200);
     return 0x1c40;
-}
+}*/
 
 /* void fn_80013748(int param_1) {
 }*/

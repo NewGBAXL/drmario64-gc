@@ -10,7 +10,7 @@
  *									  *
  **************************************************************************/
 
-#include "guint.h"
+#include "libultra/guint.h"
 
 void guOrthoF(float mf[4][4], float l, float r, float b, float t, float n, float f, float scale)
 {

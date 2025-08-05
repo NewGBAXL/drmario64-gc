@@ -10,8 +10,8 @@
  *									  *
  **************************************************************************/
 
-#include "mbi.h"
-#include "gu.h"
+#include "libultra/mbi.h"
+#include "libultra/gu.h"
 
 typedef union
 {

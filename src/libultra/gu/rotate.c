@@ -10,8 +10,8 @@
  *									  *
  **************************************************************************/
 
-#include "guint.h"
-#include "os_version.h"
+#include "libultra/guint.h"
+//#include "os_version.h"
 
 void guRotateF(float mf[4][4], float a, float x, float y, float z)
 {

@@ -1689,19 +1689,19 @@ s32 aifMiniAloneCapNumber(u8 arg0, u8 arg1, u8 arg2, s32 arg3) {
             var_t0 = 1;
         }
         else if (arg2 != 0) {
-            if (temp >= 5) {
-                var_t0 = 3;
+            if (temp < 5) {
+                var_t0 = 2;
             }
             else {
-                var_t0 = 2;
+                var_t0 = 3;
             }
         }
         else {
-            if (temp >= 5) {
-                var_t0 = 5;
+            if (temp < 5) {
+                var_t0 = 4;
             }
             else {
-                var_t0 = 4;
+                var_t0 = 5;
             }
         }
     }
@@ -1721,19 +1721,19 @@ s32 aifMiniAloneCapNumberW(u8 arg0, u8 arg1, u8 arg2, s32 arg3) {
             var_v1 = 1;
         }
         else if (arg2 != 0) {
-            if (temp >= 5) {
-                var_v1 = 3;
+            if (temp < 5) {
+                var_v1 = 2;
             }
             else {
-                var_v1 = 2;
+                var_v1 = 3;
             }
         }
         else {
-            if (temp >= 5) {
-                var_v1 = 5;
+            if (temp < 5) {
+                var_v1 = 4;
             }
             else {
-                var_v1 = 4;
+                var_v1 = 5;
             }
         }
     }

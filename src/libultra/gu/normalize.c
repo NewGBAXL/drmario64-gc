@@ -10,7 +10,7 @@
  *									  *
  **************************************************************************/
 
-#include "guint.h"
+#include "libultra/guint.h"
 
 void guNormalize(float *x, float *y, float *z)
 {

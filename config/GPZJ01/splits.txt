@@ -23,8 +23,51 @@ game/n642Dolphin.c:
 game/nusys.c:
 	.text       start:0x8000C478 end:0x800105B8
 
+libultra/gu/coss.c:
+	.text       start:0x80010F24 end:0x80010F48
+
+libultra/gu/mtxcatl.c:
+	.text       start:0x80011304 end:0x8001136C
+
+libultra/gu/mtxcatf.c:
+	.text       start:0x8001136C end:0x80011548
+	.rodata     start:0x8006A950 end:0x8006A958
+
+libultra/gu/mtxutil.c:
+	.text       start:0x800115D0 end:0x80011904
+	.rodata     start:0x8006A958 end:0x8006A970
+
+libultra/gu/normalize.c:
+	.text       start:0x80011B00 end:0x80011BD0
+
+libultra/gu/ortho.c:
+	.text       start:0x80011BD0 end:0x80011DA0
+
+libultra/gu/perspective.c:
+	.text       start:0x80011DA0 end:0x80011F7C
+
+libultra/gu/rotate.c:
+	.text       start:0x80011F7C end:0x80012144
+
+libultra/gu/rotaterpy.c:
+	.text       start:0x80012144 end:0x80012270
+	.rodata     start:0x8006A9B0 end:0x8006A9B8
+
+libultra/gu/scale.c:
+	.text       start:0x80012270 end:0x800122EC
+
+libultra/gu/sins.c:
+	.text       start:0x800122EC end:0x80012348
+	.rodata     start:0x8006A9C0 end:0x8006B1C0
+
+libultra/gu/translate.c:
+	.text       start:0x80012348 end:0x800123B4
+
 game/memory.c:
 	.text       start:0x800123FC end:0x800124A0
+
+game/sys.c:
+	.text       start:0x800124A0 end:0x800158C4
 
 musyx/runtime/seq.c:
 	extab       start:0x80005540 end:0x800055B8
@@ -197,6 +240,7 @@ musyx/runtime/CheapReverb/creverb.c:
 	extabindex  start:0x800066D0 end:0x800066F4
 	.text       start:0x80035650 end:0x80035F00
 	.data       start:0x800C1C40 end:0x800C1C50
+	.sdata2     start:0x8022DE60 end:0x8022DE70
 
 musyx/runtime/StdReverb/reverb_fx.c:
 	extab       start:0x80005C38 end:0x80005C50
@@ -208,7 +252,7 @@ musyx/runtime/StdReverb/reverb.c:
 	extabindex  start:0x80006718 end:0x8000673C
 	.text       start:0x80035FC0 end:0x80036D04
 	.data       start:0x800C1C50 end:0x800C1C70
-	.sdata2     start:0x8022DE70 end:0x8022DEA4
+	.sdata2     start:0x8022DE70 end:0x8022DEB0
 
 musyx/runtime/Chorus/chorus_fx.c:
 	extab       start:0x80005C68 end:0x80005C80
@@ -239,6 +283,9 @@ Runtime/__mem.c:
 TRK_MINNOW_DOLPHIN/mem_TRK.c:
 	.init       start:0x80003244 end:0x80003298
 	.text       start:0x80038D10 end:0x80038DCC
+
+MSL_C.PPCEABI.bare.H/printf.c:
+	.text       start:0x80038DD0 end:0x8003A8A0
 
 TRK_MINNOW_DOLPHIN/flush_cache.c:
 	.text       start:0x8003E9F0 end:0x8003EA28
@@ -378,6 +425,17 @@ dolphin/si/SISamplingRate.c:
 	.data       start:0x800C4828 end:0x800C48C0
 	.sbss       start:0x8022D9A8 end:0x8022D9B0
 
+dolphin/mtx/mtx.c:
+	.text       start:0x8004DBD4 end:0x8004E11C
+	.sdata      start:0x8022D5C0 end:0x8022D5C8
+	.sdata2     start:0x8022DFE8 end:0x8022DFF0
+
+dolphin/mtx/mtx44vec.c:
+	.text       start:0x8004E11C end:0x8004E320
+
+dolphin/mtx/vec.c:
+	.text       start:0x8004E320 end:0x8004E3A0
+
 dolphin/dvd/dvdlow.c:
 	.text       start:0x8004E3A0 end:0x8004F1E0
 	.bss        start:0x8022C8F0 end:0x8022C9C0
@@ -425,6 +483,19 @@ dolphin/vi.c:
 	.bss        start:0x8022CAE8 end:0x8022CC30
 	.sdata      start:0x8022D600 end:0x8022D610
 	.sbss       start:0x8022DA88 end:0x8022DAE0
+
+dolphin/demo/DEMOPuts.c:
+	.text       start:0x80055128 end:0x80055724
+	.bss        start:0x8022CC70 end:0x8022CC90
+	.sbss       start:0x8022DB00 end:0x8022DB08
+	.sdata2     start:0x8022E020 end:0x8022E040
+
+dolphin/demo/DEMOStats.c:
+	.text       start:0x80055988 end:0x800566E0
+	.data       start:0x800C5DF0 end:0x800C5F48
+	.sdata      start:0x8022D618 end:0x8022D620
+	.sbss       start:0x8022DB14 end:0x8022DB78
+	.sdata2     start:0x8022E040 end:0x8022E050
 
 dolphin/pad/PadClamp.c:
 	.text       start:0x800566E0 end:0x80056924
