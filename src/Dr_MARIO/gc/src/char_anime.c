@@ -213,7 +213,7 @@ void animeState_init(AnimeState* animeState, u8** arg1, TiTexData* arg2, UNK_TYP
 void animeState_set(AnimeState* animeState, UNK_TYPE4 arg1) {
     u8** unused;
     animeState->unk_20 = 0;
-    //unused = animeState->unk_0C; //todo: define animeState->0xc in .h
+    unused = animeState->animeSeq.unk_0C; //the compiler keep optimizing it out :(
     func_8005E154(animeState, arg1);
 }
 
@@ -321,10 +321,10 @@ void animeState_draw(AnimeState* animeState, Gfx** gfxP, f32 arg2, f32 arg3, f32
     temp_t0 = animeState->unk_1C;
     temp_a3 = &temp_t0[animeState->animeSeq.unk_18];
     if (arg4 < 0.0f) {
-        arg2 = arg2 - (animeState->unk_24.unk_0 - temp_a3->info[0]) * arg4;
+        arg2 = (animeState->unk_24.unk_0 - temp_a3->info[0]) * arg4 + arg2;
     }
     else {
-        arg2 = arg2 - animeState->unk_24.unk_0 * arg4;
+        arg2 -= animeState->unk_24.unk_0 * arg4;
     }
 
     if (arg5 < 0.0f) {

@@ -144,12 +144,7 @@ s32 dm_make_score(struct_game_state_data* gameStateDataRef) {
     s32 temp = 0;
 
     if (evs_story_flg != 0) {
-        if (evs_story_level > 2) {
-            temp = 2;
-        }
-        else {
-            temp = evs_story_level;
-        }
+		temp = (evs_story_level > 2) ? 2 : evs_story_level;
     }
     else {
         switch (evs_gamesel) {
@@ -363,7 +358,7 @@ void go_down(struct_game_state_data* gameStateData, GameMapCell* mapCells, s32 a
             gameStateData->unk_02F = 0;
         }
         else {
-            if (gameStateData->unk_049 == 0) {
+			if (gameStateData->unk_049 == 0) {
                 gameStateData->unk_00C = GAMESTATEDATA_UNK_00C_9;
             }
             else {

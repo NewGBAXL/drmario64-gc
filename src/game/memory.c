@@ -1,3 +1,4 @@
+#include <game/memory.h>
 #include <types.h>
 #include <dolphin/os/OSAlloc.h>
 

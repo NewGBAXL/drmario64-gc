@@ -21,17 +21,17 @@ void fn_800124C8(u8 mode) {
     switch (mode) {
         case 0:
             sndOutputMode(0);
-            OSSetProgressiveMode(0);
+            OSSetSoundMode(0);
             GCHandover_write(9, 1);
             break;
         case 1:
             sndOutputMode(1);
-            OSSetProgressiveMode(1);
+            OSSetSoundMode(1);
             GCHandover_write(9, 0);
             break;
         case 2:
             sndOutputMode(2);
-            OSSetProgressiveMode(1);
+            OSSetSoundMode(1);
             GCHandover_write(9, 2);
             break;
         default:

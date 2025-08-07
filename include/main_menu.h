@@ -676,7 +676,8 @@ typedef struct struct_watchMenu {
     /* 0x00000 */ //NNSched *sched; //todo: fix NNSched
     /* 0x00004 */ //NNScClient scClient; //todo: fix NNSched
     /* 0x0000C */ //OSMesgQueue scMQ; //todo: fix
-    /* 0x00024 */ //OSMesg scMsgBuf[NN_SC_MAX_MESGS]; //todo: fix
+    /* 0x00024 */ //OSMesg scMsgBuf[NN_SC_MAX_MESGS];
+    /* filler! */ UNK_TYPE1 filler[0x47f8]; // quick and dirty way to get rid of NNSc & OSMesg
     /* 0x00044 */ UNK_TYPE1 unk_00044[4]; // unused/pad?
     /* 0x00048 */ Mtx unk_00048[3][0x10];
     /* 0x00C48 */ Vtx unk_00C48[3][0x80];

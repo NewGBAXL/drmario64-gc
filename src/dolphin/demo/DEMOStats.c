@@ -136,7 +136,7 @@ static void DEMOWriteStats(unsigned char update)
                 botPixOut = cnt3;
                 clrPixIn = cnt4;
                 copyClks = cnt5;
-                DemoStatClocks = GXReadGP0Metric();
+                //DemoStatClocks = GXReadGP0Metric(); //todo: fix
                 GXSetGPMetric(GX_PERF0_NONE, GX_PERF1_NONE);
                 break;
             }
@@ -155,7 +155,7 @@ static void DEMOWriteStats(unsigned char update)
                 botPixOut = cnt3;
                 clrPixIn = cnt4;
                 copyClks = cnt5;
-                DemoStatClocks = GXReadGP0Metric(cnt4, cnt3, cnt2, cnt1, cnt0);
+                //DemoStatClocks = GXReadGP0Metric(cnt4, cnt3, cnt2, cnt1, cnt0); //todo: fix
                 GXReadMemMetric(&cnt0, &cnt1, &cnt2, &cnt3, &cnt4, &cnt5, &cnt6, &cnt7, &cnt8, &cnt9);
                 tcReq = cnt1;
                 GXSetGPMetric(GX_PERF0_NONE, GX_PERF1_NONE);

@@ -380,13 +380,13 @@ config.libs = [
         "pad",
         [
             Object(Matching, "dolphin/pad/PadClamp.c"),
-            Object(Matching, "dolphin/pad/pad.c"),
+            Object(NonMatching, "dolphin/pad/pad.c"), # :(
         ],
     ),
     DolphinLib(
         "ai",
         [
-            Object(Matching, "dolphin/ai.c")
+            Object(NonMatching, "dolphin/ai.c") # :(
         ]
     ),
     DolphinLib(
@@ -399,15 +399,15 @@ config.libs = [
     DolphinLib(
         "dsp",
         [
-            Object(Matching, "dolphin/dsp/dsp.c"),
+            Object(Matching, "dolphin/dsp/dsp.c"), # watch out for this
             Object(Matching, "dolphin/dsp/dsp_debug.c"),
-            Object(Matching, "dolphin/dsp/dsp_task.c")
+            Object(Matching, "dolphin/dsp/dsp_task.c") # watch out for this
         ]
     ),
     DolphinLib(
         "card",
         [
-            Object(Matching, "dolphin/card/CARDBios.c"),
+            Object(NonMatching, "dolphin/card/CARDBios.c"), # :(
             Object(Matching, "dolphin/card/CARDUnlock.c"),
             Object(Matching, "dolphin/card/CARDRdwr.c"),
             Object(Matching, "dolphin/card/CARDBlock.c"),
@@ -421,7 +421,7 @@ config.libs = [
             Object(Matching, "dolphin/card/CARDWrite.c"),
             Object(Matching, "dolphin/card/CARDDelete.c"),
             Object(Matching, "dolphin/card/CARDStat.c"),
-            Object(Matching, "dolphin/card/CARDNet.c"),
+            Object(NonMatching, "dolphin/card/CARDNet.c"), # :(
         ],
     ),
     DolphinLib(
@@ -453,8 +453,8 @@ config.libs = [
             Object(Matching, "dolphin/dvd/dvdqueue.c"),
             Object(Matching, "dolphin/dvd/dvderror.c"),
             Object(Matching, "dolphin/dvd/dvdidutils.c"),
-            Object(NonMatching, "dolphin/dvd/dvdfatal.c"),
-            Object(Matching, "dolphin/dvd/fstload.c"),
+            Object(Matching, "dolphin/dvd/dvdfatal.c"),
+            Object(Matching, "dolphin/dvd/fstload.c"), #watch out for this
         ],
     ),
     DolphinLib(
@@ -467,12 +467,12 @@ config.libs = [
     DolphinLib(
         "gba",
         [
-            Object(NonMatching, "dolphin/GBA/GBA.c"),
-            Object(NonMatching, "dolphin/GBA/GBAGetProcessStatus.c"),
-            Object(NonMatching, "dolphin/GBA/GBAJoyBoot.c"),
-            Object(NonMatching, "dolphin/GBA/GBARead.c"),
-            Object(NonMatching, "dolphin/GBA/GBAWrite.c"),
-            Object(NonMatching, "dolphin/GBA/GBAXfer.c"),
+            Object(Matching, "dolphin/GBA/GBA.c"),
+            Object(Matching, "dolphin/GBA/GBAGetProcessStatus.c"),
+            Object(Matching, "dolphin/GBA/GBAJoyBoot.c"),
+            Object(Matching, "dolphin/GBA/GBARead.c"),
+            Object(Matching, "dolphin/GBA/GBAWrite.c"),
+            Object(Matching, "dolphin/GBA/GBAXfer.c"),
             Object(NonMatching, "dolphin/GBA/GBAKey.c"),
         ],
     ),
@@ -485,12 +485,12 @@ config.libs = [
     DolphinLib(
         "os",
         [
-            Object(Matching, "dolphin/os/__start.c"),
+            Object(NonMatching, "dolphin/os/__start.c"), # :(
             Object(NonMatching, "dolphin/os/OS.c"),
             Object(NonMatching, "dolphin/os/OSAlarm.c"),
             Object(Matching, "dolphin/os/OSArena.c"),
             Object(Matching, "dolphin/os/OSAudioSystem.c"),
-            Object(Matching, "dolphin/os/OSCache.c"),
+            Object(Matching, "dolphin/os/OSCache.c"), #watch out for this
             Object(NonMatching, "dolphin/os/OSContext.c"),
             Object(NonMatching, "dolphin/os/OSError.c"),
             Object(NonMatching, "dolphin/os/OSFatal.c"),
@@ -532,7 +532,7 @@ config.libs = [
             Object(NonMatching, "TRK_MINNOW_DOLPHIN/mem_TRK.c"),
             Object(NonMatching, "TRK_MINNOW_DOLPHIN/targimpl.c"),
             Object(NonMatching, "TRK_MINNOW_DOLPHIN/targsupp.s"),
-            Object(Matching, "TRK_MINNOW_DOLPHIN/__exception.s"),
+            Object(Matching, "TRK_MINNOW_DOLPHIN/__exception.s"), # watch out for this
             Object(Matching, "TRK_MINNOW_DOLPHIN/dolphin_trk.c"),
             Object(NonMatching, "TRK_MINNOW_DOLPHIN/mpc_7xx_603e.c"),
             Object(NonMatching, "TRK_MINNOW_DOLPHIN/main_TRK.c"),
@@ -545,8 +545,8 @@ config.libs = [
     DolphinLib(
         "si",
         [
-            Object(Matching, "dolphin/si/SIBios.c"),
-            Object(Matching, "dolphin/si/SISamplingRate.c"),
+            Object(NonMatching, "dolphin/si/SIBios.c"), #was matching before :(
+            Object(NonMatching, "dolphin/si/SISamplingRate.c"), #was matching before :(
         ],
     ),
     DolphinLib(
@@ -566,7 +566,7 @@ config.libs = [
     DolphinLib(
         "demo",
         [
-            Object(Matching, "dolphin/demo/DEMOPuts.c"),
+            Object(NonMatching, "dolphin/demo/DEMOPuts.c"), # :(
             Object(NonMatching, "dolphin/demo/DEMOStats.c"),
         ],
     ),
@@ -613,9 +613,10 @@ config.libs = [
         "objects": [
             Object(NonMatching, "game/main.c"),
             Object(Matching, "game/n642Dolphin.c"),
-            Object(NonMatching, "game/nusys.c"),
+            Object(NonMatching, "nu/nusys.c"),
             Object(NonMatching, "game/memory.c"),
             Object(NonMatching, "game/sys.c"),
+            Object(Matching, "game/GCGBA.c"),
         ]
     },
     {

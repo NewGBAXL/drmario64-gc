@@ -3,7 +3,7 @@
 #include <dolphin/os.h>
 #include <dolphin/hw_regs.h>
 
-#include "__gx.h"
+#include "private/__gx.h"
 
 #ifdef DEBUG
 const char* __AIVersion = "<< Dolphin SDK - AI\tdebug build: Sep  5 2002 ??:??:?? (0x2301) >>";

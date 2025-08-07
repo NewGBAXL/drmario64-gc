@@ -315,7 +315,7 @@ static s32 __CARDStart(s32 chan, CARDCallback txCallback, CARDCallback exiCallba
 
     enabled = OSDisableInterrupts();
 
-    ASSERTLINE(784, 0 <= chan && chan < 2);
+    //ASSERTLINE(784, 0 <= chan && chan < 2);
 
     card = &__CARDBlock[chan];
     if (!card->attached) {

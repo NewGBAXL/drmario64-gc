@@ -149,6 +149,8 @@ extern "C" {
 
 #define OSHalt(msg) OSPanic(__FILE__, __LINE__, msg)
 
+#define ASSERTMSGLINE(line, expr, msg) ((void)0) //very annoying
+
 #ifdef _DEBUG
 
 #ifndef ASSERT

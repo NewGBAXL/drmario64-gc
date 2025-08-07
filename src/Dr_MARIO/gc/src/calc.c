@@ -291,7 +291,8 @@ f32 func_8007C480(s16 arg0) {
  * Convert float angle in degrees to a binary angle.
  */
 s32 angleF2S(f32 arg0) {
-    return (s32)(f32)(arg0 * (0x10000 / 360.0));
+    arg0 *= (0x10000 / 360.0);
+    return arg0;
 }
 
 /**

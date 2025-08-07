@@ -1320,7 +1320,7 @@ s32 aifRensaCheckCore(struct_game_state_data* gameStateDataRef, struct_aiFlag* a
         }
     }
 
-    if (sp18 >= 2) {
+    if (sp18 > 1) {
         if (var_s3 != 0) {
             return 2;
         }

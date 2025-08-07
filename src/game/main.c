@@ -1,4 +1,5 @@
 #include <types.h>
+#include "game/memory.h"
 
 extern s32 lbl_801F9C08[];
 
@@ -106,6 +107,44 @@ s32 lbl_800BDD38[2] = { 1, 0 };
 void fn_80006968(void) {
     fn_80006CF4();
     lbl_800BDD38[0] = 0;
+}
+
+extern lbl_800CAF90;
+
+void fn_80006CF4(void) {
+    lbl_800CAF90 = 0;
+    return;
+}
+
+//ResetSystemOnFail, tentative
+void fn_80006D04(s32 arg0) {
+    switch (arg0) {
+    case 0x27:
+        fn_80019960();
+        gc_resetSystem();
+        break;
+    case 0x29:
+        fn_80019960();
+        fn_80015830(0); //ResetSystem
+		break;
+    }
+}
+
+extern aramMemArray;
+
+void gc_soundInit(void) {
+    s32* local_8;
+    s32* local_4;
+
+    local_8 = (s32*)DoMalloc;
+    local_4 = (s32*)DoFree;
+    ARInit(&aramMemArray, 2);
+    ARQInit();
+    AIInit(0);
+    ARAlloc(0x800000);
+    sndSetHooks(&local_8);
+    sndInit(0x40, 0x30, 0x10, 1, 0, 0x800000);
+    return;
 }
 
 void fn_80006DD8(void) {

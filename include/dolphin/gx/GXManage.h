@@ -1,28 +1,36 @@
-#ifndef _DOLPHIN_GXMANAGE
-#define _DOLPHIN_GXMANAGE
+#ifndef _DOLPHIN_GX_GXMANAGE_H
+#define _DOLPHIN_GX_GXMANAGE_H
 
-#include <dolphin/gx/GXFifo.h>
+#include "dolphin/gx/GXFifo.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef void (*GXDrawDoneCallback)(void);
 typedef void (*GXDrawSyncCallback)(u16 token);
+typedef void (*GXDrawDoneCallback)(void);
 
+// Init
+s32 /*bool*/ IsWriteGatherBufferEmpty(void);
 GXFifoObj* GXInit(void* base, u32 size);
-GXDrawDoneCallback GXSetDrawDoneCallback(GXDrawDoneCallback cb);
-void GXSetDrawSync(u16 token);
-GXDrawSyncCallback GXSetDrawSyncCallback(GXDrawSyncCallback callback);
 
-void GXDrawDone(void);
-void GXSetDrawDone(void);
-void GXFlush(void);
-void GXPixModeSync(void);
+// Misc
 void GXSetMisc(GXMiscToken token, u32 val);
+void GXFlush(void);
+void GXResetWriteGatherPipe(void);
+void GXAbortFrame(void);
+void GXSetDrawSync(u16 token);
+u16 GXReadDrawSync(void);
+void GXSetDrawDone(void);
+void GXWaitDrawDone(void);
+void GXDrawDone(void);
+void GXPixModeSync(void);
+void GXTexModeSync(void);
+GXDrawSyncCallback GXSetDrawSyncCallback(GXDrawSyncCallback cb);
+GXDrawDoneCallback GXSetDrawDoneCallback(GXDrawDoneCallback cb);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // _DOLPHIN_GXMANAGE
+#endif

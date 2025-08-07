@@ -20,7 +20,7 @@ game/main.c:
 game/n642Dolphin.c:
 	.text       start:0x8000A5D8 end:0x8000A618
 
-game/nusys.c:
+nu/nusys.c:
 	.text       start:0x8000C478 end:0x800105B8
 
 libultra/gu/coss.c:
@@ -68,6 +68,11 @@ game/memory.c:
 
 game/sys.c:
 	.text       start:0x800124A0 end:0x800158C4
+	.data       start:0x800BE19C end:0x800BE1D0
+
+game/GCGBA.c:
+	.text       start:0x800195F0 end:0x80019618
+	.bss        start:0x801F9BE0 end:0x801F9BE8
 
 musyx/runtime/seq.c:
 	extab       start:0x80005540 end:0x800055B8
@@ -313,14 +318,14 @@ dolphin/GBA/GBAGetProcessStatus.c:
 	.text       start:0x80040CB4 end:0x80040E28
 
 dolphin/GBA/GBAJoyBoot.c:
-	.text       start:0x80040E28 end:0x80041DB8
+	.text       start:0x80040E28 end:0x80041CEC
 	.data       start:0x800C28E0 end:0x800C2910
 
 dolphin/GBA/GBARead.c:
-	.text       start:0x80041DB8 end:0x80041E7C
+	.text       start:0x80041CEC end:0x80041E4C
 
 dolphin/GBA/GBAWrite.c:
-	.text       start:0x80041E7C end:0x80041FD4
+	.text       start:0x80041E4C end:0x80041FD4
 
 dolphin/GBA/GBAXfer.c:
 	.text       start:0x80041FD4 end:0x8004230C
@@ -590,11 +595,64 @@ dolphin/card/CARDStat.c:
 	.text       start:0x800616E0 end:0x80061BC0
 
 dolphin/card/CARDNet.c:
-	.text       start:0x80061BC0 end:0x80061C3C
+	.text       start:0x80061BC0 end:0x80061BC0
 	.sdata      start:0x8022D670 end:0x8022D678
 
 dolphin/gx/GXInit.c:
-	.text       start:0x80061C3C end:0x80062D90
+	.text       start:0x80061BC0 end:0x80062D90
+	.data       start:0x800C6484 end:0x800C6570
+	.sbss       start:0x8022DC50 end:0x8022DC60
+	.sdata2     start:0x8022E050 end:0x8022E078
+
+dolphin/gx/GXFifo.c:
+	.text       start:0x80062D90 end:0x800636AC
+	.sbss       start:0x8022DC60 end:0x8022DC80
+
+dolphin/gx/GXAttr.c:
+	.text       start:0x800636AC end:0x8006481C
+	.data       start:0x800C6570 end:0x800C66D0
+	.sdata      start:0x8022D680 end:0x8022D690
+
+dolphin/gx/GXMisc.c:
+	.text       start:0x8006481C end:0x80064E10
+	.sbss       start:0x8022DC80 end:0x8022DC98
+
+dolphin/gx/GXGeometry.c:
+	.text       start:0x80064E10 end:0x800651C0
+
+dolphin/gx/GXFrameBuf.c:
+	.text       start:0x800651C0 end:0x800661D4
+	.sdata2     start:0x8022E078 end:0x8022E088
+
+dolphin/gx/GXLight.c:
+	.text       start:0x800661D4 end:0x800664CC
+
+dolphin/gx/GXTexture.c:
+	.text       start:0x800664CC end:0x80067484
+	.data       start:0x800C6914 end:0x800C6A48
+	.sdata      start:0x8022D690 end:0x8022D6D0
+	.sdata2     start:0x8022E0B8 end:0x8022E0E0
+
+dolphin/gx/GXBump.c:
+	.text       start:0x80067484 end:0x800677FC
+
+dolphin/gx/GXTev.c:
+	.text       start:0x800677FC end:0x80067EF8
+	.data       start:0x800C6A48 end:0x800C6AC0
+
+dolphin/gx/GXPixel.c:
+	.text       start:0x80067EF8 end:0x800685A4
+	.data       start:0x800C6AC0 end:0x800C6AE0
+	.sdata2     start:0x8022E0E0 end:0x8022E118
+
+dolphin/gx/GXTransform.c:
+	.text       start:0x800685A4 end:0x80068B48
+	.bss        start:0x8022CFC8 end:0x8022D540
+	.sdata2     start:0x8022E118 end:0x8022E128
+
+dolphin/gx/GXPerf.c:
+	.text       start:0x80068B48 end:0x80069B80
+	.data       start:0x800C6AE0 end:0x800C6C28
 
 dolphin/amcstubs/AmcExi2Stubs.c:
 	.text       start:0x8006A7F4 end:0x8006A824
