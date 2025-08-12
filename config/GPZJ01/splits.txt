@@ -80,6 +80,7 @@ musyx/runtime/seq.c:
 	.text       start:0x8001BC74 end:0x8001F348
 	.bss        start:0x80202100 end:0x8020F940
 	.sbss       start:0x8022D6E0 end:0x8022D700
+	.sdata2     start:0x8022DCC0 end:0x8022DCD8
 
 musyx/runtime/synth.c:
 	extab       start:0x800055B8 end:0x80005660
@@ -104,13 +105,14 @@ musyx/runtime/stream.c:
 	.text       start:0x80022E9C end:0x800239B0
 	.bss        start:0x80210F28 end:0x80212828
 	.sbss       start:0x8022D748 end:0x8022D750
+	.sdata2     start:0x8022DD18 end:0x8022DD30
 
 musyx/runtime/synthdata.c:
 	extab       start:0x80005728 end:0x800057D0
 	extabindex  start:0x80005F5C end:0x80006058
 	.text       start:0x800239B0 end:0x80025758
 	.bss        start:0x80212828 end:0x8021CE60
-	.sbss       start:0x8022D750 end:0x8022D754
+	.sbss       start:0x8022D750 end:0x8022D798
 
 musyx/runtime/synthmacros.c:
 	extab       start:0x800057D0 end:0x800058A8
@@ -118,7 +120,8 @@ musyx/runtime/synthmacros.c:
 	.text       start:0x80025758 end:0x80029300
 	.data       start:0x800BE800 end:0x800BEC48
 	.bss        start:0x8021CE60 end:0x8021CE80
-	.sbss       start:0x8022D754 end:0x8022D7B8
+	.sbss       start:0x8022D798 end:0x8022D7B8
+	.sdata2     start:0x8022DD30 end:0x8022DD50
 
 musyx/runtime/synthvoice.c:
 	extab       start:0x800058A8 end:0x800058E8
@@ -245,7 +248,7 @@ musyx/runtime/CheapReverb/creverb.c:
 	extabindex  start:0x800066D0 end:0x800066F4
 	.text       start:0x80035650 end:0x80035F00
 	.data       start:0x800C1C40 end:0x800C1C50
-	.sdata2     start:0x8022DE60 end:0x8022DE70
+	.sdata2     start:0x8022DE38 end:0x8022DE70
 
 musyx/runtime/StdReverb/reverb_fx.c:
 	extab       start:0x80005C38 end:0x80005C50
@@ -264,6 +267,7 @@ musyx/runtime/Chorus/chorus_fx.c:
 	extabindex  start:0x8000673C end:0x80006760
 	.text       start:0x80036D04 end:0x8003767C
 	.data       start:0x800C1C70 end:0x800C2470
+	.sdata2     start:0x8022DEB0 end:0x8022DEB8
 
 Runtime/__va_arg.c:
 	.text       start:0x8003767C end:0x80037770
@@ -292,6 +296,15 @@ TRK_MINNOW_DOLPHIN/mem_TRK.c:
 MSL_C.PPCEABI.bare.H/printf.c:
 	.text       start:0x80038DD0 end:0x8003A8A0
 
+TRK_MINNOW_DOLPHIN/mainloop.c:
+	.text       start:0x8003C1B4 end:0x8003C31C
+
+TRK_MINNOW_DOLPHIN/nubevent.c:
+	.text       start:0x8003C31C end:0x8003C45C
+
+TRK_MINNOW_DOLPHIN/nubinit.c:
+	.text       start:0x8003C45C end:0x8003C670
+
 TRK_MINNOW_DOLPHIN/flush_cache.c:
 	.text       start:0x8003E9F0 end:0x8003EA28
 
@@ -307,6 +320,12 @@ TRK_MINNOW_DOLPHIN/dolphin_trk.c:
 	.text       start:0x800400C8 end:0x80040308
 	.data       start:0x800C2870 end:0x800C28B0
 	.bss        start:0x8022B610 end:0x8022B618
+
+TRK_MINNOW_DOLPHIN/main_TRK.c:
+	.text       start:0x80040680 end:0x800406C8
+
+TRK_MINNOW_DOLPHIN/dolphin_trk_glue.c:
+	.text       start:0x800406C8 end:0x80040788
 
 dolphin/GBA/GBA.c:
 	.text       start:0x80040A54 end:0x80040CB4
@@ -403,6 +422,10 @@ dolphin/os/OSResetSW.c:
 	.text       start:0x80047D50 end:0x800480DC
 	.sbss       start:0x8022D950 end:0x8022D970
 
+dolphin/os/OSRtc.c:
+	.text       start:0x800480DC end:0x80048C2C
+	.bss        start:0x8022BBE0 end:0x8022BC38
+
 dolphin/os/__start.c:
 	.init       start:0x800051EC end:0x80005440
 
@@ -489,8 +512,14 @@ dolphin/vi.c:
 	.sdata      start:0x8022D600 end:0x8022D610
 	.sbss       start:0x8022DA88 end:0x8022DAE0
 
+dolphin/demo/DEMOInit.c:
+	.text       start:0x800548AC end:0x80055350
+	.sdata      start:0x8022D610 end:0x8022D618
+	.sbss       start:0x8022DAE4 end:0x8022DB00
+	.sdata2     start:0x8022E010 end:0x8022E020
+
 dolphin/demo/DEMOPuts.c:
-	.text       start:0x80055128 end:0x80055724
+	.text       start:0x80055350 end:0x80055724
 	.bss        start:0x8022CC70 end:0x8022CC90
 	.sbss       start:0x8022DB00 end:0x8022DB08
 	.sdata2     start:0x8022E020 end:0x8022E040
@@ -653,6 +682,11 @@ dolphin/gx/GXTransform.c:
 dolphin/gx/GXPerf.c:
 	.text       start:0x80068B48 end:0x80069B80
 	.data       start:0x800C6AE0 end:0x800C6C28
+
+OdemuExi2/DebuggerDriver.c:
+	.text       start:0x80069D74 end:0x8006A7F4
+	.sdata      start:0x8022D6D0 end:0x8022D6D1
+	.sbss       start:0x8022DC98 end:0x8022DCAD
 
 dolphin/amcstubs/AmcExi2Stubs.c:
 	.text       start:0x8006A7F4 end:0x8006A824

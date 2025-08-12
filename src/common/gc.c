@@ -25,6 +25,8 @@ void fn_2_5B98C(void) {
 }
 
 void gc_soundQuit(void) {
+	s32 unused;
+
 	sndSilence();
 	sndSetAuxProcessingCallbacks(0, 0, 0, 0xff, 0, 0, 0, 0xff, 0);
 	sndAuxCallbackShutdownChorus(&cho);
@@ -343,10 +345,10 @@ void fn_2_5EFA0() {
 void fn_2_5F26C(s32 arg0, s32* arg1) {
 	s32 uVar1;
 
-	uVar1 = DAT_8099bac0;
+	uVar1 = lbl_2_bss;
 	fn_2_5EFB8(0, arg0);
 	*arg1 = 2;
-	DAT_8099bac0 = uVar1;
+	lbl_2_bss = uVar1;
 	return;
 }
 

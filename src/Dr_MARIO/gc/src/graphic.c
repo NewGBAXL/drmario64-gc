@@ -186,7 +186,7 @@ void gfxproc_onRetrace(void) {
         break;
 
     case GRAPHIC_NO_4:
-        if (pendingGFX == 0) {
+        if (pendingGFX < 1) {
             dm_game_graphic();
         }
         break;

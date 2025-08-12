@@ -1206,11 +1206,14 @@ bool dm_broken_set(struct_game_state_data* gameStateData, GameMapCell* mapCells)
 }
 
 void dm_calc_erase_score_pos(struct_game_state_data* arg0, GameMapCell* mapCells, dm_calc_erase_score_pos_arg2* arg2) {
-    s32 row = 0;
-    s32 var_t2 = 0;
+    s32 var_t2;
+    s32 row;
 
+    //i dunno
     arg2->unk_4 = 0;
+    var_t2 = 0;
     arg2->unk_0 = 0;
+    row = 0;
 
     for (row = 0; row < GAME_MAP_ROWS - 1; row++) {
         s32 column;
@@ -6824,7 +6827,7 @@ void dm_game_init_static(void) {
     watchGameP->gameEtcSeg = heapTop;
 
     //heapTop = DecompressRomToRam(temp_a0, heapTop, romTableP[ROMDATATBL_GAME_ETC].end - temp_a0);
-    heapTop = (void*)DecompressRomToRam(temp_a0, heapTop, romTableP[ROMDATATBL_GAME_ETC].end - temp_a0);
+    heapTop = (void*)ExpandGZip(temp_a0, heapTop, romTableP[ROMDATATBL_GAME_ETC].end - temp_a0);
 
     for (i = 0; i < ARRAY_COUNT(watchGameP->unk_8AC); i++) {
         watchGameP->unk_8AC[i] = 0;

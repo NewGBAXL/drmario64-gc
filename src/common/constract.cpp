@@ -3,6 +3,8 @@
 
 #include "drmario_gc.h"
 
+extern "C" {
+
 extern s32 _ctors;
 
 void _prolog(void) {
@@ -23,3 +25,5 @@ void _epilog(void) {
 void _unresolved(void) {
     return;
 }
+
+} // extern "C"

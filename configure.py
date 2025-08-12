@@ -222,6 +222,12 @@ cflags_runtime = [
     "-inline auto,deferred",
 ]
 
+cflags_odemuexi = [
+    *cflags_base,
+    "-inline deferred",
+    "-schedule on",
+]
+
 cflags_musyx = [
     "-proc gekko",
     "-nodefaults",
@@ -237,7 +243,7 @@ cflags_musyx = [
     "-str reuse,pool,readonly",
     "-fp_contract off",
     "-DMUSY_TARGET=MUSY_TARGET_DOLPHIN",
-    "-sym on"
+    "-sym on",
 ]
 
 cflags_musyx_debug = [
@@ -308,7 +314,7 @@ def DolphinLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
         "objects": objects,
     }
 
-def MusyX(objects, mw_version="GC/1.2.5", debug=False, major=1, minor=5, patch=4):
+def MusyX(objects, mw_version="GC/1.2.5n", debug=False, major=1, minor=5, patch=4):
     cflags = cflags_musyx if not debug else cflags_musyx_debug
     return {
         "lib": "musyx",
@@ -476,6 +482,14 @@ config.libs = [
             Object(NonMatching, "dolphin/GBA/GBAKey.c"),
         ],
     ),
+    {
+        "lib": "OdemuExi2",
+        "mw_version": "GC/1.2.5n",
+        "cflags": cflags_odemuexi,
+        "objects": [
+            Object(Matching, "OdemuExi2/DebuggerDriver.c"),
+        ],
+    },
     DolphinLib(
         "amcstubs",
         [
@@ -564,8 +578,15 @@ config.libs = [
         ],
     ),
     DolphinLib(
+        "init",
+        [
+            Object(NonMatching, "dolphin/init.c"),
+        ],
+    ),
+    DolphinLib(
         "demo",
         [
+            Object(NonMatching, "dolphin/demo/DEMOInit.c"),
             Object(NonMatching, "dolphin/demo/DEMOPuts.c"), # :(
             Object(NonMatching, "dolphin/demo/DEMOStats.c"),
         ],

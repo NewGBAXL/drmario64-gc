@@ -10419,7 +10419,9 @@ void menuAll_changeMenu(struct_watchMenu* arg0) {
 }
 
 void menuAll_input(struct_watchMenu* arg0) {
+    s64 unused = 0;
     s32 index = arg0->unk_111C0;
+    s64 unused2 = 0;
 
     if ((arg0->unk_111E0 > 0.0f) && (arg0->unk_111DC > 0.0f)) {
         func_8005A2EC(arg0);

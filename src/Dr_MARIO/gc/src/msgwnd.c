@@ -237,7 +237,7 @@ void msgWnd_update(MessageWnd* messageWnd) {
     s32 temp_s2 = messageWnd->unk_3C * 2 - messageWnd->unk_30;
     s32 width = msgWnd_getWidth(messageWnd);
     f32 temp_fs0 = messageWnd->unk_30 / 12.0f;
-
+    
     if (!messageWnd->unk_6C && func_8005CF20(messageWnd->unk_1C, A_BUTTON | B_BUTTON | START_BUTTON)) {
         msgWnd_skip(messageWnd);
     }
