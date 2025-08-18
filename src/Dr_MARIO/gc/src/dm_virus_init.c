@@ -12,14 +12,15 @@
 void init_map_all(GameMapCell* mapCells) {
     s32 row;
     s32 column;
-
+    
     bzero(mapCells, sizeof(GameMapCell) * GAME_MAP_ROWS * GAME_MAP_COLUMNS);
 
     for (row = 0; row < GAME_MAP_ROWS; row++) {
         
         for (column = 0; column < GAME_MAP_COLUMNS; column++) {
-            mapCells[GAME_MAP_GET_INDEX(row, column)].unk_0 = column;
-            mapCells[GAME_MAP_GET_INDEX(row, column)].unk_1 = row + 1;
+            s32 index = GAME_MAP_GET_INDEX(row, column);
+            mapCells[index].unk_0 = column;
+            mapCells[index].unk_1 = row + 1;
         }
     }
 }
@@ -97,11 +98,9 @@ s32 get_virus_color_count(GameMapCell* mapCells, u8* arg1, u8* arg2, u8* arg3) {
     s32 count = 0;
 
     for (i = 0; i < (GAME_MAP_ROWS - 1) * GAME_MAP_COLUMNS; i++) {
-        if (mapCells[i].unk_4[0] != 0) {
-            if ((mapCells[i].unk_4[2] == 0) && (mapCells[i].unk_4[4] >= 0)) {
-                sp0[mapCells[i].unk_4[3]]++;
-                count++;
-            }
+        if (mapCells[i].unk_4[0] != 0 && (mapCells[i].unk_4[2] == 0) && (mapCells[i].unk_4[4] >= 0)) {
+            sp0[mapCells[i].unk_4[3]]++;
+            count++;
         }
     }
 
@@ -112,13 +111,15 @@ s32 get_virus_color_count(GameMapCell* mapCells, u8* arg1, u8* arg2, u8* arg3) {
     return count;
 }
 
+#pragma dont_inline on
 s32 get_virus_count(GameMapCell* mapCells) {
-    u8 sp10;
-    u8 sp11;
     u8 sp12;
+    u8 sp11;
+    u8 sp10;
 
     return get_virus_color_count(mapCells, &sp10, &sp11, &sp12);
 }
+#pragma dont_inline reset
 
 void set_map(GameMapCell* mapCells, s32 column, s32 rowPlusOne, s32 arg3, s32 arg4) {
     s32 index;
@@ -281,26 +282,13 @@ void dm_virus_map_copy(struct_virus_map_data* virusMapSrc, struct_virus_map_data
 }
 
 s32 dm_get_first_virus_count(enum_evs_gamemode evsGamemode, struct_game_state_data* arg1) {
-    s32 ret;
-
     switch (evsGamemode) {
     case ENUM_EVS_GAMEMODE_1:
     case ENUM_EVS_GAMEMODE_3:
-        ret = dm_get_first_virus_count_in_new_mode(arg1->unk_16C);
-        break;
-
+        return dm_get_first_virus_count_in_new_mode(arg1->unk_16C);
     default:
-        if (arg1->unk_026 > 0x17) {
-            ret = 0x17;
-        }
-        else {
-            ret = arg1->unk_026;
-        }
-        ret = (ret + 1) * 4;
-        break;
+        return (MIN(0x17, arg1->unk_026) + 1) * 4;
     }
-
-    return ret;
 }
 
 /**
@@ -341,6 +329,12 @@ void _dm_virus_init(enum_evs_gamemode arg0, struct_game_state_data* arg1, struct
     u8 var_s4;
     u8 sp24;
     u8 sp28;
+
+    //this is wrong
+    struct_game_state_data* unused;
+    s32 extra_unused;
+    unused = arg1;
+	extra_unused = arg4;
 
     // TODO: fake label?
 loop_1:
@@ -496,10 +490,10 @@ void func_8005FC6C(struct_8005FC6C_arg0* arg0, struct_virus_map_data* virusMapDa
 }
 
 void _makeFlash_checkOrdre(struct_8005FC6C_arg0* arg0) {
-    s32 var_t2 = -1;
     s32 i;
-    s32 temp;
+    s32 var_t2 = -1;
     s32 temp_a1;
+    s32 temp;
     s32 temp_a2;
     s32 temp2;
 
@@ -579,8 +573,11 @@ s32 make_flash_virus_pos(struct_game_state_data* gameStateDataRef, struct_virus_
     s32* var_s6;
     u8(*var_s7)[0x20];
     s32 var_s3;
+    
+    s32 unused = 0; //it goes somewhere nearby
 
     gameStateDataRef->unk_164 = 3;
+    
     var_fp = 3;
     func_8005FC6C(ptr, virusMapData, virusMapDispOrder,
         dm_get_first_virus_count(ENUM_EVS_GAMEMODE_1, gameStateDataRef));

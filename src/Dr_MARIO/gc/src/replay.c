@@ -25,11 +25,8 @@ static s32 replay_player;
  * Original name: replay_record_init_buffer
  */
 void replay_record_init_buffer(void** arg0) {
-    void* temp_v0;
-
-    temp_v0 = *arg0;
-    rec_buff = temp_v0;
-    *arg0 = (u8*)temp_v0 + REPLAY_TOTAL_BUFF_SIZE;
+    rec_buff = *arg0;
+    *arg0 = rec_buff + REPLAY_TOTAL_BUFF_SIZE;
 }
 
 /**

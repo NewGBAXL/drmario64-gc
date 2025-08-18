@@ -1,4 +1,5 @@
 /**
+/**
  * Original filename: main_menu.c
  */
 
@@ -410,7 +411,7 @@ void func_800465B8(MenuItem* item, s32 arg1) {
     }
 }
 
-void func_80046614(MenuItem* item, s32 arg1) {
+void menuItem_setColorDir(MenuItem* item, s32 arg1) {
     if (((arg1 < 0) && (item->unk_68 > 0.0f)) || ((arg1 > 0) && (item->unk_68 < 0.0f))) {
         item->unk_68 = -item->unk_68;
     }
@@ -1017,7 +1018,7 @@ void menuCursor_update(MenuCursor* cursor, MenuItem* arg1) {
     func_800464BC(&cursor->unk_020, arg1);
     var_a0 = &cursor->unk_0B0;
     func_800464BC(var_a0, &cursor->unk_020);
-    if (!cursor->unk_01C.b.unk_28) {
+    if (cursor->unk_01C.b.unk_28 == 0) {
         for (i = 0; i < 4U; i++) {
             var_a0->color.arr[i] = var_a0->unk_6C[1][i] * arg1->color.arr[i];
         }
@@ -1501,7 +1502,7 @@ void func_80049034(MenuLvGauge* lvGaugeArr[], s32 count, Gfx** gfxP) {
 void func_80049080(MenuYN* yn, s32 arg1, f32 arg2) {
     MenuItem* item = &yn->unk_008;
 
-    func_80046614(item, arg1);
+    menuItem_setColorDir(item, arg1);
     item->unk_64 = arg2;
 }
 
@@ -1603,6 +1604,7 @@ void menuYN_draw(MenuYN* yn, Gfx** gfxP) {
     MenuCursor* sp18;
     Gfx* gfx = *gfxP;
     s32 i;
+    s32 unused = 0;
 
     if (menuItem_outOfScreen(item, 0x50, 0x3C)) {
         return;
@@ -1638,7 +1640,7 @@ void menuYN_draw(MenuYN* yn, Gfx** gfxP) {
 }
 
 void func_80049540(MenuMes* mes, s32 arg1, f32 arg2) {
-    func_80046614(&mes->unk_004, arg1);
+    menuItem_setColorDir(&mes->unk_004, arg1);
     mes->unk_004.unk_64 = arg2;
 }
 
@@ -2081,20 +2083,10 @@ const SeqIndex _seq_2327[] = {
  */
 void menuMusicItem_input(MenuMusicItem* menuMusicItem, s32 arg1) {
     u32 keyRep = _getKeyRep(menuMusicItem->watchMenuRef, arg1);
-    s32 temp2 = menuMusicItem->unk_008;
-    s32 temp_a0 = menuMusicItem->unk_004;
+    s32 temp2;
+    s32 temp_a0;
     s32 temp = 0;
     s32 var_s0;
-
-    if (temp2 != temp_a0) {
-        if (temp_a0 < ARRAY_COUNTU(_seq_2327)) {
-            dm_seq_play_fade(_seq_2327[temp_a0], 0x14);
-        }
-        else {
-            dm_seq_stop();
-        }
-        menuMusicItem->unk_008 = menuMusicItem->unk_004;
-    }
 
     if (keyRep & L_JPAD) {
         temp--;
@@ -2107,14 +2099,30 @@ void menuMusicItem_input(MenuMusicItem* menuMusicItem, s32 arg1) {
     if (var_s0 != menuMusicItem->unk_004) {
         dm_snd_play(SND_INDEX_63);
         menuMusicItem->unk_004 = var_s0;
+        temp_a0 = menuMusicItem->unk_004;
+        temp2 = menuMusicItem->unk_008;        
     }
+
+    if (temp2 != temp_a0) {
+        if (temp_a0 < ARRAY_COUNTU(_seq_2327)) {
+            dm_seq_play_fade(_seq_2327[temp_a0], 0x14);
+        }
+        else {
+            dm_seq_stop();
+        }
+        menuMusicItem->unk_008 = menuMusicItem->unk_004;
+    }
+
+    
 }
 
 /**
  * Original name: menuMusicItem_update
  */
 void menuMusicItem_update(MenuMusicItem* menuMusicItem, MenuItem* arg1) {
-    s32 i;
+    s32 unused2 = 0;
+    s32 i = 0;
+    s32 unused = 0;
 
     func_800464BC(&menuMusicItem->unk_010, arg1);
     func_800464F8(menuMusicItem->unk_0A0, ARRAY_COUNT(menuMusicItem->unk_0A0), &menuMusicItem->unk_010);
@@ -2195,10 +2203,8 @@ void menuMusicItem_draw2(MenuMusicItem** musicItemArr, s32 count, Gfx** gxfP) {
     }
 
     func_80048634(arr, count, &gfx);
-
+    DoFree(arr);
     *gxfP = gfx;
-
-	DoFree(arr);
 }
 
 void func_8004A814(MenuMusicItem* musicItemArr[], s32 arg1, Gfx** gfxP) {
@@ -2319,7 +2325,7 @@ void func_8004AC98(MenuComLvPanel* comLvPanel, s32 arg1, f32 arg2) {
     MenuItem* item = &comLvPanel->unk_008;
 
     func_800467E0(item);
-    func_80046614(item, arg1);
+    menuItem_setColorDir(item, arg1);
     item->unk_64 = arg2;
 }
 
@@ -2453,7 +2459,7 @@ void menuCont_setFade(MenuCont* cont, s32 arg1, f32 arg2) {
         func_800467E0(temp_s0);
         temp_s0->unk_68 = 0.05f;
         temp_s0->unk_64 = arg2;
-        func_80046614(temp_s0, arg1);
+        menuItem_setColorDir(temp_s0, arg1);
     }
 
     for (i = 0; i < ARRAY_COUNTU(cont->unk_364); i++) {
@@ -2861,9 +2867,12 @@ void menuNameSelPanel_input1(MenuNameSelPanel* nameSelPanel, s32 arg1) {
         }
         else {
             s32 var_s0 = var_s1 >> 1;
+            s32 var_s1_2;
+            s32 var_s4;
             s32 var_s2 = var_s1 & 1;
-            s32 var_s4 = 0;
-            s32 var_s1_2 = 0;
+
+			var_s4 = 0;
+			var_s1_2 = 0;
 
             if (keyRep & L_JPAD) {
                 var_s1_2--;
@@ -2879,7 +2888,7 @@ void menuNameSelPanel_input1(MenuNameSelPanel* nameSelPanel, s32 arg1) {
                 var_s4++;
             }
 
-            if ((var_s4 != 0) || (var_s1_2 != 0)) {
+            if ((var_s1_2 != 0) || (var_s4 != 0)) {
                 do {
                     var_s2 = WrapI(0, 2, var_s2 + var_s1_2);
                     var_s0 += var_s4;
@@ -2930,8 +2939,8 @@ void menuNameSelPanel_input1(MenuNameSelPanel* nameSelPanel, s32 arg1) {
  * Original name: menuNameSelPanel_input
  */
 bool menuNameSelPanel_input(MenuNameSelPanel* nameSelPanel) {
-    s32 var_s3 = 0;
     s32 i;
+    s32 var_s3 = 0;
 
     if ((nameSelPanel->unk_028.unk_18 < 0.0f) || (nameSelPanel->unk_028.unk_14 < 1.0f)) {
         return false;
@@ -3688,7 +3697,7 @@ void menuPlay2Panel_init(MenuPlay2Panel* play2Panel, struct_watchMenu* watchMenu
 
     menuItem_init(&play2Panel->unk_0CD0, 8, _okY_4316[arg3]);
     func_800467E0(&play2Panel->unk_0CD0);
-    func_80046614(&play2Panel->unk_0CD0, -1);
+    menuItem_setColorDir(&play2Panel->unk_0CD0, -1);
     play2Panel->unk_0CD0.unk_64 = 0.0f;
 
     for (i = 0; i < ARRAY_COUNTU(play2Panel->unk_0D60); i++) {
@@ -3893,7 +3902,7 @@ void menuPlay2Panel_update(MenuPlay2Panel* play2Panel, MenuItem* parentItem) {
         menuCursor_update(&play2Panel->unk_0D60[i], &play2Panel->unk_0034);
     }
 
-    func_80046614(&play2Panel->unk_0034, (play2Panel->unk_0028 != 0) ? -1 : 1);
+    menuItem_setColorDir(&play2Panel->unk_0034, (play2Panel->unk_0028 != 0) ? -1 : 1);
 
     i = 0;
     if ((play2Panel->unk_0028 == 0) && (play2Panel->unk_0024 == 0)) {
@@ -4617,14 +4626,14 @@ void menuMain_initPanel(MenuMain* menuMain, MainMenuMode mode, s32 arg2, s32 arg
 #if VERSION_GW
     switch (mode) {
     case MAINMENUMODE_MENUMAIN_0:
-        func_80046614(&menuMain->unk_003C[arg2].unk_0B8[1], -1);
+        menuItem_setColorDir(&menuMain->unk_003C[arg2].unk_0B8[1], -1);
         menuMain->unk_003C[arg2].unk_0B8[1].unk_64 = 0;
-        func_80046614(&menuMain->unk_003C[arg2].unk_0B8[2], -1);
+        menuItem_setColorDir(&menuMain->unk_003C[arg2].unk_0B8[2], -1);
         menuMain->unk_003C[arg2].unk_0B8[2].unk_64 = 0;
         break;
 
     case MAINMENUMODE_47:
-        func_80046614(&menuMain->unk_003C[arg2].unk_0B8[1], -1);
+        menuItem_setColorDir(&menuMain->unk_003C[arg2].unk_0B8[1], -1);
         menuMain->unk_003C[arg2].unk_0B8[1].unk_64 = 0;
         break;
 
@@ -6391,7 +6400,7 @@ void menuStory_update(MenuStory* menuStory) {
     func_800464BC(&menuStory->unk_0040, rootItem);
 
     for (i = 0; i < ARRAY_COUNTU(menuStory->unk_0160); i++) {
-        func_80046614(&menuStory->unk_0160[i], (i == menuStory->unk_0028[0]) ? 1 : -1);
+        menuItem_setColorDir(&menuStory->unk_0160[i], (i == menuStory->unk_0028[0]) ? 1 : -1);
     }
 
     func_800464BC(&menuStory->unk_00D0, &menuStory->unk_0040);
@@ -6427,8 +6436,8 @@ void menuStory_update(MenuStory* menuStory) {
 
     i = (menuStory->unk_0028[2] >= 5) ? -1 : 1;
 
-    func_80046614(&menuStory->unk_0FFC[0], i);
-    func_80046614(&menuStory->unk_0FFC[1], -i);
+    menuItem_setColorDir(&menuStory->unk_0FFC[0], i);
+    menuItem_setColorDir(&menuStory->unk_0FFC[1], -i);
     func_800464F8(menuStory->unk_0FFC, ARRAY_COUNTU(menuStory->unk_0FFC), &menuStory->unk_0F6C);
 
     for (i = 0; i < MENU_STORY_UNK_LEN_2; i++) {
@@ -6867,8 +6876,8 @@ void menuLvSel_update(MenuLvSel* menuLvSel) {
 
     switch (menuLvSel->unk_0004) {
     case MAINMENUMODE_MENULVSEL_10:
-        menuLvSel->bottle.level = menuLvSel->unk_0004;
         menuLvSel->gameLvlIcon.unk_8 = menuLvSel->gameLvlSelector.unk_008;
+        menuLvSel->bottle.level = menuLvSel->unk_0004;
         break;
 
     case MAINMENUMODE_MENULVSEL_13:
@@ -6926,8 +6935,8 @@ void menuLvSel_update(MenuLvSel* menuLvSel) {
 
     case MAINMENUMODE_MENULVSEL_10:
     case MAINMENUMODE_MENULVSEL_13:
-        menuLvSel->gameLvlSelector.unk_00C = i;
         menuLvSel->gameLvlSelector.unk_404.unk_01C.b.unk_30 = i;
+        menuLvSel->gameLvlSelector.unk_00C = i;
         break;
 
     default:
@@ -6936,8 +6945,8 @@ void menuLvSel_update(MenuLvSel* menuLvSel) {
     menuLvSel->unk_162C[0].unk_01C.b.unk_31 = i;
 
     i = menuLvSel->unk_256C == 1;
-    menuLvSel->speedSelector.unk_00C = i;
     menuLvSel->speedSelector.unk_404.unk_01C.b.unk_30 = i;
+    menuLvSel->speedSelector.unk_00C = i;
     menuLvSel->unk_162C[1].unk_01C.b.unk_31 = i;
 
     i = menuLvSel->unk_256C == 2;
@@ -7500,11 +7509,11 @@ void menuChSel_update(MenuChSel* menuChSel) {
     switch (menuChSel->unk_0028) {
     case 0:
     case 1:
-        func_80046614(&menuChSel->unk_0104, (menuChSel->unk_002C != 0) ? 1 : -1);
+        menuItem_setColorDir(&menuChSel->unk_0104, (menuChSel->unk_002C != 0) ? 1 : -1);
         break;
 
     default:
-        func_80046614(&menuChSel->unk_0104, -1);
+        menuItem_setColorDir(&menuChSel->unk_0104, -1);
         break;
     }
 
@@ -7514,10 +7523,10 @@ void menuChSel_update(MenuChSel* menuChSel) {
 
     for (i = 0; i < MENU_CH_SEL_UNK_LEN; i++) {
         if (menuChSel_checkSelected(menuChSel, -1, i, 1)) {
-            func_80046614(&menuChSel->unk_0A04[i], -1);
+            menuItem_setColorDir(&menuChSel->unk_0A04[i], -1);
         }
         else {
-            func_80046614(&menuChSel->unk_0A04[i], 1);
+            menuItem_setColorDir(&menuChSel->unk_0A04[i], 1);
         }
 
         func_800464BC(&menuChSel->unk_0A04[i], &menuChSel->unk_0194[i]);
@@ -8191,11 +8200,11 @@ void menuPlay2_update(MenuPlay2* menuPlay2) {
     switch (menuPlay2->unk_0004) {
     case 0:
     case 1:
-        func_80046614(&menuPlay2->unk_0034, 1);
+        menuItem_setColorDir(&menuPlay2->unk_0034, 1);
         break;
 
     default:
-        func_80046614(&menuPlay2->unk_0034, -1);
+        menuItem_setColorDir(&menuPlay2->unk_0034, -1);
         break;
     }
 
@@ -8605,6 +8614,7 @@ void menuNmEnt_input(MenuNmEnt* menuNmEnt) {
 
 void menuNmEnt_update(MenuNmEnt* menuNmEnt) {
     MenuItem* rootItem = _getRootItem(menuNmEnt->watchMenuRef);
+    s32 unused = 0;
 
     func_800464BC(&menuNmEnt->unk_003C, rootItem);
     func_800464BC(&menuNmEnt->unk_00CC, &menuNmEnt->unk_003C);
@@ -10031,22 +10041,26 @@ void menuRank_draw(MenuRank* menuRank, Gfx** gfxP) {
 }
 
 void _eep_writingCallback(void* arg) {
+    s32 x;
+    s32 y;
+    RecordWritingMessage* recMessage;
     struct_watchMenu* a = arg;
-    RecordWritingMessage* recMessage = &a->recMessage;
-    s32 x = (0x140 - msgWnd_getWidth(&recMessage->messageWnd)) / 2;
-    s32 y = 0xD0 - msgWnd_getHeight(&recMessage->messageWnd);
+    recMessage = &a->recMessage;
+    y = 0xD0 - msgWnd_getHeight(&recMessage->messageWnd);
+    x = (0x140 - msgWnd_getWidth(&recMessage->messageWnd)) / 2;
 
     RecWritingMsg_setPos(recMessage, x, y);
     RecWritingMsg_start(recMessage);
     setSleepTimer(500);
 }
 
-void func_80059A58(void* arg) {
-    struct_watchMenu* a = arg;
+void func_80059A58(void* arg0, void* arg1) {
+    void*/*struct_watchMenu**/ a = arg0;
 
     //todo: fix
-    //EepRom_WriteAll(_eep_writingCallback, a);
-    a->unk_111D8--;
+    //EepRom_WriteAll(_eep_writingCallback, yama_eep_retrace, (u32)a, (u32)a);
+    //a->unk_111D8--;
+    //close enough for now
 }
 
 void func_80059AA4(void* arg) {
@@ -10063,24 +10077,32 @@ void func_80059AF0(struct_watchMenu* arg0) {
     }
 }
 
+bool yama_eep_retrace(int arg0) {
+    /*if (RecWritingMsg_isEnd(arg0 + 0x159b0) == 0) {
+        RecWritingMsg_calc(arg0 + 0x159b0);
+        return true;
+    }*/
+    return false;
+}
+
 void _eepWritePlayer(struct_watchMenu* arg0) {
     RecWritingMsg_setStr(&arg0->recMessage, _mesWriting_mainmenu);
     arg0->unk_111D8++;
-    BgTasksManager_SendTask(func_80059A58, arg0);
+    //func_80059A58(arg0);
     func_80059AF0(arg0);
 }
 
 void _eepErasePlayer(struct_watchMenu* arg0) {
     RecWritingMsg_setStr(&arg0->recMessage, _mesDeleting_mainmenu);
     arg0->unk_111D8++;
-    BgTasksManager_SendTask(func_80059A58, arg0);
+    //func_80059A58(arg0);
     func_80059AF0(arg0);
 }
 
 void _eepEraseData(struct_watchMenu* arg0) {
     RecWritingMsg_setStr(&arg0->recMessage, _mesDeleting_mainmenu);
     arg0->unk_111D8++;
-    BgTasksManager_SendTask(func_80059AA4, arg0);
+    //func_80059AA4(arg0);
     func_80059AF0(arg0);
 }
 
@@ -10213,17 +10235,13 @@ void _setFadeDir(struct_watchMenu* watchMenuRef, s32 arg1) {
 /**
  * Original name: menuAll_init
  */
-/*void menuAll_init(struct_watchMenu* arg0, UNK_PTR* arg1, NNSched* sc) {
+void menuAll_init(struct_watchMenu* arg0, UNK_PTR* arg1) {
     UNK_PTR sp10 = *arg1;
-    UNK_PTR temp_v0;
+    UNK_PTR temp_v0 = 0;
     s32 i;
     RomOffsetPair* pairArray = _romDataTbl;
 
-    arg0->sched = sc;
     arg0->unk_02460 = sp10;
-
-    osCreateMesgQueue(&arg0->scMQ, arg0->scMsgBuf, ARRAY_COUNT(arg0->scMsgBuf));
-    nnScAddClient(sc, &arg0->scClient, &arg0->scMQ);
 
     for (i = 0; i < ARRAY_COUNT(arg0->unk_00048); i++) {
         arg0->unk_02448[i] = &arg0->unk_00048[i][0];
@@ -10282,9 +10300,9 @@ void _setFadeDir(struct_watchMenu* watchMenuRef, s32 arg1) {
     arg0->unk_02464 = 0x60000;
 
     for (i = 0; i < ARRAY_COUNTU(arg0->unk_02470); i++) {
-        temp_v0 = ALIGN_PTR(sp10);
+        //temp_v0 = ALIGN_PTR(sp10);
         arg0->unk_02468[i] = arg0->unk_02470[i] = temp_v0;
-        sp10 = temp_v0 + arg0->unk_02464;
+        //sp10 = temp_v0 + arg0->unk_02464;
     }
 
     for (i = 0; i < ARRAY_COUNT(game_state_data); i++) {
@@ -10294,7 +10312,7 @@ void _setFadeDir(struct_watchMenu* watchMenuRef, s32 arg1) {
 
     evs_one_game_flg = 0;
     *arg1 = sp10;
-}*/
+}
 
 void func_8005A2AC(struct_watchMenu* arg0) {
     //todo: fix later
@@ -10644,6 +10662,7 @@ void menuAll_drawBg(struct_watchMenu* arg0, Gfx** gfxP) {
 void menuAll_draw(struct_watchMenu* arg0, Gfx** gfxP) {
     s32 color;
     s32 i;
+    s32 unused = 0;
 
     arg0->unk_02448[gfx_gtask_no] = &arg0->unk_00048[gfx_gtask_no][0];
     arg0->unk_02454[gfx_gtask_no] = &arg0->unk_00C48[gfx_gtask_no][0];
@@ -10756,10 +10775,9 @@ void menuAll_draw(struct_watchMenu* arg0, Gfx** gfxP) {
 /**
  * Original name: main_menu
  */
-//todo: fix nnsched
-/*enum_main_no main_menu(NNSched* sc) {
-    UNK_PTR sp10 = Heap_bufferp;
-    struct_watchMenu* ptr = ALIGN_PTR(Heap_bufferp);
+enum_main_no main_menu() {
+    UNK_PTR sp10 = 0;//Heap_bufferp;
+    struct_watchMenu* ptr = 0;//ALIGN_PTR(Heap_bufferp);
     s32 i;
 
     if (main_old == MAIN_NO_3) {
@@ -10773,7 +10791,7 @@ void menuAll_draw(struct_watchMenu* arg0, Gfx** gfxP) {
     sp10 = &ptr[1];
     bzero(ptr, sizeof(struct_watchMenu));
     watchMenu = ptr;
-    menuAll_init(ptr, &sp10, sc);
+    menuAll_init(ptr, &sp10);
 
     evs_playmax = joyResponseCheck();
 
@@ -10845,7 +10863,6 @@ void menuAll_draw(struct_watchMenu* arg0, Gfx** gfxP) {
     graphic_no = GRAPHIC_NO_5;
 
     while (ptr->unk_111F4 != 0xF) {
-        osRecvMesg(&ptr->scMQ, NULL, OS_MESG_BLOCK);
         dm_audio_update();
     }
 
@@ -10853,7 +10870,6 @@ void menuAll_draw(struct_watchMenu* arg0, Gfx** gfxP) {
     dm_seq_stop();
 
     while ((pendingGFX != 0) || !func_8002B178() || (BgTasksManager_GetRemainingTasks() != 0)) {
-        osRecvMesg(&ptr->scMQ, NULL, OS_MESG_BLOCK);
         dm_audio_update();
     }
 
@@ -10861,7 +10877,7 @@ void menuAll_draw(struct_watchMenu* arg0, Gfx** gfxP) {
     BgTasksManager_Destroy();
 
     return ptr->unk_111D4;
-}*/
+}
 
 void graphic_menu(void) {
     struct_watchMenu* ptr = watchMenu;

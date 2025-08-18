@@ -12,6 +12,7 @@
 
 #include "libultra/guint.h"
 
+#pragma force_inline
 void guScaleF(float mf[4][4], float x, float y, float z)
 {
     guMtxIdentF(mf);
@@ -21,6 +22,7 @@ void guScaleF(float mf[4][4], float x, float y, float z)
     mf[2][2] = z;
     mf[3][3] = 1;
 }
+#pragma reset_inline
 
 void guScale(Mtx *m, float x, float y, float z)
 {

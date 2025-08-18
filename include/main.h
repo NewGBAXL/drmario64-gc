@@ -28,7 +28,7 @@ void mainproc(void *arg);
 extern enum_main_no main_no;
 extern enum_main_no main_old;
 //extern s32 __jmp_buf_tag;
-extern s32 drmario_exit_flag;
+s32 drmario_exit_flag;
 extern s32 env;
 
 typedef enum enum_evs_gamemode {

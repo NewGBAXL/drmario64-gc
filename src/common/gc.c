@@ -1,6 +1,22 @@
 #include "libultra.h"
 #include "gc.h"
 
+s32 lbl_2_bss;
+s32 lbl_2_bss_2243FC;
+s32 lbl_2_bss_224400;
+s32 lbl_2_bss_210A68;
+s32 lbl_2_bss_21437C;
+
+u32 lbl_2_bss_212D8C;
+s32 lbl_2_bss_224430;
+s32 lbl_2_bss_212D88;
+s32 lbl_2_bss_224638;
+s32 lbl_2_bss_224654;
+
+s32 lbl_2_bss_1FA728;
+s32 lbl_2_data_25274 = 0xFFFFFFFD;
+
+
 void DoMalloc(s32 arg0) {
 	if ((u32)OSAllocFromHeap(__OSCurrHeap, arg0) != 0) {
 		alloc_counter += 1;
@@ -36,7 +52,7 @@ void gc_soundQuit(void) {
 }
 
 
-s32 gc_songPlay(u32 arg0, s32 arg1) {
+struct_800FACE0 gc_songPlay(u32 arg0, s32 arg1) {
 	u32 uVar1;
 	s32 iVar2;
 	s32 uVar3; //custom data
@@ -44,12 +60,12 @@ s32 gc_songPlay(u32 arg0, s32 arg1) {
 	//gc_songStop
 	fn_2_5BBC8(arg1);
 
-	if (fn_2_3B4(songTbl, arg0) == 0) {
-		lastsong_id = 0xffffffff;
-	}
-	else {
-		lastsong_id = sndSeqPlayEx(songTbl & 0xffff, arg0 & 0xffff, fn_2_3B4(songTbl, arg0), 0, 0);
-	}
+	//if (fn_2_3B4(songTbl, arg0) == 0) {
+	//	lastsong_id = 0xffffffff;
+	//}
+	//else {
+	//	lastsong_id = sndSeqPlayEx(songTbl & 0xffff, arg0 & 0xffff, fn_2_3B4(songTbl, arg0), 0, 0);
+	//}
 	return lastsong_id;
 }
 

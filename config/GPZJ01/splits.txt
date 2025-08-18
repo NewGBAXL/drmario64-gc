@@ -48,6 +48,7 @@ libultra/gu/perspective.c:
 
 libultra/gu/rotate.c:
 	.text       start:0x80011F7C end:0x80012144
+	.rodata     start:0x8006A9A8 end:0x8006A9B0
 
 libultra/gu/rotaterpy.c:
 	.text       start:0x80012144 end:0x80012270
@@ -73,6 +74,12 @@ game/sys.c:
 game/GCGBA.c:
 	.text       start:0x800195F0 end:0x80019618
 	.bss        start:0x801F9BE0 end:0x801F9BE8
+
+game/util.c:
+	.text       start:0x8001A630 end:0x8001A750
+
+game/unzip.c:
+	.text       start:0x8001A750 end:0x8001AA00
 
 musyx/runtime/seq.c:
 	extab       start:0x80005540 end:0x800055B8

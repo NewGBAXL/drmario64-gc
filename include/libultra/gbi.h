@@ -1503,7 +1503,7 @@ typedef struct {
 		int		cmd:8;
 		int		pad1:24;
 		int             pad2:24;
-		//unsigned char	param:8;
+		unsigned /*char*/ int param : 8;
 } Gpopmtx;
 
 

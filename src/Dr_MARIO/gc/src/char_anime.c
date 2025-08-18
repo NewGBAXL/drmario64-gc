@@ -100,8 +100,8 @@ const struct_800B1B00 _centerTbl_125[] = {
  * Original name: animeSeq_init
  */
 void animeSeq_init(AnimeSeq* animeSeq, u8** arg1, UNK_TYPE4 arg2) {
-    animeSeq->unk_0C = arg1;
     animeSeq->unk_08 = -1;
+    animeSeq->unk_0C = arg1;
     animeSeq->unk_10 = arg2;
     animeSeq->unk_14 = 0;
     animeSeq->unk_18 = -1;
@@ -117,6 +117,7 @@ void func_8005E154(AnimeState* animeState, UNK_TYPE4 arg1) {
  * Original name: animeSeq_update
  */
 void animeSeq_update(AnimeSeq* animeSeq, s32 arg1) {
+    s32 unused = 0;
     while (arg1 >= 0) {
         u8* temp_a1 = &animeSeq->unk_0C[animeSeq->unk_10][animeSeq->unk_14];
 
@@ -211,9 +212,7 @@ void animeState_init(AnimeState* animeState, u8** arg1, TiTexData* arg2, UNK_TYP
  * Original name: animeState_set
  */
 void animeState_set(AnimeState* animeState, UNK_TYPE4 arg1) {
-    u8** unused;
     animeState->unk_20 = 0;
-    unused = animeState->animeSeq.unk_0C; //the compiler keep optimizing it out :(
     func_8005E154(animeState, arg1);
 }
 
@@ -248,6 +247,7 @@ bool animeState_isEnd(AnimeState* animeState) {
 }*/
 
 void animeState_initDL(AnimeState* animeState, Gfx** gfxP) {
+    //a bunch of stupid new animeState sets
     /*u32* puVar1;
     u32* puVar2;
 
@@ -321,7 +321,7 @@ void animeState_draw(AnimeState* animeState, Gfx** gfxP, f32 arg2, f32 arg3, f32
     temp_t0 = animeState->unk_1C;
     temp_a3 = &temp_t0[animeState->animeSeq.unk_18];
     if (arg4 < 0.0f) {
-        arg2 = (animeState->unk_24.unk_0 - temp_a3->info[0]) * arg4 + arg2;
+        arg2 -= (animeState->unk_24.unk_0 - temp_a3->info[0]) * arg4;
     }
     else {
         arg2 -= animeState->unk_24.unk_0 * arg4;
@@ -433,11 +433,12 @@ void animeSmog_stop(AnimeSmog* animeSmog) {
  */
 void animeSmog_update(AnimeSmog* animeSmog) {
     u32 i;
-
+    struct AnimeState* j;
     for (i = 0; i < 4; i++) {
-        animeState_update(&animeSmog->unk_000[i]);
-        if ((animeSmog->unk_120 < 0xB4) && animeState_isEnd(&animeSmog->unk_000[i]) && (rand() % 16 == 0)) {
-            animeState_set(&animeSmog->unk_000[i], 0);
+        j = &animeSmog->unk_000[i];
+        animeState_update(j);
+        if ((animeSmog->unk_120 < 0xB4) && animeState_isEnd(j) && (rand() % 16 == 0)) {
+            animeState_set(j, 0);
             animeSmog->unk_100[i].unk_0 = (rand() % 20) - 10;
             animeSmog->unk_100[i].unk_4 = (rand() % 20) - 10;
         }
@@ -452,12 +453,14 @@ void animeSmog_update(AnimeSmog* animeSmog) {
 void animeSmog_draw(AnimeSmog* animeSmog, Gfx** gfxP, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     Gfx* gfx = *gfxP;
     u32 i;
+	struct AnimeState* j;
 
     for (i = 0; i < ARRAY_COUNT(animeSmog->unk_000); i++) {
-        animeState_initIntensityDL(&animeSmog->unk_000[i], &gfx);
+        j = &animeSmog->unk_000[i];
+        animeState_initIntensityDL(j, &gfx);
 
-        if (!animeState_isEnd(&animeSmog->unk_000[i])) {
-            func_8005E998(&animeSmog->unk_000[i], &gfx, arg2 + animeSmog->unk_100[i].unk_0 * arg4,
+        if (!animeState_isEnd(j)) {
+            func_8005E998(j, &gfx, arg2 + animeSmog->unk_100[i].unk_0 * arg4,
                 arg3 + animeSmog->unk_100[i].unk_4 * arg5, arg4, arg5);
         }
     }
@@ -492,7 +495,7 @@ void loadAnimeSeq(void** heap, TiTexData** texDataDst, u8*** metadataDst, RomOff
     s32* metadataLen;
 
     //*heap = DecompressRomToRam(romOffsetStart, anime, romOffsetEnd - romOffsetStart);
-    heap = (void*)DecompressRomToRam(romOffsetStart, anime, romOffsetEnd - romOffsetStart);
+    heap = (void*)EzpandGZip(romOffsetStart, anime, romOffsetEnd - romOffsetStart);
 
     texData = (void*)((uintptr_t)anime->texData + (uintptr_t)anime);
     texDataLen = (void*)((uintptr_t)anime->texDataLen + (uintptr_t)anime);

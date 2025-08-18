@@ -3941,6 +3941,7 @@ void dm_calc_big_virus_pos(struct_game_state_data* arg0) {
 
 s32 dm_game_main_1p(void) {
     s32 temp_s3;
+    s32 unused = 0;
     struct_watchGame* watchGameP = watchGame;
     struct_game_state_data* gameStateData = &game_state_data[0];
 
@@ -4158,7 +4159,7 @@ s32 dm_set_win_2p(struct_game_state_data* gameStateDataRef, s32 arg1, s32 arg2) 
     return arg2;
 }
 
-s32 dm_set_lose_2p(struct_game_state_data* gameStateDataRef, s32 arg1, s32 arg2) {
+s32 dm_set_lose_2p(struct_game_state_data* gameStateDataRef, u32 arg1, u32 arg2) {
     s32 temp_s1 = gameStateDataRef->unk_04B;
 
     gameStateDataRef->unk_020 = 8;
@@ -4198,7 +4199,7 @@ s32 dm_set_lose_2p(struct_game_state_data* gameStateDataRef, s32 arg1, s32 arg2)
     return arg2;
 }
 
-s32 func_800675C8(struct_game_state_data* gameStateDataRef, s32 arg1) {
+s32 func_800675C8(struct_game_state_data* gameStateDataRef, u32 arg1) {
     s32 temp_s2 = gameStateDataRef->unk_04B;
 
     gameStateDataRef->unk_020 = 0xB;
@@ -4223,9 +4224,13 @@ s32 dm_set_time_attack_result_2p(struct_game_state_data** gameStateDataRefP) {
     struct_watchGame* watchGameP = watchGame;
     u32 sp18[2];
     s32 i;
-    s32 var_s5 = 0;
-    s32 var_s3 = 0;
+    s32 var_s3;
+    s32 var_s5;
+    s32 unused = 0;
 
+    var_s5 = 0;
+    var_s3 = 0;
+    
     sp18[0] = watchGameP->unk_9D0[0].unk_28;
     sp18[1] = watchGameP->unk_9D0[1].unk_28;
 
@@ -7311,11 +7316,7 @@ void func_8006F628(Gfx** gfxP) {
     *gfxP = gfx;
 }
 
-//todo: fix nnsched
-/*enum_main_no dm_game_main(NNSched* sc) {
-    OSMesgQueue scMQ;
-    OSMesg scMsgBuf[NN_SC_MAX_MESGS];
-    NNScClient scClient;
+enum_main_no dm_game_main() {
     enum_main_no ret;
     bool var_s2 = true;
     s32 var_s4;
@@ -7323,8 +7324,6 @@ void func_8006F628(Gfx** gfxP) {
 
     func_8006D0E8();
 
-    osCreateMesgQueue(&scMQ, scMsgBuf, ARRAY_COUNT(scMsgBuf));
-    nnScAddClient(sc, &scClient, &scMQ);
     BgTasksManager_Init();
 
     dm_game_init_heap();
@@ -7340,8 +7339,6 @@ void func_8006F628(Gfx** gfxP) {
     while (var_s2 || (watchGameP->unk_38C != 0x1E)) {
         s16* sp50;
 
-        osRecvMesg(&scMQ, (OSMesg*)&sp50, OS_MESG_BLOCK);
-
 #ifdef NN_SC_PERF
         if (D_80092F10_cn) {
             joyProcCore();
@@ -7352,9 +7349,9 @@ void func_8006F628(Gfx** gfxP) {
         }
 #endif
 
-        if (!MQ_IS_EMPTY(&scMQ)) {
+        /*if (!MQ_IS_EMPTY(&scMQ)) {
             D_80088105 = 1;
-        }
+        }*/
 
         if (*sp50 != 1) {
             continue;
@@ -7414,34 +7411,28 @@ void func_8006F628(Gfx** gfxP) {
     watchGameP->unk_878 = 0xF;
 
     while (watchGameP->unk_878 != 0) {
-        osRecvMesg(&scMQ, NULL, OS_MESG_BLOCK);
+        //osRecvMesg(&scMQ, NULL, OS_MESG_BLOCK);
         dm_audio_update();
     }
 
     graphic_no = GRAPHIC_NO_0;
-    memset(gFramebuffers[gCurrentFramebufferIndex ^ 1], 0xFF, sizeof(gFramebuffers[gCurrentFramebufferIndex ^ 1]));
+    //memset(gFramebuffers[gCurrentFramebufferIndex ^ 1], 0xFF, sizeof(gFramebuffers[gCurrentFramebufferIndex ^ 1]));
     dm_audio_stop();
 
-    while (!dm_audio_is_stopped() || (pendingGFX != 0)) {
-        osRecvMesg(&scMQ, NULL, OS_MESG_BLOCK);
+    /*while (!dm_audio_is_stopped() || (pendingGFX != 0)) {
+        //osRecvMesg(&scMQ, NULL, OS_MESG_BLOCK);
         dm_audio_update();
-    }
+    }*/
 
     ret = dm_game_main3(var_s4);
-
-    while (BgTasksManager_GetRemainingTasks() != 0) {
-        osRecvMesg(&scMQ, NULL, OS_MESG_BLOCK);
-    }
-    BgTasksManager_Destroy();
-
-    nnScRemoveClient(sc, &scClient);
+    drMarioRetrace(0);
 
     return ret;
 }
 
 s32 dm_game_main2(void) {
     struct_watchGame* temp_s3 = watchGame;
-    s32 var_s1 = 0;
+    u32 var_s1 = 0;
     s32 var_s4_2;
     s32 var_s0;
 
@@ -7699,7 +7690,7 @@ s32 dm_game_main2(void) {
     }
 
     return var_s4_2;
-}*/
+}
 
 /**
  * Original name: dm_game_main3
@@ -8379,17 +8370,10 @@ void func_80071A44(void) {
 /**
  * Original name: main_techmes
  */
-//todo: fix nnsched
-/*enum_main_no main_techmes(NNSched* sc) {
+enum_main_no main_techmes() {
     struct_watchGame* watchGameP;
     bool keepRunning = true;
-    OSMesgQueue scMQ;
-    OSMesg scMsgBuff[NN_SC_MAX_MESGS];
-    NNScClient scClient;
     u8 sequenceBackup;
-
-    osCreateMesgQueue(&scMQ, scMsgBuff, ARRAY_COUNT(scMsgBuff));
-    nnScAddClient(sc, &scClient, &scMQ);
 
     dm_game_init_heap();
     watchGameP = watchGame;
@@ -8410,7 +8394,6 @@ void func_80071A44(void) {
     dm_seq_play_in_game(SEQ_INDEX_23);
 
     while (keepRunning) {
-        osRecvMesg(&scMQ, NULL, OS_MESG_BLOCK);
         joyProcCore();
 
 #ifdef NN_SC_PERF
@@ -8463,15 +8446,13 @@ void func_80071A44(void) {
     graphic_no = GRAPHIC_NO_0;
     dm_audio_stop();
 
-    while (!dm_audio_is_stopped() || (pendingGFX != 0)) {
-        osRecvMesg(&scMQ, NULL, OS_MESG_BLOCK);
+    /*while (!(dm_audio_is_stopped() && pendingGFX == 0)) {
+        drMarioRetrace(0);
         dm_audio_update();
-    }
-
-    nnScRemoveClient(sc, &scClient);
+    }*/
 
     return MAIN_NO_3;
-}*/
+}
 
 void graphic_techmes(void) {
     struct_watchGame* watchGameP = watchGame;

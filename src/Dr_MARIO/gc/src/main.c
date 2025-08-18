@@ -50,7 +50,10 @@ void mainproc(void* arg) {
     osViSetSpecialFeatures(0x4a);
     joyInit(4);
     aifFirstInit();
-    while (drmario_exit_flag == 0 && __setjmp(&env)) {
+    while (true) {
+        if (drmario_exit_flag != 0 || __setjmp(&env)) {
+            break;
+        }
         iVar2 = gc_GetResetFlag();
         if (iVar2 == 3) {
             gfxTaskStartFrameCopyFunc_set(0);
@@ -95,7 +98,7 @@ void mainproc(void* arg) {
                 story_proc_no = story_proc_no + 1;
                 main_no = 2;
             }
-            else if ((story_proc_no - 10U < 2) || (story_proc_no - 0x16U < 2)) {
+            else if ((story_proc_no - 10U <= 1) || (story_proc_no - 0x16U <= 1)) {
                 main_no = 7;
             }
             else {

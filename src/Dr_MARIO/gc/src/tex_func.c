@@ -1,14 +1,54 @@
 #include "PR/ultratypes.h"
 
-void tiLoadTexData(s32* arg0, s32 arg1, s32 arg2) {
-    s32* piVar1;
+void tiLoadTexData(s32* basePtr, s32 start, s32 end) {
+    s32* alignedPtr;
+    s32* dataPtr;
+    s32 count;
+    s32 numEntries;
+    s32 val;
+    s32 ret;
+    
+    alignedPtr = (s32*)((*basePtr + 0xF) & ~0xF);
+    ret = ExpandGZip(start, alignedPtr, end - start);
+    *basePtr = ret;
+    dataPtr = (s32*)(*alignedPtr + (s32)alignedPtr);
+    *alignedPtr = (s32)dataPtr;
+    count = alignedPtr[1];
+    alignedPtr[1] = count + (s32)alignedPtr;
+
+    numEntries = *(s32*)(count + (s32)alignedPtr);
+    while (numEntries > 0) {
+        if (*dataPtr != 0) {
+            *dataPtr += (s32)alignedPtr;
+
+            val = *(s32*)*dataPtr;
+            if (val != 0) {
+                *(s32*)*dataPtr = val + (s32)alignedPtr;
+            }
+
+            val = *(s32*)(*dataPtr + 4);
+            if (val != 0) {
+                *(s32*)(*dataPtr + 4) = val + (s32)alignedPtr;
+            }
+        }
+
+        if (dataPtr[1] != 0) {
+            dataPtr[1] += (s32)alignedPtr;
+        }
+
+        dataPtr += 2;
+        numEntries--;
+    }
+    
+    
+    
+    /*s32* piVar1;
     s32* piVar2;
     s32 iVar3;
     s32 iVar4;
 
     piVar1 = (s32*)(*arg0 + 0xfU & 0xfffffff0);
-    iVar4 = ExpandGZip(arg1, piVar1, arg2 - arg1);
-    *arg0 = iVar4;
+    *arg0 = ExpandGZip(arg1, piVar1, arg2 - arg1);
     piVar2 = (s32*)(*piVar1 + (s32)piVar1);
     *piVar1 = (s32)piVar2;
     iVar4 = piVar1[1];
@@ -33,7 +73,7 @@ void tiLoadTexData(s32* arg0, s32 arg1, s32 arg2) {
             piVar2 += 2;
             //iVar4 -= 1;
         } while (iVar4 != 0);
-    }
+    }*/
     return;
 }
 

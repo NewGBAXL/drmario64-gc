@@ -34,7 +34,7 @@ void dm_audio_is_stopped(void);
 void dm_seq_play(u32 arg0);
 void _dm_seq_play(s32 arg0, SeqIndex seqIndex);
 void dm_seq_play_fade(SeqIndex seqIndex, s32 arg1);
-s32 _dm_seq_play_fade(s32 arg0, s32 arg1, s32 arg2);
+s32 _dm_seq_play_fade(s32 arg0, SeqIndex seqIndex, s32 arg2);
 void dm_seq_play_in_game(s32 arg0);
 void _dm_seq_play_in_game(s32 arg0, s32 arg1);
 void dm_seq_stop(void);
@@ -45,13 +45,16 @@ void _dm_seq_set_volume(s32 arg0, s32 volume);
 s32 _dm_seq_is_stopped(s32 arg0);
 
 // data
-u32 sound_song_seqNo;
-u32 sound_sound_id;
-u32 sound_song_id;
+struct_800FACE0 sound_song_id;
+struct_800FACE0 sound_song_seqNo;
 u32 DAT_002d4284;
 u32 DAT_002d427c;
 u32 sound_song_frame;
 
 extern const u8 _charSE_tbl[];
+extern subproc_nuGfxFunc_cnt;
+extern bak_subproc_nuGfxFunc_cnt_195;
+extern s32 dm_snd_play_idx_196;
+extern s32 dm_snd_play_buf_194;
 
 #endif

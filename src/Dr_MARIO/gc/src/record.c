@@ -450,7 +450,7 @@ void dm_vm_ta_set(s32 arg0, s32 arg1, s32 arg2) {
 
 // Maybe arg1 is an enum?
 u8* func_80036EC8(MenuRank_unk_001C* arg0, u32 arg1, s32 arg2) {
-    u8* ret;
+    u8* ret = 0;
 
     switch (arg1) {
     case 0x0:
@@ -474,7 +474,7 @@ u8* func_80036EC8(MenuRank_unk_001C* arg0, u32 arg1, s32 arg2) {
 }
 
 u8* func_80036F1C(MenuRank_unk_001C* arg0, u32 arg1, s32 arg2) {
-    u8* ret;
+    u8* ret = 0;
 
     switch (arg1) {
     case 0x0:
@@ -971,9 +971,10 @@ void RecStory_Extract(struct_800365B0_arg0* arg0, s32 arg1) {
         struct_evs_mem_data_unk_28* temp_s0;
 
         temp_s0 = &temp_s4->unk_28[i];
-        temp_s0->unk_0 = BitField_GetBit(arg0, 0x11) * 0x64;
+        temp_s0->unk_0 = BitField_GetBit(arg0, 0x11);
+        temp_s0->unk_0 *= 0x64;
         temp_s0->unk_4 = BitField_GetBit(arg0, 0xD);
-        temp_s0->unk_8 = BitField_GetBit(arg0, 4);
+		temp_s0->unk_8 = BitField_GetBit(arg0, 4);
     }
 }
 

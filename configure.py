@@ -268,6 +268,7 @@ cflags_rel = [
     *cflags_base,
     "-sdata 0",
     "-sdata2 0",
+    "-fp_contract=off",
 ]
 
 # Metrowerks library flags
@@ -656,13 +657,13 @@ config.libs = [
             Object(NonMatching, "libultra/gu/rotate.c"),
             Object(NonMatching, "libultra/gu/rotaterpy.c"),
             Object(NonMatching, "libultra/gu/scale.c"),
-            Object(NonMatching, "libultra/gu/sins.c"),
+            Object(Matching, "libultra/gu/sins.c"),
             Object(NonMatching, "libultra/gu/translate.c"),
         ]
     },
     Rel("Dr_MARIO", [
         Object(NonMatching, "Dr_MARIO/gc/src/drmario_gc.c"),
-        Object(NonMatching, "Dr_MARIO/gc/src/drmario_gc_heap.c"),
+        Object(Matching, "Dr_MARIO/gc/src/drmario_gc_heap.c"),
         Object(NonMatching, "Dr_MARIO/gc/src/drmario_gc_gc.c"),
         Object(NonMatching, "Dr_MARIO/gc/src/drmario_gc_unk.c"),
         Object(NonMatching, "Dr_MARIO/gc/src/main_story.c"),
@@ -675,7 +676,7 @@ config.libs = [
         Object(NonMatching, "Dr_MARIO/gc/src/main.c"),
         Object(NonMatching, "Dr_MARIO/gc/src/evsworks.c"),
         Object(NonMatching, "Dr_MARIO/gc/src/lws.c"),
-        Object(NonMatching, "Dr_MARIO/gc/src/calc.c"),
+        Object(Matching, "Dr_MARIO/gc/src/calc.c"),
         Object(NonMatching, "Dr_MARIO/gc/src/dm_game_main.c"),
         Object(NonMatching, "Dr_MARIO/gc/src/joy.c"),
         Object(NonMatching, "Dr_MARIO/gc/src/sound.c"),

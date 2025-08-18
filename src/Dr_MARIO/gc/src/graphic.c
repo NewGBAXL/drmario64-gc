@@ -260,9 +260,10 @@ void gfxTaskStart(s32 arg0, s32 arg1, s32 arg2, u32 arg3) {
 
     nuGfxTaskStart2(arg0, arg1, 0, 1, taskStartFrameCopyFunc);
     if ((arg3 & 0x40) != 0) {
-        DAT_807b2040 ^= 1;
+        gCurrentFramebufferIndex ^= 1;
     }
-    wb_flag = (wb_flag + 1) % 3;
+    ++gfx_gtask_no;
+    gfx_gtask_no %= 3;
     fn_800198F8(); //main.dol
     iVar1 = GCHandover_read(1);
     if (iVar1 != 0) {

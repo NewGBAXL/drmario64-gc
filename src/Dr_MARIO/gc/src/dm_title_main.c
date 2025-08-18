@@ -85,7 +85,7 @@ enum_main_no dm_title_main() {
     VIGetRetraceCount();
     sgenrand(0);
 
-    title_fade_count = 0;
+    //title_fade_count = 0;
     title_exit_flag = 0;
     title_mode_type = 0;
     if (main_old == 6) {
@@ -199,11 +199,11 @@ enum_main_no dm_title_main() {
 void dm_title_graphic(void) {
     s32 color;
     s32 alpha;
-	//Gfx* ptr;
+	Gfx* ptr;
     
     gGfxHead = gGfxGlist[gCurrentFramebufferIndex];
 
-    //ptr = &B_800FAE80[gCurrentFramebufferIndex];
+    ptr = 0;//&B_800FAE80[gCurrentFramebufferIndex];
     //gSPSegment(gGfxHead++, 0x00, NULL);
     S2RDPinitRtn(true);
     S2ClearCFBRtn(true);
@@ -223,8 +223,8 @@ void dm_title_graphic(void) {
     gSPEndDisplayList(gGfxHead++);
     osWritebackDCacheAll();
 
-    //gfxTaskStart(ptr, gGfxGlist[gCurrentFramebufferIndex],
-    //    (gGfxHead - gGfxGlist[gCurrentFramebufferIndex]) * sizeof(Gfx), 0, OS_SC_SWAPBUFFER);
+    gfxTaskStart(ptr, gGfxGlist[gCurrentFramebufferIndex],
+        (gGfxHead - gGfxGlist[gCurrentFramebufferIndex]) * sizeof(Gfx), 0, 0/*OS_SC_SWAPBUFFER*/);
 }
 
 #include "msg/dm_title_main.msg"
@@ -274,7 +274,7 @@ enum_main_no main_boot_error() {
     graphic_no = GRAPHIC_NO_0;
 
     if (main_no == MAIN_NO_10) {
-        //EepRom_WriteAll((void*)NULL, 0, 0, 0); //todo: fix new f'n proto
+        EepRom_WriteAll((void*)NULL, (void*)NULL, 0, 0, 0);
     }
 
     return MAIN_NO_3;
@@ -299,17 +299,18 @@ enum_main_no main_boot_error() {
     //gfxTaskStart(&B_800FAE80[gfx_gtask_no], gGfxGlist[gfx_gtask_no], (gGfxHead - gGfxGlist[gfx_gtask_no]) * sizeof(Gfx),
     //    0, OS_SC_SWAPBUFFER);
 }*/
+
+extern Gzip_bufferp;
+extern gp;
+
 void graphic_boot_error(void)
 {
     s32 /*undefined4**/ puVar1;
     s32 /*undefined4**/ puVar2;
     u32 uVar3;
     
-    s32 Gzip_bufferp = 0; //temp
-    s32 gp = 0; //temp
-
     uVar3 = Gzip_bufferp + 0xf;
-    gp = 0;//(undefined4*)(gfx_glist + gfx_gtask_no * 0x12000);
+    //gp = 0;//(undefined4*)(gfx_glist + gfx_gtask_no * 0x12000);
     F3RCPinitRtn();
     F3ClearFZRtn(true);
     //msgWnd_draw(uVar3 & 0xfffffff0, &gp);

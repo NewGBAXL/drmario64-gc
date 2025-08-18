@@ -401,6 +401,7 @@ void func_800770E8(Gfx** gfxP, GraphBinGeneric* graphBin) {
  * Original name: story_bg_init
  */
 void* story_bg_init(BgRomDataIndex index, void* dstAddr) {
+    n642Dolphin_AllchangeTexture();
     bgGraphic = dstAddr;
     wakuGraphic =
         ALIGN_PTR(ExpandGZip(bgRomData[index].start, dstAddr, bgRomData[index].end - bgRomData[index].start));
@@ -565,6 +566,7 @@ void func_800777E8(Gfx** gfxP, s32 arg1, s32 arg2, s32 arg3) {
 void* init_coffee_break(void* dstAddr, UNK_TYPE arg1) {
     void* temp_s0;
 
+    n642Dolphin_AllchangeTexture();
     bgGraphic = ALIGN_PTR(dstAddr);
     temp_s0 = ALIGN_PTR(
         ExpandGZip(storyRomData[STORYROMDATA_COFFEE_01].start, bgGraphic,
@@ -711,6 +713,7 @@ void* init_menu_bg(void* dstAddr, bool arg1) {
     RomOffset segmentRomEnd;
 
     bgtime = 0;
+    n642Dolphin_AllchangeTexture();
     guOrtho(&story_viewMtx, -160.0f, 160.0f, -120.0f, 120.0f, 1.0f, 2000.0f, 1.0f);
     alignedAddress = ALIGN_PTR(dstAddr);
     bgGraphic = alignedAddress;
@@ -770,6 +773,7 @@ void* init_title(void* dstAddr, bool arg1) {
     }
 
     title_wait = 0;
+    n642Dolphin_AllchangeTexture();
     guOrtho(&story_viewMtx, -160.0f, 160.0f, -120.0f, 120.0f, 1.0f, 2000.0f, 1.0f);
 
     title_data = ALIGN_PTR(dstAddr);
@@ -1817,13 +1821,13 @@ void main_story() {
     graphic_no = GRAPHIC_NO_0;
 
     //while (/*(pendingGFX != 0) || */ !dm_audio_is_stopped()) {
-    //    //osRecvMesg(&scMQ, NULL, OS_MESG_BLOCK);
+    //    drMarioRetrace(0);
     //    dm_audio_update();
     //}
 
-    //for (i = 0; i < 3; i++) {
-    //    osRecvMesg(&scMQ, NULL, OS_MESG_BLOCK);
-    //}
+    for (i = 0; i < 3; i++) {
+        drMarioRetrace(0);
+    }
 
     evs_story_no = story_proc_no;
     if (evs_story_no >= 0xC) {

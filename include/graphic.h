@@ -65,7 +65,6 @@ extern Gfx D_800883A8[];
 //extern STACK(rdp_output, RDP_OUTPUT_SIZE);
 //extern STACK(dram_stack, DRAM_STACK_SIZE);
 //extern STACK(gfxYieldBuf, GFXYIELDBUF_SIZE);
-extern u32 gfx_gtask_no;
 extern struct NNScClient gfx_client;
 extern Gfx *gGfxHead;
 extern Gfx gGfxGlist[GTASK_NO_MAX][0x1000];
@@ -79,7 +78,8 @@ extern s16 gfx_msg_no;
 
 //todo: fix function pntrs etc
 extern void* subproc_nuGfxFunc;
-extern s32 taskStartFrameCopyFunc;
+/*extern*/ s32 taskStartFrameCopyFunc;
+u32 gfx_gtask_no;
 extern s32 wb_flag;
 extern s32 DAT_807b2040;
 extern s32 lbl_2_bss_B168;

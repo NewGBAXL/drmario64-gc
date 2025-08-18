@@ -143,10 +143,10 @@ typedef struct MenuCursor {
     /* 0x01C */ union {
                     u32 w;
                     struct {
-                        bool unk_31:1;
-                        bool unk_30:1;
-                        bool unk_29:1;
-                        bool unk_28:1;
+                        unsigned unk_31:1;
+                        unsigned unk_30:1;
+                        unsigned unk_29:1;
+                        unsigned unk_28:1;
                     } b;
                 } unk_01C;
     /* 0x020 */ MenuItem unk_020;
@@ -954,8 +954,9 @@ void menuRank_update(MenuRank *menuRank);
 void menuRank_draw(MenuRank *menuRank, Gfx **gfxP);
 
 void _eep_writingCallback(void *arg);
-void func_80059A58(void *arg);
+void func_80059A58(void *arg0, void *arg1);
 void func_80059AA4(void *arg);
+bool yama_eep_retrace(int arg0);
 void func_80059AF0(struct_watchMenu *arg0);
 void _eepWritePlayer(struct_watchMenu *arg0);
 void _eepErasePlayer(struct_watchMenu *arg0);

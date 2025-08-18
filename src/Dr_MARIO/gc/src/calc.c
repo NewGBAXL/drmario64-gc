@@ -625,20 +625,26 @@ void randomize00(void) {
         oldValue1 = randomtable[i];
         oldValue2 = randomtable[i + 31];
         newValue = oldValue1 - oldValue2;
-        if (newValue < 0) {
-            newValue += 0x10000;
+        if (newValue >= 0) {
+            randomtable[i] = newValue;
         }
-        randomtable[i] = newValue;
+        else {
+            newValue += 0x10000;
+            randomtable[i] = newValue;
+        }
     }
 
     for (i = 24; i < ARRAY_COUNT(randomtable); i++) {
         oldValue1 = randomtable[i];
         oldValue2 = randomtable[i - 24];
         newValue = oldValue1 - oldValue2;
-        if (newValue < 0) {
-            newValue += 0x10000;
+        if (newValue >= 0) {
+            randomtable[i] = newValue;
         }
-        randomtable[i] = newValue;
+        else {
+            newValue += 0x10000;
+            randomtable[i] = newValue;
+        }
     }
 }
 
@@ -646,8 +652,8 @@ void randomize00(void) {
  * Original name: randomseed
  */
 void randomseed(s32 seed) {
-    s32 value;
     s32 i;
+    s32 value;
     s32 index;
 
     randomtable[ARRAY_COUNT(randomtable) - 1] = seed;

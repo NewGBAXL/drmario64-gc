@@ -18,15 +18,31 @@ void dm_audio_set_stereo(s32 mode) {
 }
 
 void dm_audio_init_driver(void) {
-    sound_song_seqNo = 0xffffffff;
-    sound_song_id = 0xffffffff;
-    DAT_002d4284 = 0xffffffff;
-    DAT_002d427c = 0xffffffff;
+    sound_song_seqNo.seqIndex[0] = 0xffffffff;
+    sound_song_id.seqIndex[1] = 0xffffffff;
+    sound_song_seqNo.seqIndex[0] = 0xffffffff;
+    sound_song_id.seqIndex[1] = 0xffffffff;
     return;
 }
 
-//todo
-void dm_audio_update(void) {}
+void dm_audio_update(void) {
+    int i;
+    struct_800FACE0* puVar4; //fix type
+    struct_800FACE0* piVar5;
+
+    piVar5 = &sound_song_seqNo;
+    puVar4 = &sound_song_id;
+    for (i = 0; i < 2; ++i) {
+        if ((0 < piVar5->seqIndex[0]) && (_dm_seq_is_stopped(i) != 0)) {
+            _dm_seq_stop(i);
+            //*puVar4 = gc_songPlay(*piVar5, i);
+            piVar5->seqIndex[0] = -1;;
+        }
+        ++piVar5;
+        ++puVar4;
+    }
+    return;
+}
 
 void dm_audio_stop(void) {
     gc_soundAllStop();
@@ -51,17 +67,25 @@ void dm_seq_play_fade(SeqIndex seqIndex, s32 arg1) {
     _dm_seq_play_fade(0, seqIndex, arg1);
 }
 
-s32 _dm_seq_play_fade(s32 arg0, s32 arg1, s32 arg2) {
+
+
+s32 _dm_seq_play_fade(s32 arg0, SeqIndex seqIndex, s32 arg2) {
     s32 iVar1;
     u32 uVar2;
+    struct_800FACE0* ptr = &sound_song_id;
 
-    if (arg1 != (&sound_song_seqNo)[arg0]) {
+    if (seqIndex != ptr->seqIndex[arg0]) {
+        return;
+    }
+
+    //todo: fix inlining
+    //func_8002D554:
         iVar1 = (arg2 * 1000) / 0x3c + (arg2 * 1000 >> 0x1f);
         uVar2 = iVar1 - (iVar1 >> 0x1f);
         _gc_songFadeSong((&sound_song_id)[arg0], 0, uVar2 & 0xffff);
-        (&sound_song_seqNo)[arg0] = arg1;
-        *(u32*)((s32)&sound_song_frame + arg0 * 4) = uVar2;
-    }
+        *(u32*)((s32)&sound_song_seqNo + arg0 * 4) = uVar2;
+
+    sound_song_seqNo.seqIndex[arg0] = seqIndex;
     return arg0;
 }
 
@@ -78,15 +102,15 @@ void _dm_seq_play_in_game(s32 arg0, s32 arg1) {
         if ((arg1 < 10) && (-1 < arg1)) {
             _dm_seq_stop(arg0);
         }
-        else if (arg1 != (&sound_song_seqNo)[arg0]) {
+        else if (arg1 != sound_song_seqNo.seqIndex[arg0]) {
             _gc_songFadeSong((&sound_song_id)[arg0], 0, 0);
-            (&sound_song_seqNo)[arg0] = arg1;
+            sound_song_seqNo.seqIndex[arg0] = arg1;
             *(s32*)((s32)&sound_song_frame + arg0 * 4) = 0;
         }
     }
-    else if (arg1 != (&sound_song_seqNo)[arg0]) {
+    else if (arg1 != sound_song_seqNo.seqIndex[arg0]) {
         _gc_songFadeSong((&sound_song_id)[arg0], 0, 0);
-        (&sound_song_seqNo)[arg0] = arg1;
+        sound_song_seqNo.seqIndex[arg0] = arg1;
         *(s32*)((s32)&sound_song_frame + arg0 * 4) = 0;
     }
     return;
@@ -101,17 +125,17 @@ void dm_seq_stop(void) {
 void _dm_seq_stop(s32 arg0) {
     s32 uVar1;
 
-    uVar1 = (&sound_sound_id)[arg0];
+    uVar1 = sound_song_id.seqIndex[arg0];
     _gc_songStop(uVar1, uVar1);
-    (&sound_sound_id)[arg0] = 0xffffffff;
+    sound_song_id.seqIndex[arg0] = 0xffffffff;
     return;
 }
 
 void fn_2_2153C(int arg0) {
-    if ((int)(&sound_song_id)[arg0] < 0) {
+    if (sound_song_seqNo.seqIndex[arg0] < 0) {
         return;
     }
-    (&sound_song_id)[arg0] = -1;
+    sound_song_seqNo.seqIndex[arg0] = -1;
     return;
 }
 
@@ -124,74 +148,70 @@ void _dm_seq_set_volume(s32 arg0, s32 volume) {
     if (volume != 0) {
         volume -= 1;
     }
-    _gc_songFadeSong((&sound_song_id)[arg0], volume & 0xff, 0);
+    _gc_songFadeSong(sound_song_id.seqIndex[arg0], volume & 0xff, 0);
     return;
 }
 
 s32 _dm_seq_is_stopped(s32 arg0) {
-    u32 uVar1;
-    s32 iVar2;
-
-    iVar2 = _gc_songGetValid((&sound_song_id)[arg0], (&sound_song_id)[arg0]);
-    uVar1 = countLeadingZeros(-iVar2);
-    return uVar1 >> 5;
+    s32 iVar2 = _gc_songGetValid(sound_song_id.seqIndex[arg0], sound_song_id.seqIndex[arg0]);
+    return (iVar2 == 0);
 }
 
 void dm_snd_play(s32 arg0) {
     s32* piVar1;
     s32 iVar2;
-
-    /*if (subproc_nuGfxFunc_cnt != bak_subproc_nuGfxFunc_cnt$195) {
-        dm_snd_play_idx$196 = 0;
+    
+    if (subproc_nuGfxFunc_cnt != bak_subproc_nuGfxFunc_cnt_195) {
+        dm_snd_play_idx_196 = 0;
     }
-    bak_subproc_nuGfxFunc_cnt$195 = subproc_nuGfxFunc_cnt;
-    if (dm_snd_play_idx$196 < 4) {
-        piVar1 = &dm_snd_play_buf$194;
-        iVar2 = dm_snd_play_idx$196;
-        if (0 < dm_snd_play_idx$196) {
-            do {
+    bak_subproc_nuGfxFunc_cnt_195 = subproc_nuGfxFunc_cnt;
+    if (dm_snd_play_idx_196 < 4) {
+        piVar1 = &dm_snd_play_buf_194;
+        if (0 < dm_snd_play_idx_196) {
+            for (iVar2 = dm_snd_play_idx_196; iVar2 != 0; --iVar2, ++piVar1) {
                 if (arg0 == *piVar1) {
                     return;
                 }
-                piVar1 = piVar1 + 1;
-                iVar2 = iVar2 + -1;
-            } while (iVar2 != 0);
+            }
         }
-        piVar1 = &dm_snd_play_buf$194 + dm_snd_play_idx$196;
-        dm_snd_play_idx$196 = dm_snd_play_idx$196 + 1;
+        piVar1 = &dm_snd_play_buf_194 + dm_snd_play_idx_196;
+        ++dm_snd_play_idx_196;
         *piVar1 = arg0;
         _gc_sePlay(arg0, 0xff, 0xff);
-    }*/
+    }
 }
 
 
-void dm_snd_play_in_game(s32 arg0)
+void dm_snd_play_in_game(s32 sndIndex)
 
 {
     s32* piVar1;
     s32 iVar2;
 
-	/*s32 evs_gamespeed = 0; //gc, fix
+	s32 evs_gamespeed = 0; //gc, fix
 
     if (evs_gamespeed < 6) {
-        if (subproc_nuGfxFunc_cnt != bak_subproc_nuGfxFunc_cnt$195) {
-            dm_snd_play_idx$196 = 0;
+        dm_snd_play(sndIndex);
+    }
+    
+    /*    if (subproc_nuGfxFunc_cnt != bak_subproc_nuGfxFunc_cnt_195) {
+            dm_snd_play_idx_196 = 0;
         }
-        bak_subproc_nuGfxFunc_cnt$195 = subproc_nuGfxFunc_cnt;
-        if (dm_snd_play_idx$196 < 4) {
-            piVar1 = &dm_snd_play_buf$194;
-            iVar2 = dm_snd_play_idx$196;
-            if (0 < dm_snd_play_idx$196) {
+        bak_subproc_nuGfxFunc_cnt_195 = subproc_nuGfxFunc_cnt;
+        if (dm_snd_play_idx_196 < 4) {
+            piVar1 = &dm_snd_play_buf_194;
+            iVar2 = dm_snd_play_idx_196;
+            if (0 < dm_snd_play_idx_196) {
                 do {
                     if (arg0 == *piVar1) {
                         return;
                     }
-                    piVar1 = piVar1 + 1;
-                    iVar2 = iVar2 + -1;
+                    ++piVar1;
+                    ++iVar2;
                 } while (iVar2 != 0);
             }
-            piVar1 = &dm_snd_play_buf$194 + dm_snd_play_idx$196;
-            dm_snd_play_idx$196 = dm_snd_play_idx$196 + 1;
+            piVar1 = &dm_snd_play_buf_194 + dm_snd_play_idx_196;
+            dm_snd_play_idx_196 = dm_snd_play_idx_196 + 1;
             *piVar1 = arg0;
             _gc_sePlay(arg0, 0xff, 0xff);
         }
