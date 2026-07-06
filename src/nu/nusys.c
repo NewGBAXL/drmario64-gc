@@ -1,16 +1,17 @@
 #include <types.h>
 #include <dolphin/os/OSAlloc.h>
 #include "libultra.h"
+#include "nu/nusys.h"
 
-int lbl_801bcad8 = 0;
-OSHeapHandle lbl_800f30c0;
-OSHeapHandle lbl_800f30c4;
-Mtx lbl_801bca94;
-Mtx lbl_800f31f4;
-Mtx lbl_800f3274;
+int lbl_801BCAD8 = 0;
+OSHeapHandle lbl_800F30C0;
+OSHeapHandle lbl_800F30C4;
+Mtx lbl_801BCA94;
+Mtx lbl_800F31F4;
+Mtx lbl_800F3274;
 
-extern lbl_8006a8f0;
-extern lbl_8006a8f4;
+extern lbl_8006A8F0;
+extern lbl_8006A8F4;
 extern lbl_8006a8f8;
 extern lbl_8006a8c0;
 extern lbl_8006a8fc;
@@ -20,17 +21,17 @@ extern lbl_800bde00;
 
 void GCNIS_nuGfxInit_relocate(void) {
     fn_8000bf24();
-    OSSetCurrentHeap(lbl_800f30c0);
-    if (OSCheckHeap(lbl_800f30c0) == -1) {
+    OSSetCurrentHeap(lbl_800F30C0);
+    if (OSCheckHeap(lbl_800F30C0) == -1) {
         NPC_ErrorPrint(0, "nusys.c", 0x18ab, "Heap Error", 0, 0, 0);
     }
-    if (lbl_800f30c4 != lbl_800f30c0) {
+    if (lbl_800F30C4 != lbl_800F30C0) {
         NPC_ErrorPrint(0, "nusys.c", 0x18ac, "Break! hCurrentHeap", 0, 0, 0);
     }
-    PSMTXIdentity(&lbl_801bca94);
-    PSMTXIdentity(&lbl_800f31f4);
-    PSMTXIdentity(&lbl_800f3274);
-    C_MTXOrtho((double)lbl_8006a8f0, (double)lbl_8006a8f4, (double)lbl_8006a8f0, (double)lbl_8006a8f8,
+    PSMTXIdentity(&lbl_801BCA94);
+    PSMTXIdentity(&lbl_800F31F4);
+    PSMTXIdentity(&lbl_800F3274);
+    C_MTXOrtho((double)lbl_8006A8F0, (double)lbl_8006A8F4, (double)lbl_8006A8F0, (double)lbl_8006a8f8,
         (double)lbl_8006a8c0, (double)lbl_8006a8fc, &lbl_800f3234);
     fn_8000bd10();
     lbl_800f30dc = lbl_800bde00;
@@ -43,13 +44,13 @@ int nuContInit(void) {
     return 0;
 }
 
-void fn_8000c5a8(void) {
-    lbl_801bcad8 = 0;
+void fn_8000C5A8(void) {
+    lbl_801BCAD8 = 0;
 }
 
-void fn_8000c5b8(void(*arg0)(s32)) {
-    lbl_801bcad8 = 1;
-    while (lbl_801bcad8 != 0) {
+void fn_8000C5B8(void(*arg0)(s32)) {
+    lbl_801BCAD8 = 1;
+    while (lbl_801BCAD8 != 0) {
         arg0(0);
     }
 }
@@ -106,6 +107,46 @@ u32 fn_80010228(u16 arg0) {
 		uVar1 = uVar1 | 0x1000;
     }
     return uVar1;
+}
+
+
+void nuContDataGetExAll(NUContData* contdata) {
+    u32 iVar1;
+    u8 uVar2;
+
+    iVar1 = NPC_GetPad(0);
+    uVar2 = NPC_PADtoN64(*(undefined2*)(iVar1 + 4));
+    *contdata = uVar2;
+    *(undefined*)(contdata + 1) = *(undefined*)(iVar1 + 10);
+    *(undefined*)((int)contdata + 3) = *(undefined*)(iVar1 + 0xb);
+    *(undefined*)(contdata + 2) = 0;
+    uVar2 = NPC_PADtoN64(*(undefined2*)(iVar1 + 6));
+    contdata[3] = uVar2;
+    /*iVar1 = NPC_GetPad(1);
+    uVar2 = NPC_PADtoN64(*(undefined2*)(iVar1 + 4));
+    contdata[4] = uVar2;
+    *(undefined*)(contdata + 5) = *(undefined*)(iVar1 + 10);
+    *(undefined*)((int)contdata + 0xb) = *(undefined*)(iVar1 + 0xb);
+    *(undefined*)(contdata + 6) = 0;
+    uVar2 = NPC_PADtoN64(*(undefined2*)(iVar1 + 6));
+    contdata[7] = uVar2;
+    iVar1 = NPC_GetPad(2);
+    uVar2 = NPC_PADtoN64(*(undefined2*)(iVar1 + 4));
+    contdata[8] = uVar2;
+    *(undefined*)(contdata + 9) = *(undefined*)(iVar1 + 10);
+    *(undefined*)((int)contdata + 0x13) = *(undefined*)(iVar1 + 0xb);
+    *(undefined*)(contdata + 10) = 0;
+    uVar2 = NPC_PADtoN64(*(undefined2*)(iVar1 + 6));
+    contdata[0xb] = uVar2;
+    iVar1 = NPC_GetPad(3);
+    uVar2 = NPC_PADtoN64(*(undefined2*)(iVar1 + 4));
+    contdata[0xc] = uVar2;
+    *(undefined*)(contdata + 0xd) = *(undefined*)(iVar1 + 10);
+    *(undefined*)((int)contdata + 0x1b) = *(undefined*)(iVar1 + 0xb);
+    *(undefined*)(contdata + 0xe) = 0;
+    uVar2 = NPC_PADtoN64(*(undefined2*)(iVar1 + 6));
+    contdata[0xf] = uVar2;*/
+    return;
 }
 
 void nuContQueryRead(u16* arg0) {
@@ -179,10 +220,29 @@ int osGetCount(void) {
     return extraout_r4;
 }
 
-int fn_800105b8(void) {
+int fn_800105B8(void) {
     return;
 }
 
-int fn_800105bc(void) {
+int fn_800105BC(void) {
     return 0;
+}
+
+//...
+
+extern void* lbl_800F4024; //todo
+
+void fn_80010EA8(void) {
+    s32 iVar1;
+    void* puVar2;
+
+    iVar1 = 0;
+    puVar2 = lbl_800F4024;
+    do {
+        OSFreeToHeap(__OSCurrHeap, puVar2);
+        ++iVar1;
+        //*puVar2 = 0;
+        //++puVar2;
+    } while (iVar1 < 0x26a);
+    return;
 }

@@ -119,13 +119,17 @@ void msgWnd_clear(MessageWnd* messageWnd) {
  */
 void msgWnd_layout(MessageWnd* messageWnd) {
     bool keepGoing = true;
-    s32 var_s5 = 0;
+    s32 sp18;
     s32 var_s6 = 0;
+    s32 var_s5 = 0;
     s32 var_s3 = messageWnd->unk_14;
-    s32 sp18 = (messageWnd->unk_3C * 2) - messageWnd->unk_30;
-    s32 width = msgWnd_getWidth(messageWnd);
-    f32 temp_fs0 = messageWnd->unk_30 / 12.0f;
-    s32 color = messageWnd->color;
+    s32 width;
+    f32 temp_fs0;
+    s32 color;
+    sp18 = (messageWnd->unk_3C * 2) - messageWnd->unk_30;
+    width = msgWnd_getWidth(messageWnd);
+    temp_fs0 = messageWnd->unk_30 / 12.0f;
+    color = messageWnd->color;
 
     messageWnd->unk_04->unk_0 = var_s3;
     messageWnd->unk_04->color = color;

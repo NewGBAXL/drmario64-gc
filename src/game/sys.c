@@ -17,6 +17,11 @@ int lbl_801daffc = 0;
 //	sndFXStartEx(fix, vol, pan, 0);
 //}
 
+void fn_800124A0(u32 fid, u8 vol, u8 pan) {
+    sndFXStartEx(fid, vol, pan, 0);
+    return;
+}
+
 void fn_800124C8(u8 mode) {
     switch (mode) {
         case 0:

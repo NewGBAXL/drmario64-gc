@@ -168,7 +168,8 @@ void fn_2_5B74C(void) {
 u16 replay_play(s32 arg0) {
     u8* temp_t0 = pRecBuff[arg0];
     u8 var_a0;
-    u8 a3; //! @bug a3 is used uninitialized
+    u8 a3 = 0; //! @bug a3 is used uninitialized
+    u16 var_a0_2;
 
     if (WaitTime[arg0] == 0) {
         if (temp_t0[PlayPos[arg0]] == 0x80) {
@@ -183,15 +184,17 @@ u16 replay_play(s32 arg0) {
         PlayPos[arg0]++;
         WaitTime[arg0] = temp_t0[PlayPos[arg0]];
         PlayPos[arg0]++;
-        var_a0 = a3 != 0x40;
+        //var_a0 = a3 != 0x40;
+        if (a3 != 0x40) {
+            var_a0 = true;
+        }
     }
     else {
         WaitTime[arg0]--;
     }
 
+    var_a0_2 = 0;
     if (var_a0) {
-        u16 var_a0_2 = 0;
-
         if (a3 & 1) {
             var_a0_2 |= 0x200;
         }

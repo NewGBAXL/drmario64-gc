@@ -58,7 +58,7 @@ void fn_2_3CC(int arg0) {
         break;
     case 0x29:
         fn_80019960();
-        fn_2_5F3F8(0);
+        gc_resetHotReset(0);
     }
     return;
 }

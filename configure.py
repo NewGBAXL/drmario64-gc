@@ -634,11 +634,14 @@ config.libs = [
         "host": False,
         "objects": [
             Object(NonMatching, "game/main.c"),
+            Object(NonMatching, "game/ticktimer.c"),
             Object(Matching, "game/n642Dolphin.c"),
             Object(NonMatching, "nu/nusys.c"),
             Object(NonMatching, "game/memory.c"),
             Object(NonMatching, "game/sys.c"),
-            Object(Matching, "game/GCGBA.c"),
+            Object(NonMatching, "game/GCGBA.c"),
+            Object(NonMatching, "game/util.c"),
+            Object(NonMatching, "game/unzip.c"),
         ]
     },
     {
@@ -659,6 +662,7 @@ config.libs = [
             Object(NonMatching, "libultra/gu/scale.c"),
             Object(Matching, "libultra/gu/sins.c"),
             Object(NonMatching, "libultra/gu/translate.c"),
+            Object(NonMatching, "libultra/gu/us2dex_emu.c"),
         ]
     },
     Rel("Dr_MARIO", [

@@ -17,11 +17,15 @@ game/main.c:
 	.data       start:0x800BDCA0 end:0x800BDD40
 	.bss        start:0x800C6C40 end:0x800CAF90
 
+game/ticktimer.c:
+	.text       start:0x8000764C end:0x800076C8
+	.bss        start:0x800F30A8 end:0x800F30C0
+
 game/n642Dolphin.c:
 	.text       start:0x8000A5D8 end:0x8000A618
 
 nu/nusys.c:
-	.text       start:0x8000C478 end:0x800105B8
+	.text       start:0x8000C478 end:0x80010F24
 
 libultra/gu/coss.c:
 	.text       start:0x80010F24 end:0x80010F48
@@ -30,11 +34,11 @@ libultra/gu/mtxcatl.c:
 	.text       start:0x80011304 end:0x8001136C
 
 libultra/gu/mtxcatf.c:
-	.text       start:0x8001136C end:0x80011548
+	.text       start:0x8001136C end:0x800115D0
 	.rodata     start:0x8006A950 end:0x8006A958
 
 libultra/gu/mtxutil.c:
-	.text       start:0x800115D0 end:0x80011904
+	.text       start:0x800115D0 end:0x80011B00
 	.rodata     start:0x8006A958 end:0x8006A970
 
 libultra/gu/normalize.c:
@@ -64,6 +68,11 @@ libultra/gu/sins.c:
 libultra/gu/translate.c:
 	.text       start:0x80012348 end:0x800123B4
 
+libultra/gu/us2dex_emu.c:
+	.text       start:0x800123B4 end:0x800123FC
+	.data       start:0x800BE190 end:0x800BE198
+	.bss        start:0x801C1368 end:0x801C13A0
+
 game/memory.c:
 	.text       start:0x800123FC end:0x800124A0
 
@@ -72,7 +81,9 @@ game/sys.c:
 	.data       start:0x800BE19C end:0x800BE1D0
 
 game/GCGBA.c:
-	.text       start:0x800195F0 end:0x80019618
+	.text       start:0x800195D4 end:0x8001970C
+	.rodata     start:0x8006B328 end:0x8006B350
+	.data       start:0x800BE558 end:0x800BE590
 	.bss        start:0x801F9BE0 end:0x801F9BE8
 
 game/util.c:

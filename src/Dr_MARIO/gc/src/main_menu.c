@@ -11,8 +11,8 @@
 #include "macros_defines.h"
 //#include "util.h"
 #include "rom_offsets.h"
-//#include "audio/sound.h"
-//#include "buffers.h"
+#include "audio/sound.h"
+#include "buffers.h"
 #include "libc/assert.h"
 #include "libc/ctype.h"
 #include "graphic.h"
@@ -3769,8 +3769,8 @@ void menuPlay2Panel_copyCursor(MenuPlay2Panel* play2Panel, MenuPlay2Panel* other
 }
 
 void menuPlay2Panel_input(MenuPlay2Panel* play2Panel, s32 arg1, s32 arg2, s32 arg3) {
-    u32 keyRep = _getKeyRep(play2Panel->watchMenuRef, arg1);
-    u32 keyTrg = _getKeyTrg(play2Panel->watchMenuRef, arg1);
+    s32 keyRep = _getKeyRep(play2Panel->watchMenuRef, arg1);
+    s32 keyTrg = _getKeyTrg(play2Panel->watchMenuRef, arg1);
     SndIndex soundIndex = SND_INDEX_INVALID;
     s32 var_a0 = 0;
     s32 var_v1;

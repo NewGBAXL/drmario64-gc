@@ -24,6 +24,7 @@ typedef struct GameMapCell {
 #define GAME_MAP_ROWS 17
 #define GAME_MAP_COLUMNS 8
 
+//having issues with the 'add' order here
 #define GAME_MAP_GET_INDEX(row, column) ((row) * GAME_MAP_COLUMNS + (column))
 #define GAME_MAP_GET_INDEX_ALT(row, column) ((column) + (row) * GAME_MAP_COLUMNS)
 

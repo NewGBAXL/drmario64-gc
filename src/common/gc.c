@@ -16,6 +16,7 @@ s32 lbl_2_bss_224654;
 s32 lbl_2_bss_1FA728;
 s32 lbl_2_data_25274 = 0xFFFFFFFD;
 
+#pragma dont_inline on
 
 void DoMalloc(s32 arg0) {
 	if ((u32)OSAllocFromHeap(__OSCurrHeap, arg0) != 0) {
@@ -69,7 +70,7 @@ struct_800FACE0 gc_songPlay(u32 arg0, s32 arg1) {
 	return lastsong_id;
 }
 
-void _gc_song_stop(s32 arg0) {
+void _gc_songStop(s32 arg0) {
 	if (arg0 != 0xffff) {
 		sndSeqStop();
 	}
@@ -350,13 +351,20 @@ void fn_2_5CFC8(s32 arg0) {
 	return;
 }
 
+//todo
+s32 fn_2_5EEA0(s32 arg0) {
+	return 0;
+}
+
 void fn_2_5EFA0() {
 	lbl_2_bss_2243FC = 0xffffffff;
 	//lbl_2_bss_224400 = 0xffffffff;
 	return;
 }
 
-//..
+void fn_2_5EFB8() {
+	return;
+}
 
 void fn_2_5F26C(s32 arg0, s32* arg1) {
 	s32 uVar1;
@@ -432,7 +440,7 @@ void gc_resetSystem(void) {
 	return;
 }
 
-void fn_2_5F3F8(s32 arg0) {
+void gc_resetHotReset(s32 arg0) {
 	OSResetSystem(1, 0, arg0);
 	return;
 }
@@ -494,6 +502,26 @@ void fn_2_5F914(void) {
 
 //..
 
+//todo
+s32 fn_2_5F940() {
+	if ((DAT_809b413c != 0) && (OSIsThreadTerminated(&DAT_809b3e10) == 0)) {
+		return 0x22;
+	}
+	DAT_809afae0 = 0;
+	DAT_809b4138 = 0x24;
+	if (OSCreateThread(&DAT_809b3e10, 0/*fn_2_5BF68*/, 0, &DAT_809b3e10, 0x2000, 0x12, 1) == 0) {
+		return 0x23;
+	}
+	else if (OSCreateThread(&DAT_809b3e10, 0/*fn_2_5FB10*/, 0, &DAT_809b3e10, 0x2000, 0x12, 1) == 0) {
+		return 0x23;
+	}
+	else {
+		OSResumeThread(&DAT_809b3e10);
+		DAT_809b413c = 1;
+		return 0x21;
+	}
+}
+
 void fn_2_5F9F8(void) {
 	if (DAT_809c57d4 == 0) {
 		OSCreateAlarm(&DAT_809c57a8);
@@ -524,14 +552,41 @@ void fn_2_5FA98(void) {
 void fn_2_5FB68(void) {
 	s32 local_c[2];
 
-	//DAT_809b4134 = fn_2_5BF24(DAT_809b4130, DAT_809b4134, DAT_809b4140, DAT_809b4144, local_c, 1);
-	//DAT_809b4138 = local_c[0];
+	DAT_809b4134 = fn_2_5BF24(DAT_809b4130, DAT_809b4134, DAT_809b4140, DAT_809b4144, local_c, 1);
+	DAT_809b4138 = local_c[0];
 	return;
 }
 
-void fn_2_5FCF0(void) {
+//todo
+s32 fn_2_5FBC0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+	if ((DAT_809b413c != 0) && (OSIsThreadTerminated(&DAT_809b3e10) == 0)) {
+		return 0x22;
+	}
+	DAT_809afae0 = 1;
+	DAT_809b4138 = 0x24;
+	DAT_809b412c = arg4;
+	DAT_809b4130 = arg0;
+	DAT_809b4134 = arg1;
+	DAT_809b4140 = arg2;
+	DAT_809b4144 = arg3;
+	if (DAT_809b4128 == 0) {
+		if (OSCreateThread(&DAT_809b3e10, 0/*fn_2_5BF68*/, 0, &DAT_809b3e10, 0x2000, 0x12, 1) == 0) {
+			return 0x23;
+		}
+	}
+	else if (OSCreateThread(&DAT_809b3e10, 0/*fn_2_5FB10*/, 0, &DAT_809b3e10, 0x2000, 0x12, 1) == 0) {
+		return 0x23;
+	}
+	else {
+		OSResumeThread(&DAT_809b3e10);
+		DAT_809b413c = 1;
+		return 0x21;
+	}
+}
+
+void fn_2_5FCF0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 	lbl_2_bss_212D88 = 0;
-	fn_2_5BFC0();
+	fn_2_5FBC0(arg0,arg1,arg2,arg3,0);
 	return;
 }
 
@@ -575,4 +630,6 @@ void fn_2_61110(s32 arg0, s32 arg1, s32 arg2) {
 	lbl_2_data_25358[2] = arg2;
 	return;
 }
+
+#pragma dont_inline reset
 

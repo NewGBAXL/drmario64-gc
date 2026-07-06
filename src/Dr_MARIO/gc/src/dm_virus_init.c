@@ -331,10 +331,9 @@ void _dm_virus_init(enum_evs_gamemode arg0, struct_game_state_data* arg1, struct
     u8 sp28;
 
     //this is wrong
-    struct_game_state_data* unused;
-    s32 extra_unused;
-    unused = arg1;
-	extra_unused = arg4;
+    //struct_game_state_data* unused;
+    //s32 extra_unused;
+    //unused = arg1;
 
     // TODO: fake label?
 loop_1:
@@ -565,16 +564,19 @@ s32 make_flash_virus_pos(struct_game_state_data* gameStateDataRef, struct_virus_
     u8 virusMapDispOrder[VIRUS_MAP_DISP_ORDER_LEN]) {
     struct_8005FC6C_arg0 sp18;
     struct_8005FC6C_arg0* ptr = &sp18;
-    s32 var_fp;
+    s32 var_fp = 0;
     s32 var_s0;
     s32 var_s1;
     s32 var_s4;
-    s32 var_v1;
+    s32 var_v1 = 0;
     s32* var_s6;
     u8(*var_s7)[0x20];
     s32 var_s3;
-    
-    s32 unused = 0; //it goes somewhere nearby
+    s32 unused;
+
+    var_s0 = 0;
+    var_s1 = 0;
+    unused = 0; //it goes somewhere nearby
 
     gameStateDataRef->unk_164 = 3;
     

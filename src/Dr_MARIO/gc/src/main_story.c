@@ -17,7 +17,7 @@ Mtx* pObjectMtx;*/
 //#include "util.h"
 #include "rom_offsets.h"
 #include "audio/sound.h"
-//#include "buffers.h"
+#include "buffers.h"
 #include "tex_func.h"
 #include "graphic.h"
 #include "main1x.h"

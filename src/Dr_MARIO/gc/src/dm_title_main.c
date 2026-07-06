@@ -9,7 +9,7 @@
 
 #include "rom_offsets.h"
 #include "audio/sound.h"
-//#include "buffers.h"
+#include "buffers.h"
 #include "dm_game_main.h"
 #include "graphic.h"
 #include "joy.h"

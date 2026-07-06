@@ -38,7 +38,7 @@ extern "C" {
 #include <types.h>
 //#include "os_thread.h" //todo: swap out with Dolphin SDK calls
 
-#if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
+//#if defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS)
 
 /**************************************************************************
  *
@@ -56,14 +56,14 @@ typedef void *OSMesg;
 /*
  * Structure for message queue
  */
-typedef struct OSMesgQueue_s {
-    OSThread    *mtqueue;       /* Queue to store threads blocked on empty mailboxes (receive) */
-    OSThread    *fullqueue;     /* Queue to store threads blocked on full mailboxes (send) */
-    s32          validCount;    /* Contains number of valid message */
-    s32          first;         /* Points to first valid message */
-    s32          msgCount;      /* Contains total # of messages */
-    OSMesg      *msg;           /* Points to message buffer array */
-} OSMesgQueue;
+//typedef struct OSMesgQueue_s {
+//    OSThread    *mtqueue;       /* Queue to store threads blocked on empty mailboxes (receive) */
+//    OSThread    *fullqueue;     /* Queue to store threads blocked on full mailboxes (send) */
+//    s32          validCount;    /* Contains number of valid message */
+//    s32          first;         /* Points to first valid message */
+//    s32          msgCount;      /* Contains total # of messages */
+//    OSMesg      *msg;           /* Points to message buffer array */
+//} OSMesgQueue;
 
 
 #endif /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
@@ -154,7 +154,7 @@ extern s32      osRecvMesg(OSMesgQueue *, OSMesg *, s32);
 extern void     osSetEventMesg(OSEvent, OSMesgQueue *, OSMesg);
 
 
-#endif  /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
+//#endif  /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 
 #ifdef _LANGUAGE_C_PLUS_PLUS
 }

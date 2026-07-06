@@ -7,8 +7,9 @@
 	$Id: us2dex_emu.c,v 1.9 1999/07/08 05:02:04 yurugi Exp $
  *---------------------------------------------------------------------*/
 #define		F3DEX_GBI
-#include	<ultra64.h>
-#include	<PR/gs2dex.h>
+
+#include "libultra/guint.h"
+#include "libultra/gs2dex.h"
 
 #define	RSP_DEBUG
 

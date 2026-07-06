@@ -1,39 +1,39 @@
 #include "PR/ultratypes.h"
 
-void tiLoadTexData(s32* basePtr, s32 start, s32 end) {
-    s32* alignedPtr;
-    s32* dataPtr;
+s32 tiLoadTexData(s32* basePtr, s32 start, s32 end) {
+    u32* alignedPtr;
+    u32* dataPtr;
     s32 count;
     s32 numEntries;
-    s32 val;
+    u32 val;
     s32 ret;
     
-    alignedPtr = (s32*)((*basePtr + 0xF) & ~0xF);
+    alignedPtr = (u32*)((*basePtr + 0xF) & ~0xF);
     ret = ExpandGZip(start, alignedPtr, end - start);
-    *basePtr = ret;
-    dataPtr = (s32*)(*alignedPtr + (s32)alignedPtr);
+    *basePtr = ret;//ExpandGZip(start, alignedPtr, end - start);
+    dataPtr = (u32*)(*alignedPtr + (u32)alignedPtr);
     *alignedPtr = (s32)dataPtr;
     count = alignedPtr[1];
-    alignedPtr[1] = count + (s32)alignedPtr;
+    alignedPtr[1] = count + (u32)alignedPtr;
 
-    numEntries = *(s32*)(count + (s32)alignedPtr);
+    numEntries = *(u32*)(count + (u32)alignedPtr);
     while (numEntries > 0) {
         if (*dataPtr != 0) {
-            *dataPtr += (s32)alignedPtr;
+            *dataPtr += (u32)alignedPtr;
 
-            val = *(s32*)*dataPtr;
+            val = *(u32*)*dataPtr;
             if (val != 0) {
-                *(s32*)*dataPtr = val + (s32)alignedPtr;
+                *(u32*)*dataPtr = val + (u32)alignedPtr;
             }
 
-            val = *(s32*)(*dataPtr + 4);
+            val = *(u32*)(*dataPtr + 4);
             if (val != 0) {
-                *(s32*)(*dataPtr + 4) = val + (s32)alignedPtr;
+                *(u32*)(*dataPtr + 4) = val + (u32)alignedPtr;
             }
         }
 
         if (dataPtr[1] != 0) {
-            dataPtr[1] += (s32)alignedPtr;
+            dataPtr[1] += (u32)alignedPtr;
         }
 
         dataPtr += 2;
@@ -74,7 +74,7 @@ void tiLoadTexData(s32* basePtr, s32 start, s32 end) {
             //iVar4 -= 1;
         } while (iVar4 != 0);
     }*/
-    return;
+    return ret;
 }
 
 //void drawCursorPattern(s32* arg0, s32 /*undefined4*/ arg1, s32 /*undefined4*/ arg2, s32 arg3, s32 arg4,

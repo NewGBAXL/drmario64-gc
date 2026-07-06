@@ -9,7 +9,7 @@
 //#include "util.h"
 //#include "gcc/memory.h"
 #include "rom_offsets.h"
-//#include "buffers.h"
+#include "buffers.h"
 
 #include "audio/sound.h"
 #include "snd_seq.h"
@@ -312,9 +312,9 @@ s32 set_down_flg(GameMapCell* mapCells) {
 
 void go_down(struct_game_state_data* gameStateData, GameMapCell* mapCells, s32 arg2) {
     bool var_a0 = false;
-    s32 row;
-    s32 j;
-
+    s32 j = 0;
+    s32 row = 0;
+    
     gameStateData->unk_036++;
     if (gameStateData->unk_036 < arg2) {
         return;
@@ -349,10 +349,11 @@ void go_down(struct_game_state_data* gameStateData, GameMapCell* mapCells, s32 a
 
     if (set_down_flg(mapCells) == 0) {
         if (dm_h_erase_chack(mapCells) || dm_w_erase_chack(mapCells)) {
+            //we like to check both options, just in case /shrug
             if (gameStateData->unk_049 == 0) {
                 gameStateData->unk_00C = GAMESTATEDATA_UNK_00C_6;
             }
-            else {
+            else if (gameStateData->unk_049 != 0) {
                 gameStateData->unk_00C = GAMESTATEDATA_UNK_00C_15;
             }
             gameStateData->unk_02F = 0;
@@ -361,7 +362,7 @@ void go_down(struct_game_state_data* gameStateData, GameMapCell* mapCells, s32 a
 			if (gameStateData->unk_049 == 0) {
                 gameStateData->unk_00C = GAMESTATEDATA_UNK_00C_9;
             }
-            else {
+            else if (gameStateData->unk_049 != 0) {
                 gameStateData->unk_00C = GAMESTATEDATA_UNK_00C_16;
             }
         }
