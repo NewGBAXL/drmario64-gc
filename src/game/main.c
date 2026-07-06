@@ -15,13 +15,13 @@ void fn_8000C0B8(void);
 void fn_8000C298(void);
 void fn_80012448(void);
 s32 fn_80012854(void);
-void fn_800128C4(void);
+void gc_gcInit(void);
 s32 fn_800158C4(void);
 void fn_800160CC(const char *, s32, s32, s32);
 s32 *fn_800160FC(void);
 void CreateResetThread(void);
 void GCHandover_write(int, int);
-void fn_800196A8(int);
+void GCGBA_800196A8(int);
 void fn_8001970C(void);
 void fn_80019C68(void);
 void fn_80019C78(void);
@@ -46,12 +46,12 @@ int main(void) {
         var_r30 = 1;
     }
     lbl_800C6C68[2] = var_r30;
-    fn_800128C4();
+    gc_gcInit();
     CreateResetThread();
     GCHandover_write(1, 0);
     GCHandover_write(7, 0);
     lbl_801F9C08[0] = 1;
-    fn_800196A8(1);
+    GCGBA_800196A8(1);
     fn_8001970C();
     fn_80006DD8();
     

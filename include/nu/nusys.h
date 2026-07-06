@@ -799,7 +799,7 @@
     extern void nuGfxInitEX2(void);
     extern void nuGfxThreadStart(void);
     extern void nuGfxTaskMgrInit(void);
-    extern void nuGfxTaskStart(Gfx* gfxList_ptr, u32 gfxListSize, u32 ucode, u32 flag);
+    //extern void nuGfxTaskStart(Gfx* gfxList_ptr, u32 gfxListSize, u32 ucode, u32 flag);
     extern void nuGfxFuncSet(/*NUGfxFunc func*/);
     //extern void nuGfxPreNMIFuncSet(NUGfxPreNMIFunc func);
     //extern void nuGfxSwapCfbFuncSet(NUGfxSwapCfbFunc func);
@@ -809,7 +809,7 @@
 
     //extern void nuGfxTaskEndFuncSet(NUGfxTaskEndFunc func);
     extern void nuGfxTaskAllEndWait(void);
-    extern void nuGfxRetraceWait(u32 retrace_num);
+    //extern void nuGfxRetraceWait(u32 retrace_num);
     extern void nuGfxDisplayOff(void);
     extern void nuGfxDisplayOn(void);
 

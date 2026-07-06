@@ -315,7 +315,7 @@ def DolphinLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
         "objects": objects,
     }
 
-def MusyX(objects, mw_version="GC/1.2.5n", debug=False, major=1, minor=5, patch=4):
+def MusyX(objects, mw_version="GC/1.2.5n", debug=False, major=1, minor=5, patch=3):
     cflags = cflags_musyx if not debug else cflags_musyx_debug
     return {
         "lib": "musyx",
