@@ -115,13 +115,13 @@ void nuContDataGetExAll(NUContData* contdata) {
     u8 uVar2;
 
     iVar1 = NPC_GetPad(0);
-    uVar2 = NPC_PADtoN64(*(undefined2*)(iVar1 + 4));
+    /*uVar2 = 0;NPC_PADtoN64(*(undefined2*)(iVar1 + 4));
     *contdata = uVar2;
     *(undefined*)(contdata + 1) = *(undefined*)(iVar1 + 10);
     *(undefined*)((int)contdata + 3) = *(undefined*)(iVar1 + 0xb);
     *(undefined*)(contdata + 2) = 0;
     uVar2 = NPC_PADtoN64(*(undefined2*)(iVar1 + 6));
-    contdata[3] = uVar2;
+    contdata[3] = uVar2;*/
     /*iVar1 = NPC_GetPad(1);
     uVar2 = NPC_PADtoN64(*(undefined2*)(iVar1 + 4));
     contdata[4] = uVar2;

@@ -833,7 +833,7 @@
     extern void nuContDataGetEx(NUContData* contdata, u32 padno);
     extern void nuContDataGetExAll(NUContData* contdata);
     //extern void nuContReadFuncSet(NUContReadFunc func);
-    extern void nuContQueryRead(void);
+    //extern void nuContQueryRead(void);
     extern void nuContDataClose(void);
     extern void nuContDataOpen(void);
 
