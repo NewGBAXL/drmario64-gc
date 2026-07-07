@@ -19,6 +19,7 @@ extern s32* gc_memoryCard_exi;
 //	sndFXStartEx(fix, vol, pan, 0);
 //}
 
+//prototype mismatch
 void fn_800124A0(u32 fid, u8 vol, u8 pan) {
     sndFXStartEx(fid, vol, pan, 0);
     return;
@@ -31,17 +32,16 @@ void gc_soundSetOutputMode(u8 mode) {
             OSSetSoundMode(0);
             GCHandover_write(9, 1);
             break;
-        case 1:
-            sndOutputMode(1);
-            OSSetSoundMode(1);
-            GCHandover_write(9, 0);
-            break;
         case 2:
             sndOutputMode(2);
             OSSetSoundMode(1);
             GCHandover_write(9, 2);
             break;
+        case 1:
         default:
+            sndOutputMode(1);
+            OSSetSoundMode(1);
+            GCHandover_write(9, 0);
             break;
 	}
 }
@@ -57,10 +57,10 @@ u8 fn_80012568(u8 arg0) {
 } */
 
 u8 gc_GetDVDDrive(void) {
-    int ret = 0;
+    u8 ret = 0;
     switch (DVDGetDriveStatus()) {
-    default:
-        ret = 0;
+    case -1:
+        ret = 0x18;
         break;
     case 4:
         ret = 0x1b;
@@ -74,8 +74,9 @@ u8 gc_GetDVDDrive(void) {
     case 0xb:
         ret = 0x20;
         break;
-    case 0xffffffff:
-        ret = 0x18;
+    default:
+        ret = 0x0;
+        break;
     }
     return ret;
 }
@@ -90,38 +91,40 @@ void gc_gcInit(void) {
 
 u8 gc_memoryCard_errorCheck(int code, char* name) {
     switch (code) { //byte casting?
-    case 0:
-		return 0;
-    case -1:
-        return 18;
+    case -128:
+		return 0x3;
     case -2:
-		return 6;
+        return 0x6;
     case -3:
-		return 2;
-	case -4:
-		return 9;
+		return 0x2;
+    case -1:
+		return 0x12;
 	case -5:
-		return 17;
+		return 0x11;
 	case -6:
-		return 5;
-	case -7:
-		return 13;
-	case -8:
-		return 14;
-	case -10:
-		return 10;
-	case -11:
-		return 15;
-	case -12:
-		return 11;
+		return 0x5;
 	case -13:
-		return 4;
+		return 0x4;
+	case 0:
+		return 0x0;
+	case -10:
+		return 0xa;
+    case -11:
+        return 0xb;
 	case -14:
-        return 12;
-	case -128:
-		return 3;
-	default:
-		return 1;
+		return 0xc;
+	case -4:
+		return 0x9;
+	case -7:
+		return 0xd;
+	case -8:
+		return 0xe;
+	case -9:
+        return 0xf;
+	case -12:
+		return 0x10;
+    default:
+		return 0x1;
     }
 }
 
@@ -167,8 +170,8 @@ int fn_8001337C(u8 chan) {
     return iVar2;
 }
 
-void gc_memoryCardChange_slot(u8 val) {
-    lbl_801C13A0 = val;
+void gc_memoryCardChange_slot(s32* val) {
+    gc_memoryCard_exi = val;
 }
 
 int gc_memoryCardFormat(u8 chan) {

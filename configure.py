@@ -636,10 +636,13 @@ config.libs = [
             Object(NonMatching, "game/main.c"),
             Object(NonMatching, "game/ticktimer.c"),
             Object(Matching, "game/n642Dolphin.c"),
+            Object(NonMatching, "game/texture.c"),
             Object(NonMatching, "nu/nusys.c"),
             Object(NonMatching, "game/memory.c"),
             Object(NonMatching, "game/sys.c"),
+            Object(NonMatching, "game/sys2.c"),
             Object(NonMatching, "game/GCGBA.c"),
+            Object(NonMatching, "game/gc2.c"),
             Object(NonMatching, "game/util.c"),
             Object(NonMatching, "game/unzip.c"),
         ]

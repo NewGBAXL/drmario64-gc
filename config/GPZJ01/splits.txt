@@ -24,6 +24,9 @@ game/ticktimer.c:
 game/n642Dolphin.c:
 	.text       start:0x8000A5D8 end:0x8000A618
 
+game/texture.c:
+	.text       start:0x8000BA40 end:0x8000C0B8
+
 nu/nusys.c:
 	.text       start:0x8000C478 end:0x80010F24
 
@@ -80,11 +83,17 @@ game/sys.c:
 	.text       start:0x800124A0 end:0x800158C4
 	.data       start:0x800BE19C end:0x800BE1D0
 
+game/sys2.c:
+	.text       start:0x800158C4 end:0x800195D4
+
 game/GCGBA.c:
 	.text       start:0x800195D4 end:0x8001970C
 	.rodata     start:0x8006B328 end:0x8006B350
 	.data       start:0x800BE558 end:0x800BE590
 	.bss        start:0x801F9BE0 end:0x801F9BE8
+
+game/gc2.c:
+	.text       start:0x8001970C end:0x8001A500
 
 game/util.c:
 	.text       start:0x8001A630 end:0x8001A750
