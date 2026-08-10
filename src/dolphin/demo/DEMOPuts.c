@@ -5,7 +5,7 @@
 #include <dolphin/gx.h>
 #include <dolphin/mtx.h>
 
-#include <dolphin/demoPriv.h>
+#include <dolphin/__demo.h>
 
 extern unsigned long DEMOFontBitmap[]; // size: 0x0, address: 0x0
 

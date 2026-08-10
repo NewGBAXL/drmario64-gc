@@ -1,48 +1,44 @@
-#include "dolphin/gx/GXPerf.h"
-#include "string.h"
 #include <dolphin.h>
-#include <dolphin/demo.h>
 #include <dolphin/gx.h>
+#include <dolphin/demo.h>
 
-#include <dolphin/demoPriv.h>
+#include "__demo.h"
 
-unsigned char DemoStatEnable = 0;
-static DemoStatData *DemoStat;
-static unsigned long DemoStatIndx;
-static unsigned long DemoStatMaxIndx;
-static unsigned long DemoStatClocks;
-static unsigned long DemoStatDisp;
-static unsigned long DemoStatStrLen;
-static unsigned long topPixIn;
-static unsigned long topPixOut;
-static unsigned long botPixIn;
-static unsigned long botPixOut;
-static unsigned long clrPixIn;
-static unsigned long copyClks;
-static unsigned long vcCheck;
-static unsigned long vcMiss;
-static unsigned long vcStall;
-static unsigned long cpReq;
-static unsigned long tcReq;
-static unsigned long cpuRdReq;
-static unsigned long cpuWrReq;
-static unsigned long dspReq;
-static unsigned long ioReq;
-static unsigned long viReq;
-static unsigned long peReq;
-static unsigned long rfReq;
-static unsigned long fiReq;
+u8 DemoStatEnable = 0;
+static DemoStatData* DemoStat;
+static u32 DemoStatIndx;
+static u32 DemoStatMaxIndx;
+static u32 DemoStatClocks;
+static u32 DemoStatDisp;
+static u32 DemoStatStrLen;
+static u32 topPixIn;
+static u32 topPixOut;
+static u32 botPixIn;
+static u32 botPixOut;
+static u32 clrPixIn;
+static u32 copyClks;
+static u32 vcCheck;
+static u32 vcMiss;
+static u32 vcStall;
+static u32 cpReq;
+static u32 tcReq;
+static u32 cpuRdReq;
+static u32 cpuWrReq;
+static u32 dspReq;
+static u32 ioReq;
+static u32 viReq;
+static u32 peReq;
+static u32 rfReq;
+static u32 fiReq;
 
-// functions
-static void DEMOWriteStats(unsigned char update);
-static void DEMOWriteStats(unsigned char update);
+// prototypes
+static void DEMOWriteStats(u8 update);
+static void DEMOWriteStats(u8 update);
 
-void DEMOSetStats(DemoStatData *stat, unsigned long nstats, DEMO_STAT_DISP disp)
-{
-    if (!stat || nstats == 0) {
+void DEMOSetStats(DemoStatData* stat, u32 nstats, DEMO_STAT_DISP disp) {
+    if (stat == 0 || nstats == 0) {
         DemoStatEnable = FALSE;
-    }
-    else {
+    } else {
         DemoStatEnable = TRUE;
         DemoStat = stat;
         DemoStatIndx = 0;
@@ -52,18 +48,17 @@ void DEMOSetStats(DemoStatData *stat, unsigned long nstats, DEMO_STAT_DISP disp)
     }
 }
 
-static void DEMOWriteStats(unsigned char update)
-{
-    unsigned long cnt0;
-    unsigned long cnt1;
-    unsigned long cnt2;
-    unsigned long cnt3;
-    unsigned long cnt4;
-    unsigned long cnt5;
-    unsigned long cnt6;
-    unsigned long cnt7;
-    unsigned long cnt8;
-    unsigned long cnt9;
+static void DEMOWriteStats(u8 update) {
+    u32 cnt0;
+    u32 cnt1;
+    u32 cnt2;
+    u32 cnt3;
+    u32 cnt4;
+    u32 cnt5;
+    u32 cnt6;
+    u32 cnt7;
+    u32 cnt8;
+    u32 cnt9;
 
     switch (DemoStat[DemoStatIndx].stat_type) {
         case DEMO_STAT_GP0:
@@ -71,20 +66,20 @@ static void DEMOWriteStats(unsigned char update)
                 cnt0 = GXReadGP0Metric();
                 DemoStat[DemoStatIndx].count = cnt0;
                 GXSetGPMetric(GX_PERF0_NONE, GX_PERF1_NONE);
-                break;
+            } else {
+                GXSetGPMetric(DemoStat[DemoStatIndx].stat, GX_PERF1_NONE);
+                GXClearGPMetric();
             }
-            GXSetGPMetric(DemoStat[DemoStatIndx].stat, GX_PERF1_NONE);
-            GXClearGPMetric();
             break;
         case DEMO_STAT_GP1:
             if (update) {
                 cnt0 = GXReadGP1Metric();
                 DemoStat[DemoStatIndx].count = cnt0;
                 GXSetGPMetric(GX_PERF0_NONE, GX_PERF1_NONE);
-                break;
+            } else {
+                GXSetGPMetric(GX_PERF0_NONE, DemoStat[DemoStatIndx].stat);
+                GXClearGPMetric();
             }
-            GXSetGPMetric(GX_PERF0_NONE, DemoStat[DemoStatIndx].stat);
-            GXClearGPMetric();
             break;
         case DEMO_STAT_MEM:
             if (update) {
@@ -99,9 +94,9 @@ static void DEMOWriteStats(unsigned char update)
                 peReq = cnt7;
                 rfReq = cnt8;
                 fiReq = cnt9;
-                break;
+            } else {
+                GXClearMemMetric();
             }
-            GXClearMemMetric();
             break;
         case DEMO_STAT_PIX:
             if (update) {
@@ -112,9 +107,9 @@ static void DEMOWriteStats(unsigned char update)
                 botPixOut = cnt3;
                 clrPixIn = cnt4;
                 copyClks = cnt5;
-                break;
+            } else {
+                GXClearPixMetric();
             }
-            GXClearPixMetric();
             break;
         case DEMO_STAT_VC:
             if (update) {
@@ -122,10 +117,10 @@ static void DEMOWriteStats(unsigned char update)
                 vcCheck = cnt0;
                 vcMiss = cnt1;
                 vcStall = cnt2;
-                break;
+            } else {
+                GXSetVCacheMetric(0);
+                GXClearVCacheMetric();
             }
-            GXSetVCacheMetric(GX_VC_POS);
-            GXClearVCacheMetric();
             break;
         case DEMO_STAT_FR:
             if (update) {
@@ -136,13 +131,13 @@ static void DEMOWriteStats(unsigned char update)
                 botPixOut = cnt3;
                 clrPixIn = cnt4;
                 copyClks = cnt5;
-                //DemoStatClocks = GXReadGP0Metric(); //todo: fix
+                DemoStatClocks = GXReadGP0Metric();
                 GXSetGPMetric(GX_PERF0_NONE, GX_PERF1_NONE);
-                break;
+            } else {
+                GXClearPixMetric();
+                GXSetGPMetric(GX_PERF0_CLOCKS, GX_PERF1_NONE);
+                GXClearGPMetric();
             }
-            GXClearPixMetric();
-            GXSetGPMetric(GX_PERF0_CLOCKS, GX_PERF1_NONE);
-            GXClearGPMetric();
             break;
         case DEMO_STAT_TBW:
         case DEMO_STAT_TBP:
@@ -155,26 +150,25 @@ static void DEMOWriteStats(unsigned char update)
                 botPixOut = cnt3;
                 clrPixIn = cnt4;
                 copyClks = cnt5;
-                //DemoStatClocks = GXReadGP0Metric(cnt4, cnt3, cnt2, cnt1, cnt0); //todo: fix
+                DemoStatClocks = GXReadGP0Metric();
                 GXReadMemMetric(&cnt0, &cnt1, &cnt2, &cnt3, &cnt4, &cnt5, &cnt6, &cnt7, &cnt8, &cnt9);
                 tcReq = cnt1;
                 GXSetGPMetric(GX_PERF0_NONE, GX_PERF1_NONE);
-                break;
+            } else {
+                GXClearMemMetric();
+                GXSetGPMetric(GX_PERF0_CLOCKS, GX_PERF1_NONE);
+                GXClearGPMetric();
             }
-            GXClearMemMetric();
-            GXSetGPMetric(GX_PERF0_CLOCKS, GX_PERF1_NONE);
-            GXClearGPMetric();
             break;
         case DEMO_STAT_MYC:
         case DEMO_STAT_MYR:
             break;
         default:
-            OSPanic("DEMOStats.c", 0x127, "DEMOSetStats: Unknown demo stat type\n");
+            OSPanic(__FILE__, 295, "DEMOSetStats: Unknown demo stat type\n");
     }
 }
 
-void DEMOUpdateStats(unsigned char inc)
-{
+void DEMOUpdateStats(u8 inc) {
     DEMOWriteStats(inc);
     if (inc) {
         DemoStatIndx = DemoStatIndx + 1;
@@ -184,16 +178,15 @@ void DEMOUpdateStats(unsigned char inc)
     }
 }
 
-void DEMOPrintStats(void)
-{
-    GXRenderModeObj *rmode;
-    unsigned long i;
-    signed short text_x;
-    signed short text_y;
-    signed short text_yinc;
-    unsigned short wd;
-    unsigned short ht;
-    float rate;
+void DEMOPrintStats(void) {
+    GXRenderModeObj* rmode;
+    u32 i;
+    s16 text_x;
+    s16 text_y;
+    s16 text_yinc;
+    u16 wd;
+    u16 ht;
+    f32 rate;
 
     if (DemoStatDisp == DEMO_STAT_IO) {
         for (i = 0; i < DemoStatMaxIndx; i++) {
@@ -221,15 +214,15 @@ void DEMOPrintStats(void)
                     }
                     break;
                 case DEMO_STAT_FR:
-                    rate = 162.0F * (topPixIn + botPixIn) / (float)(DemoStatClocks - copyClks);
+                    rate = 162.0f * (topPixIn + botPixIn) / (f32) (DemoStatClocks - copyClks);
                     OSReport("%s: %8.2f\n", DemoStat[i].text, rate);
                     break;
                 case DEMO_STAT_TBW:
-                    rate = 162.0F * (tcReq << 5) / (float)(DemoStatClocks - copyClks);
+                    rate = 162.0f * (tcReq << 5) / (f32) (DemoStatClocks - copyClks);
                     OSReport("%s: %8.2f\n", DemoStat[i].text, rate);
                     break;
                 case DEMO_STAT_TBP:
-                    rate = (tcReq << 5) / (float)(topPixIn + botPixIn);
+                    rate = (tcReq << 5) / (f32) (topPixIn + botPixIn);
                     OSReport("%s: %8.2f\n", DemoStat[i].text, rate);
                     break;
                 case DEMO_STAT_VC:
@@ -246,7 +239,7 @@ void DEMOPrintStats(void)
                     }
                     break;
                 case DEMO_STAT_MYR:
-                    rate = DemoStat[i].stat / (float)DemoStat[i].count;
+                    rate = DemoStat[i].stat / (f32) DemoStat[i].count;
                     OSReport("%s: %8.2f\n", DemoStat[i].text, rate);
                     break;
                 case DEMO_STAT_MEM:
@@ -288,8 +281,7 @@ void DEMOPrintStats(void)
                     break;
             }
         }
-    }
-    else {
+    } else {
         rmode = DEMOGetRenderModeObj();
         switch (DemoStatDisp) {
             case DEMO_STAT_TL:
@@ -347,15 +339,15 @@ void DEMOPrintStats(void)
                     }
                     break;
                 case DEMO_STAT_FR:
-                    rate = 162.0F * (topPixIn + botPixIn) / (float)(DemoStatClocks - copyClks);
+                    rate = 162.0f * (topPixIn + botPixIn) / (f32) (DemoStatClocks - copyClks);
                     DEMOPrintf(text_x, text_y, 0, "%s: %8.2f\n", DemoStat[i].text, rate);
                     break;
                 case DEMO_STAT_TBW:
-                    rate = 162.0F * (tcReq << 5) / (float)(DemoStatClocks - copyClks);
+                    rate = 162.0f * (tcReq << 5) / (f32) (DemoStatClocks - copyClks);
                     DEMOPrintf(text_x, text_y, 0, "%s: %8.2f\n", DemoStat[i].text, rate);
                     break;
                 case DEMO_STAT_TBP:
-                    rate = (tcReq << 5) / (float)(topPixIn - botPixIn);
+                    rate = (tcReq << 5) / (f32) (topPixIn - botPixIn);
                     DEMOPrintf(text_x, text_y, 0, "%s: %8.3f\n", DemoStat[i].text, rate);
                     break;
                 case DEMO_STAT_VC:
@@ -411,7 +403,7 @@ void DEMOPrintStats(void)
                     DEMOPrintf(text_x, text_y, 0, "%s: %8d", DemoStat[i].text, DemoStat[i].count);
                     break;
                 case DEMO_STAT_MYR:
-                    rate = DemoStat[i].stat / (float)DemoStat[i].count;
+                    rate = DemoStat[i].stat / (f32) DemoStat[i].count;
                     DEMOPrintf(text_x, text_y, 0, "%s: %8.3f", DemoStat[i].text, rate);
                     break;
                 default:

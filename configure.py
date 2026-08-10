@@ -452,6 +452,12 @@ config.libs = [
         ],
     ),
     DolphinLib(
+        "db",
+        [
+            Object(NonMatching, "dolphin/db.c"),
+        ],
+    ),
+    DolphinLib(
         "dvd",
         [
             Object(NonMatching, "dolphin/dvd/dvdlow.c"),
@@ -589,6 +595,7 @@ config.libs = [
         [
             Object(NonMatching, "dolphin/demo/DEMOInit.c"),
             Object(NonMatching, "dolphin/demo/DEMOPuts.c"), # :(
+            Object(NonMatching, "dolphin/demo/DEMOPad.c"),
             Object(NonMatching, "dolphin/demo/DEMOStats.c"),
         ],
     ),

@@ -124,6 +124,7 @@ musyx/runtime/synth.c:
 	.text       start:0x8001F348 end:0x800224AC
 	.bss        start:0x8020F940 end:0x80210F28
 	.sbss       start:0x8022D700 end:0x8022D748
+	.sdata2     start:0x8022DCD8 end:0x8022DD18
 
 musyx/runtime/seq_api.c:
 	extab       start:0x80005660 end:0x80005698
@@ -489,6 +490,11 @@ dolphin/si/SISamplingRate.c:
 	.data       start:0x800C4828 end:0x800C48C0
 	.sbss       start:0x8022D9A8 end:0x8022D9B0
 
+dolphin/db.c:
+	.text       start:0x8004DAE8 end:0x8004DBD4
+	.data       start:0x800C48C0 end:0x800C48D8
+	.sbss       start:0x8022D9B0 end:0x8022D9B8
+
 dolphin/mtx/mtx.c:
 	.text       start:0x8004DBD4 end:0x8004E11C
 	.sdata      start:0x8022D5C0 end:0x8022D5C8
@@ -549,16 +555,24 @@ dolphin/vi.c:
 	.sbss       start:0x8022DA88 end:0x8022DAE0
 
 dolphin/demo/DEMOInit.c:
-	.text       start:0x800548AC end:0x80055350
+	.text       start:0x800548AC end:0x80055128
+	.data       start:0x800C5048 end:0x800C51E0
+	.bss        start:0x8022CC30 end:0x8022CC70
 	.sdata      start:0x8022D610 end:0x8022D618
 	.sbss       start:0x8022DAE4 end:0x8022DB00
 	.sdata2     start:0x8022E010 end:0x8022E020
 
 dolphin/demo/DEMOPuts.c:
-	.text       start:0x80055350 end:0x80055724
+	.text       start:0x80055128 end:0x80055724
 	.bss        start:0x8022CC70 end:0x8022CC90
 	.sbss       start:0x8022DB00 end:0x8022DB08
 	.sdata2     start:0x8022E020 end:0x8022E040
+
+dolphin/demo/DEMOPad.c:
+	.text       start:0x80055724 end:0x80055988
+	.data       start:0x800C5DE0 end:0x800C5DF0
+	.bss        start:0x8022CC90 end:0x8022CD38
+	.sbss       start:0x8022DB08 end:0x8022DB10
 
 dolphin/demo/DEMOStats.c:
 	.text       start:0x80055988 end:0x800566E0
