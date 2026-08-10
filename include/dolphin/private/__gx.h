@@ -178,13 +178,11 @@ extern "C" {
 
 // TODO: reconcile reg macro differences
 // this one is needed to match non GX libs
-/*#define __OLD_SET_REG_FIELD(reg, size, shift, val)                                                                     \
+#define __OLD_SET_REG_FIELD(reg, size, shift, val)                                                                     \
     do {                                                                                                               \
         ASSERTMSGLINE(UNK_LINE, ((u32)(val) & ~((1 << (size)) - 1)) == 0, "GX Internal: Register field out of range"); \
         (reg) = ((u32)(reg) & ~(((1 << (size)) - 1) << (shift))) | ((u32)(val) << (shift));                            \
-} while (0)*/
-
-#define OLD_SET_REG_FIELD(line, reg, size, shift, val) { (reg) = ((u32)(reg) & ~(((1 << (size)) - 1) << (shift))) | ((u32)(val) << (shift));}
+} while (0)
 
 // above doesn't seem to work with GX, only can get it to work with this
 #ifdef __MWERKS__

@@ -17,6 +17,208 @@ typedef struct {
 #define GX_BITFIELD_TRUNC(field, pos, size, value) (__rlwimi((field), (value), 0, (pos), (pos) + (size) - 1))
 #define GX_SET_TRUNC(reg, x, st, end) GX_BITFIELD_TRUNC((reg), (st), ((end) - (st) + 1), (x))
 
+void GXInitLightSpot(GXLightObj* lt_obj, f32 cutoff, GXSpotFn spot_func) {
+    f32 a0, a1, a2;
+    f32 r;
+    f32 d;
+    f32 cr;
+    __GXLightObjInt_struct* obj;
+
+    ASSERTMSGLINE(198, lt_obj != NULL, "Light Object Pointer is null");
+    obj = (__GXLightObjInt_struct*)lt_obj;
+    CHECK_GXBEGIN(200, "GXInitLightSpot");
+
+    if (cutoff <= 0.0f || cutoff > 90.0f)
+        spot_func = GX_SP_OFF;
+
+    r = (3.1415927f * cutoff) / 180.0f;
+    cr = cosf(r);
+
+    switch (spot_func) {
+    case GX_SP_FLAT:
+        a0 = -1000.0f * cr;
+        a1 = 1000.0f;
+        a2 = 0.0f;
+        break;
+    case GX_SP_COS:
+        a1 = 1.0f / (1.0f - cr);
+        a0 = -cr * a1;
+        a2 = 0.0f;
+        break;
+    case GX_SP_COS2:
+        a2 = 1.0f / (1.0f - cr);
+        a0 = 0.0f;
+        a1 = -cr * a2;
+        break;
+    case GX_SP_SHARP:
+        d = 1.0f / ((1.0f - cr) * (1.0f - cr));
+        a0 = (cr * (cr - 2.0f)) * d;
+        a1 = 2.0f * d;
+        a2 = -d;
+        break;
+    case GX_SP_RING1:
+        d = 1.0f / ((1.0f - cr) * (1.0f - cr));
+        a2 = -4.0f * d;
+        a0 = a2 * cr;
+        a1 = (4.0f * (1.0f + cr)) * d;
+        break;
+    case GX_SP_RING2:
+        d = 1.0f / ((1.0f - cr) * (1.0f - cr));
+        a0 = 1.0f - ((2.0f * cr * cr) * d);
+        a1 = (4.0f * cr) * d;
+        a2 = -2.0f * d;
+        break;
+    case GX_SP_OFF:
+    default:
+        a0 = 1.0f;
+        a1 = 0.0f;
+        a2 = 0.0f;
+        break;
+    }
+    obj->a[0] = a0;
+    obj->a[1] = a1;
+    obj->a[2] = a2;
+}
+
+void GXInitLightDistAttn(GXLightObj* lt_obj, f32 ref_dist, f32 ref_br, GXDistAttnFn dist_func) {
+    f32 k0, k1, k2;
+    __GXLightObjInt_struct* obj;
+
+    ASSERTMSGLINE(273, lt_obj != NULL, "Light Object Pointer is null");
+    obj = (__GXLightObjInt_struct*)lt_obj;
+    CHECK_GXBEGIN(275, "GXInitLightDistAttn");
+
+    if (ref_dist < 0.0f)
+        dist_func = GX_DA_OFF;
+    if (ref_br <= 0.0f || ref_br >= 1.0f)
+        dist_func = GX_DA_OFF;
+
+    switch (dist_func) {
+    case GX_DA_GENTLE:
+        k0 = 1.0f;
+        k1 = (1.0f - ref_br) / (ref_br * ref_dist);
+        k2 = 0.0f;
+        break;
+    case GX_DA_MEDIUM:
+        k0 = 1.0f;
+        k1 = (0.5f * (1.0f - ref_br)) / (ref_br * ref_dist);
+        k2 = (0.5f * (1.0f - ref_br)) / (ref_br * ref_dist * ref_dist);
+        break;
+    case GX_DA_STEEP:
+        k0 = 1.0f;
+        k1 = 0.0f;
+        k2 = (1.0f - ref_br) / (ref_br * ref_dist * ref_dist);
+        break;
+    case GX_DA_OFF:
+    default:
+        k0 = 1.0f;
+        k1 = 0.0f;
+        k2 = 0.0f;
+        break;
+    }
+
+    obj->k[0] = k0;
+    obj->k[1] = k1;
+    obj->k[2] = k2;
+}
+
+void GXInitLightPos(GXLightObj* lt_obj, f32 x, f32 y, f32 z) {
+    __GXLightObjInt_struct* obj;
+
+    ASSERTMSGLINE(328, lt_obj != NULL, "Light Object Pointer is null");
+    obj = (__GXLightObjInt_struct*)lt_obj;
+    CHECK_GXBEGIN(330, "GXInitLightPos");
+
+    obj->lpos[0] = x;
+    obj->lpos[1] = y;
+    obj->lpos[2] = z;
+}
+
+void GXInitLightColor(GXLightObj* lt_obj, GXColor color) {
+    __GXLightObjInt_struct* obj;
+
+    ASSERTMSGLINE(462, lt_obj != NULL, "Light Object Pointer is null");
+    obj = (__GXLightObjInt_struct*)lt_obj;
+    CHECK_GXBEGIN(463, "GXInitLightColor");
+
+    *(u32*)&obj->Color = *(u32*)&color;
+}
+
+static inline void PushLight(const register GXLightObj* lt_obj, register void* dest) {
+    register u32 zero, color;
+    register f32 a0_a1, a2_k0, k1_k2;
+    register f32 px_py, pz_dx, dy_dz;
+#ifdef __MWERKS__  // clang-format off
+    asm{
+        lwz     color, 12(lt_obj)
+        xor zero, zero, zero
+        psq_l   a0_a1, 16(lt_obj), 0, 0
+        psq_l   a2_k0, 24(lt_obj), 0, 0
+        psq_l   k1_k2, 32(lt_obj), 0, 0
+        psq_l   px_py, 40(lt_obj), 0, 0
+        psq_l   pz_dx, 48(lt_obj), 0, 0
+        psq_l   dy_dz, 56(lt_obj), 0, 0
+
+        stw     zero,  0(dest)
+        stw     zero,  0(dest)
+        stw     zero,  0(dest)
+        stw     color, 0(dest)
+        psq_st  a0_a1, 0(dest), 0, 0
+        psq_st  a2_k0, 0(dest), 0, 0
+        psq_st  k1_k2, 0(dest), 0, 0
+        psq_st  px_py, 0(dest), 0, 0
+        psq_st  pz_dx, 0(dest), 0, 0
+        psq_st  dy_dz, 0(dest), 0, 0
+    }
+#endif  // clang-format on
+}
+
+void GXLoadLightObjImm(const GXLightObj* lt_obj, GXLightID light) {
+    u32 addr;
+    u32 idx;
+    __GXLightObjInt_struct* obj;
+
+    ASSERTMSGLINE(568, lt_obj != NULL, "Light Object Pointer is null");
+    obj = (__GXLightObjInt_struct*)lt_obj;
+    CHECK_GXBEGIN(569, "GXLoadLightObjImm");
+
+#if DEBUG
+    idx = ConvLightID2Num(light);
+#else
+    idx = 31 - __cntlzw(light);
+#endif
+
+    ASSERTMSGLINE(575, idx < 8, "GXLoadLightObjImm: Invalid Light Id");
+    idx &= 7;
+
+    addr = idx * 0x10 + 0x600;
+    GX_WRITE_U8(0x10);
+    GX_WRITE_U32(addr | 0xF0000);
+
+#if DEBUG
+    WRITE_SOME_LIGHT_REG1(0, addr);
+    WRITE_SOME_LIGHT_REG1(0, addr + 1);
+    WRITE_SOME_LIGHT_REG1(0, addr + 2);
+    WRITE_SOME_LIGHT_REG1(obj->Color, addr + 3);
+    WRITE_SOME_LIGHT_REG2(obj->a[0], addr + 4);
+    WRITE_SOME_LIGHT_REG2(obj->a[1], addr + 5);
+    WRITE_SOME_LIGHT_REG2(obj->a[2], addr + 6);
+    WRITE_SOME_LIGHT_REG2(obj->k[0], addr + 7);
+    WRITE_SOME_LIGHT_REG2(obj->k[1], addr + 8);
+    WRITE_SOME_LIGHT_REG2(obj->k[2], addr + 9);
+    WRITE_SOME_LIGHT_REG2(obj->lpos[0], addr + 10);
+    WRITE_SOME_LIGHT_REG2(obj->lpos[1], addr + 11);
+    WRITE_SOME_LIGHT_REG2(obj->lpos[2], addr + 12);
+    WRITE_SOME_LIGHT_REG2(obj->ldir[0], addr + 13);
+    WRITE_SOME_LIGHT_REG2(obj->ldir[1], addr + 14);
+    WRITE_SOME_LIGHT_REG2(obj->ldir[2], addr + 15);
+#else
+    PushLight(lt_obj, (void*)GXFIFO_ADDR);
+#endif
+
+    __GXData->bpSentNot = 1;
+}
+
 void GXSetChanAmbColor(GXChannelID chan, GXColor amb_color) {
     u32 reg;
     u32 rgb;

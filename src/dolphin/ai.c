@@ -36,6 +36,8 @@ typedef struct {
 STRUCT_TIMELOG profile;
 #endif
 
+#define OLD_SET_REG_FIELD(line, reg, size, shift, val) { (reg) = ((u32)(reg) & ~(((1 << (size)) - 1) << (shift))) | ((u32)(val) << (shift));}
+
 // prototypes
 void __AI_DEBUG_set_stream_sample_rate(u32 rate);
 STRUCT_TIMELOG* __ai_src_get_time(void);

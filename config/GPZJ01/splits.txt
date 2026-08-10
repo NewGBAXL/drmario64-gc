@@ -680,6 +680,7 @@ dolphin/card/CARDNet.c:
 dolphin/gx/GXInit.c:
 	.text       start:0x80061BC0 end:0x80062D90
 	.data       start:0x800C6484 end:0x800C6570
+	.bss        start:0x8022CFC8 end:0x8022D540
 	.sbss       start:0x8022DC50 end:0x8022DC60
 	.sdata2     start:0x8022E050 end:0x8022E078
 
@@ -700,15 +701,17 @@ dolphin/gx/GXGeometry.c:
 	.text       start:0x80064E10 end:0x800651C0
 
 dolphin/gx/GXFrameBuf.c:
-	.text       start:0x800651C0 end:0x800661D4
+	.text       start:0x800651C0 end:0x80065EDC
 	.sdata2     start:0x8022E078 end:0x8022E088
 
 dolphin/gx/GXLight.c:
-	.text       start:0x800661D4 end:0x800664CC
+	.text       start:0x80065EDC end:0x800664CC
+	.data       start:0x800C6800 end:0x800C6820
+	.sdata2     start:0x8022E088 end:0x8022E0B8
 
 dolphin/gx/GXTexture.c:
 	.text       start:0x800664CC end:0x80067484
-	.data       start:0x800C6914 end:0x800C6A48
+	.data       start:0x800C6820 end:0x800C6A48
 	.sdata      start:0x8022D690 end:0x8022D6D0
 	.sdata2     start:0x8022E0B8 end:0x8022E0E0
 
@@ -720,13 +723,15 @@ dolphin/gx/GXTev.c:
 	.data       start:0x800C6A48 end:0x800C6AC0
 
 dolphin/gx/GXPixel.c:
-	.text       start:0x80067EF8 end:0x800685A4
+	.text       start:0x80067EF8 end:0x80068534
 	.data       start:0x800C6AC0 end:0x800C6AE0
 	.sdata2     start:0x8022E0E0 end:0x8022E118
 
+dolphin/gx/GXDisplayList.c:
+	.text       start:0x80068534 end:0x800685A4
+
 dolphin/gx/GXTransform.c:
 	.text       start:0x800685A4 end:0x80068B48
-	.bss        start:0x8022CFC8 end:0x8022D540
 	.sdata2     start:0x8022E118 end:0x8022E128
 
 dolphin/gx/GXPerf.c:

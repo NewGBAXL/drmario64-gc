@@ -5,6 +5,13 @@
 
 #include "dolphin/private/__gx.h"
 
+#ifdef NDEBUG
+#define ASSERTMSGLINEV(line, exp, msg, ...) ((void)0)
+#else
+#define ASSERTMSGLINEV(line, exp, msg, ...) \
+    (void)((exp) || (__assertv(line, #exp, msg, __VA_ARGS__), 0))
+#endif
+
 // GXTexObj internal data
 typedef struct __GXTexObjInt_struct {
     u32 mode0;
@@ -54,7 +61,7 @@ static u8 GX2HWFiltConv[8] = {0x00, 0x04, 0x01, 0x05, 0x02, 0x06, 0x00, 0x00};
 
 #define GET_TILE_COUNT(a, b) (((a) + (1 << (b)) - 1) >> (b))
 
-static inline void __GXGetTexTileShift(GXTexFmt fmt, u32* rowTileS, u32* colTileS) {
+static void __GXGetTexTileShift(GXTexFmt fmt, u32 * rowTileS, u32 * colTileS) {
     switch (fmt) {
         case GX_TF_I4:
         case 0x8:
@@ -96,6 +103,53 @@ static inline void __GXGetTexTileShift(GXTexFmt fmt, u32* rowTileS, u32* colTile
             *rowTileS = *colTileS = 0;
             ;
     }
+}
+
+u32 GXGetTexBufferSize(u16 width, u16 height, u32 format, GXBool mipmap, u8 max_lod) {
+    u32 tileShiftX;
+    u32 tileShiftY;
+    u32 tileBytes;
+    u32 bufferSize;
+    u32 nx;
+    u32 ny;
+    u32 level;
+
+    ASSERTMSGLINEV(460, width <= 1024, "%s: width too large", "GXGetTexBufferSize");
+    ASSERTMSGLINEV(461, height <= 1024, "%s: height too large", "GXGetTexBufferSize");
+
+    __GXGetTexTileShift(format, &tileShiftX, &tileShiftY);
+    if (format == GX_TF_RGBA8 || format == GX_TF_Z24X8) {
+        tileBytes = 64;
+    }
+    else {
+        tileBytes = 32;
+    }
+
+    if (mipmap == GX_TRUE) {
+        nx = 1 << (31 - __cntlzw(width));
+        ASSERTMSGLINEV(479, width == nx, "%s: width must be a power of 2", "GXGetTexBufferSize");
+        ny = 1 << (31 - __cntlzw(height));
+        ASSERTMSGLINEV(482, height == ny, "%s: height must be a power of 2", "GXGetTexBufferSize");
+
+        bufferSize = 0;
+        for (level = 0; level < max_lod; level++) {
+            nx = (width + (1 << tileShiftX) - 1) >> tileShiftX;
+            ny = (height + (1 << tileShiftY) - 1) >> tileShiftY;
+            bufferSize += tileBytes * (nx * ny);
+            if (width == 1 && height == 1) {
+                break;
+            }
+            width = (width > 1) ? width >> 1 : 1;
+            height = (height > 1) ? height >> 1 : 1;
+        }
+    }
+    else {
+        nx = (width + (1 << tileShiftX) - 1) >> tileShiftX;
+        ny = (height + (1 << tileShiftY) - 1) >> tileShiftY;
+        bufferSize = nx * ny * tileBytes;
+    }
+
+    return bufferSize;
 }
 
 void __GetImageTileCount(GXTexFmt fmt, u16 wd, u16 ht, u32* rowTiles, u32* colTiles, u32* cmpTiles) {
@@ -249,6 +303,20 @@ void GXInitTexObjLOD(GXTexObj* obj, GXTexFilter min_filt, GXTexFilter mag_filt, 
     lmax = 16.0f * max_lod;
     SET_REG_FIELD(t->mode1, 8, 0, lmin);
     SET_REG_FIELD(t->mode1, 8, 8, lmax);
+}
+
+u16 GXGetTexObjWidth(const GXTexObj* to) {
+    const __GXTexObjInt* t = (const __GXTexObjInt*)to;
+
+    ASSERTMSGLINE(1114, to, "Texture Object Pointer is null");
+    return (u32)GET_REG_FIELD(t->image0, 10, 0) + 1;
+}
+
+u16 GXGetTexObjHeight(const GXTexObj* to) {
+    const __GXTexObjInt* t = (const __GXTexObjInt*)to;
+
+    ASSERTMSGLINE(1120, to, "Texture Object Pointer is null");
+    return (u32)GET_REG_FIELD(t->image0, 10, 10) + 1;
 }
 
 void GXInitTexObjData(GXTexObj* obj, void* image_ptr) {
