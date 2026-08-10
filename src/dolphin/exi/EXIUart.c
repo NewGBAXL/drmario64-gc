@@ -132,12 +132,15 @@ u32 WriteUARTN(const void *buf, unsigned long len)
     char *ptr;
     BOOL locked;
     u32 error;
+    BOOL enabled;
 
     if (Enabled != EXI_MAGIC)
         return 2;
 
+    enabled = OSDisableInterrupts();
     locked = EXILock(Chan, Dev, 0);
     if (!locked) {
+        OSRestoreInterrupts(enabled);
         return 0;
     }
 
@@ -180,5 +183,6 @@ u32 WriteUARTN(const void *buf, unsigned long len)
     }
 
     EXIUnlock(Chan);
+    OSRestoreInterrupts(enabled);
     return error;
 }

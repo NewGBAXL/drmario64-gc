@@ -11,13 +11,14 @@
 
 #if IS_MQ
 //static GXData gxData; //todo: fix!
+//GXData* const __GXData = &gxData;
 static GXFifoObj FifoObj;
 #else
 static GXFifoObj FifoObj;
 //static GXData gxData;
 #endif
 
-GXData* const __GXData = &gxData;
+//GXData* const __GXData = &gxData;
 //GXData* const gx = &gxData; //todo: fix!!!
 
 #if IS_MQ

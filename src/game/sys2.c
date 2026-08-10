@@ -1,3 +1,5 @@
+//START FILE 1
+
 #include <types.h>
 
 // threads!
@@ -167,6 +169,8 @@ s32 fn_80015D78(void) {
     return 0x0;
 }
 
+//START FILE 2 - lbl_801EB0B0 bss
+
 extern s32 lbl_801EB088;
 extern s32 lbl_801EB0B0;
 
@@ -195,6 +199,8 @@ void fn_80015E74(void) {
     OSSuspendThread(lbl_801EB0B0);
     return;
 }
+
+//BACK TO FILE 1?
 
 void fn_80015EEC(void) {
     s32 local_10[3];
@@ -242,11 +248,15 @@ u32 fn_80015F9C(u32 arg0, u32 arg1, u32 arg2, u32 arg3, u32 arg4) {
     return 0x0;
 }
 
+//START FILE 3
+
 void fn_800160CC(u32 arg0, u32 arg1, u32 arg2, u32 arg3, u32 arg4) {
     threadFirstFlag = 0;
     fn_80015F9C(arg0, arg1, arg2, arg3, arg4);
     return;
 }
+
+//START FILE 4 - lbl_801D9A14 bss
 
 s32 fn_800160FC(void) {
     return lbl_801D9A14;
@@ -281,6 +291,8 @@ void fn_8001612C(s32 arg0) {
     return;
 }
 
+//START FILE 6 - lbl_800BE198 bss
+
 //fn_800161D0 (error print)
 
 //fn_80016474
@@ -291,13 +303,170 @@ void fn_8001612C(s32 arg0) {
 
 //fn_80017358 (more pad conversion??)
 
+//new stuff
+
+extern s32 lbl_801EB2B8;
+extern s32 lbl_801EB2BC;
+extern s32 lbl_801EB2BE;
+extern s32 lbl_801EB2C0;
+
+//fn_80017528 //NPC_Readpads
+
+s32* fn_800179C4(int num) { //NPC_GetPad
+    return &lbl_801EB2B8 + num * 6;
+}
+
+u8 fn_800179D8(s32* arg0, int arg1) {
+    u8 bVar1 = (&lbl_801EB2B8)[arg1 * 6] != 0;
+    if (bVar1) {
+        if (bVar1) {
+            *arg0 = 1;
+            *(u16*)(arg0 + 1) = *(u16*)(arg0 + 1) | (&lbl_801EB2BC)[arg1 * 0xc];
+            *(u16*)((int)arg0 + 6) = *(u16*)((int)arg0 + 6) | (&lbl_801EB2BE)[arg1 * 0xc];
+            *(u16*)(arg0 + 2) = *(u16*)(arg0 + 2) | (&lbl_801EB2C0)[arg1 * 0xc];
+        }
+        return bVar1;
+    }
+    return 0;
+}
+
+extern s32 lbl_801F5AC8;
+
+extern s32 lbl_801EB318;
+
+extern s32 lbl_801EB65C;
+
+extern s32 lbl_801F5A70;
+
+extern s32 lbl_800BE3D0;
+
+void fn_80017A48(int arg0, int arg1) {
+    u32 iVar1;
+
+    *(s32*)(&lbl_800BE3D0 + arg0) = 0;
+    iVar1 = (&lbl_801EB65C)[arg0];
+    if (iVar1 != 0) {
+        *(int*)(iVar1 + 0x10) = arg1;
+    }
+    if (arg1 != 0) {
+        return;
+    }
+    *(s32*)((&lbl_801EB65C)[arg0] + 0x28e4) = 2;
+    return;
+}
+
+void fn_80017A94() {
+    OSResumeThread(&lbl_801EB318);
+    return;
+}
+
+void fn_80017ABC(void) {
+    u8 bVar1;
+    s32 extraout_r4;
+    u32 uVar2;
+    int iVar3;
+    s32* piVar4;
+
+    lbl_801F5AC8 = 1;
+    do {
+        piVar4 = &lbl_801EB65C;
+        uVar2 = 0;
+        bVar1 = 0;
+        iVar3 = 0;
+        do {
+            if (*piVar4 != 0) {
+                if (*(char*)(*piVar4 + 0xc) == 'd') {
+                    bVar1 = 1;
+                }
+                fn_80016830(); //NPC_UpdateGBAPad();
+                if (*(int*)(*piVar4 + 4) != 0) {
+                    *(s32*)(*piVar4 + 4) = 0;
+                    uVar2 = uVar2 | 0x80000000U >> iVar3;
+                }
+            }
+            iVar3 += 1;
+            piVar4 += 1;
+        } while (iVar3 < 4);
+        if ((uVar2 & 0xff) != 0) {
+            PADReset();
+        }
+        fn_8003A8A0();
+        if (bVar1) {
+            fn_80049F6C(&lbl_801EB318, 2);
+            OSYieldThread();
+        }
+        else {
+            fn_80049F6C(&lbl_801EB318, 0x11);
+            OSSetAlarm(&lbl_801F5A70, extraout_r4, 0, 0x13c680, fn_80017A94);
+            OSSuspendThread(&lbl_801EB318);
+        }
+    } while (1);
+}
+
+//extern s32 lbl_801EB2B8; //top of file?
+
+extern s32 lbl_801F5A9C;
+extern s32 lbl_801F5AA0;
+extern s32 lbl_801F5AA4;
+
+void fn_80017BD4(void) {
+    s32* r31 = (s32*)((u8*)&lbl_801EB2B8 + 0x10000);
+    if (*(s32*)((u8*)r31 - 0x581c) != 0) {
+        DoFree(*(s32*)((u8*)r31 - 0x581c));
+    }
+    if (*(s32*)((u8*)r31 - 0x5818) != 0) {
+        DoFree(*(s32*)((u8*)r31 - 0x5818));
+    }
+    if (*(s32*)((u8*)r31 - 0x5814) != 0) {
+        DoFree(*(s32*)((u8*)r31 - 0x5814));
+    }
+}
+
 s32 lbl_801EB63C;
 s32 lbl_801EB640;
 s32 lbl_801EB64C;
+//s32 lbl_801EB65C;
 u32 lbl_801EB660;
+u32 lbl_801EB664;
+u32 lbl_801EB668;
+
 s32 lbl_801F9BFC;
 
-s32* fn_80017E08(s32 arg0);
+s32 fn_80017C3C(int arg0) {
+    return *(s32*)((&lbl_801EB65C)[arg0] + 0x28e8);
+}
+
+void fn_80017C58(int arg0, s32 arg1) {
+    *(s32*)((&lbl_801EB65C)[arg0] + 0x28e8) = arg1;
+    return;
+}
+
+void fn_80017C74(s32 arg0) {
+    *(s32*)(lbl_801EB660 + 0x28e8) = arg0;
+    *(s32*)(lbl_801EB664 + 0x28e8) = arg0;
+    *(s32*)(lbl_801EB668 + 0x28e8) = arg0;
+    return;
+}
+
+s32 fn_80017E08(s32 arg0);
+
+s32 fn_80017C98(void) {
+    s32 uVar3 = 0;
+    int iVar2 = 1;
+
+    do {
+        if (fn_80017E08(iVar2) != 0) {
+            uVar3 = 1;
+        }
+        iVar2 += 1;
+    } while (iVar2 < 4);
+    return uVar3;
+}
+
+
+
+
+//end new stuff
 
 s32 fn_80017CF0(void) {
     int iVar2;
@@ -337,12 +506,12 @@ s32 fn_80017D6C(void) {
     return uVar3;
 }
 
-s32* fn_80017E08(s32 arg0) {
-    return (s32*)(&lbl_801EB63C + arg0 * 4);
+s32 fn_80017E08(s32 arg0) {
+    return *(s32*)(&lbl_801EB63C + arg0);
 }
 
 void fn_80017E20(int arg0, s32 arg1) {
-    *(s32*)(&lbl_801EB63C + arg0 * 4) = arg1;
+    *(s32*)(&lbl_801EB63C + arg0) = arg1;
     return;
 }
 
@@ -416,8 +585,6 @@ void fn_80017FB0(void) {
     return;
 }
 
-extern s32 lbl_801EB65C;
-
 s32 fn_80018060(s32 arg0) {
     u32 ptr = ((u32*)&lbl_801EB65C)[arg0];
     if (ptr == 0) {
@@ -430,8 +597,6 @@ s32 fn_80018060(s32 arg0) {
 }
 
 //same file as above
-u32 lbl_801EB664;
-u32 lbl_801EB668;
 
 extern s32 lbl_801EB638;
 extern s32 lbl_801EB644;
@@ -699,7 +864,7 @@ void fn_8001866C(int arg0) {
 }
 
 s32 fn_80018694(int arg0) {
-    if (*(s32*)(&lbl_801F9AD0 + arg0 * 4) != 0) {
+    if (*(s32*)(&lbl_801F9AD0 + arg0) != 0) {
         return 0;
     }
     return 1;
@@ -738,23 +903,17 @@ u8 fn_80018724(u32* arg0, u32 arg1, u32 arg2) {
 //new file?
 
 int fn_800187A8(s32* arg0) {
-    int iVar2 = *(int*)(arg0 + 0x8);
-    int iVar1 = *(int*)(arg0 + 0xc);
-    /*if (iVar1 <= iVar2) {
-        return iVar2 - iVar1;
+    if (arg0[2] >= arg0[3]) {
+        return arg0[2] - arg0[3];
     }
-    return iVar2 + (*(int*)(arg0 + 4) - iVar1);*/
-    return (iVar1 > iVar2) ? (iVar2 - iVar1) : (iVar2 + (*(int*)(arg0 + 4) - iVar1));
+    return arg0[2] + (arg0[1] - arg0[3]);
 }
 
-
 int fn_800187D0(s32* arg0) {
-    int iVar1 = *(int*)(arg0 + 0x8);
-    int iVar2 = *(int*)(arg0 + 0xc);
-    if (iVar1 < iVar2) {
-        return (iVar2 - iVar1) - 1;
+    if (arg0[2] > arg0[3]) {
+        return (arg0[2] - arg0[3]) - 1;
     }
-    return ((*(int*)(arg0 + 4) + iVar2) - iVar1) - 1;
+    return ((arg0[1] + arg0[2]) - arg0[3]) - 1;
 }
 
 //oh boy...
@@ -858,14 +1017,14 @@ LAB_8001899c:
 }
 
 
-s32 fn_800189B0(int* arg0, u8* arg1, u32 arg2) {
-    u8* puVar1;
+s32 fn_800189B0(int* arg0, s8* arg1, u32 arg2) {
+    s8* puVar1;
     u8 uVar2;
     int iVar3;
     u32 uVar4;
     int iVar5;
-    u8* puVar6;
-    u8* puVar7;
+    s8* puVar6;
+    s8* puVar7;
     u32 uVar8;
     u32 uVar9;
 
@@ -884,7 +1043,7 @@ s32 fn_800189B0(int* arg0, u8* arg1, u32 arg2) {
     }
     if ((int)(iVar5 + arg2) <= arg0[1]) goto LAB_80018aa0;
     uVar8 = arg0[1] - iVar5;
-    puVar6 = (u8*)(*arg0 + iVar5);
+    puVar6 = (s8*)(*arg0 + iVar5);
     if (uVar8 != 0) {
         uVar9 = uVar8 >> 3;
         puVar7 = arg1;
@@ -920,7 +1079,7 @@ LAB_80018a94:
     arg1 += uVar8;
     iVar5 = 0;
 LAB_80018aa0:
-    puVar6 = (u8*)(*arg0 + iVar5);
+    puVar6 = (s8*)(*arg0 + iVar5);
     if (arg2 != 0) {
         uVar8 = arg2 >> 3;
         if (uVar8 != 0) {
@@ -954,13 +1113,12 @@ LAB_80018aa0:
     return 0;
 }
 
-
-s32 fn_80018B30(s32* arg0, u8* arg1, u32 arg2) {
-    u8* puVar1;
+s32 fn_80018B30(s32* arg0, s8* arg1, u32 arg2) {
+    s8* puVar1;
     u8 uVar2;
     int iVar3;
     u32 uVar4;
-    u8* puVar5;
+    s8* puVar5;
     int iVar6;
     u8* puVar7;
     u32 uVar8;
@@ -1052,7 +1210,7 @@ LAB_80018cbc:
     return 0;
 }
 
-//new file
+// FILE 11 - lbl_8006B2E0 bss
 
 s32 lbl_801F9AE0;
 
@@ -1070,7 +1228,7 @@ u8 GCHandover_read(s32 arg0) {
     return (&lbl_801F9AE0)[arg0];
 }
 
-//new file
+// FILE 12 - lbl_8006B2E8 bss
 
 extern s32 lbl_8006B2E8;
 
@@ -1078,12 +1236,10 @@ s32 fn_80018D28(int arg0) {
     s32 uVar1 = 0;
 
     if (arg0 < 0xf) {
-        uVar1 = *(s32*)(&lbl_8006B2E8 + arg0 * 4);
+        uVar1 = *(s32*)(&lbl_8006B2E8 + arg0);
     }
     return uVar1;
 }
-
-//new file?
 
 int fn_80018D50(s32 arg0) {
     s32 uVar1;
@@ -1103,6 +1259,8 @@ int fn_80018D50(s32 arg0) {
     } while ((fn_8003A8F4(arg0, uVar1, strlen(uVar1)) != 0) && (iVar6 = 0, ++iVar5 < 0xf));
     return iVar6;
 }
+
+//EOF?
 
 void fn_80018DDC(int arg0) {
     memset(arg0, 0, 4);
@@ -1137,7 +1295,7 @@ s32 fn_80018E20(int arg0, s32* arg1) {
             iVar2 = iVar1;
         }
         if (iVar2 == 0) break;
-        fn_80018B30(arg1, (u8*)iVar5, iVar2);
+        fn_80018B30(arg1, (s8*)iVar5, iVar2);
         piVar4[1] = piVar4[1] + iVar2;
         piVar4[0] = piVar4[0] - iVar2;
         if (*piVar4 == 0) {
@@ -1155,15 +1313,14 @@ s32 fn_80018E20(int arg0, s32* arg1) {
 
 u8 fn_80018F20(int arg0, s32* arg1, s32 arg2, s32 arg3) {
     s32* puVar1;
-    u8 uVar2;
+    u8 uVar2 = 0;
 
-    uVar2 = 0;
     if (*(int*)(arg0 + 0x30) < 4) {
         puVar1 = (s32*)(arg0 + *(int*)(arg0 + 0x38) * 0xc);
         puVar1[0] = arg2;
         puVar1[1] = arg3;
         *(int*)(arg0 + 0x38) += 1;
-        if (3 < *(int*)(arg0 + 0x38)) {
+        if (*(int*)(arg0 + 0x38) >= 4) {
             *(s32*)(arg0 + 0x38) = 0;
         }
         uVar2 = 1;

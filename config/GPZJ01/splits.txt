@@ -87,13 +87,22 @@ game/sys2.c:
 	.text       start:0x800158C4 end:0x800195D4
 
 game/GCGBA.c:
-	.text       start:0x800195D4 end:0x8001970C
-	.rodata     start:0x8006B328 end:0x8006B350
+	.text       start:0x800195D4 end:0x80019618
 	.data       start:0x800BE558 end:0x800BE590
 	.bss        start:0x801F9BE0 end:0x801F9BE8
 
+game/GCGBA2.c:
+	.text       start:0x80019618 end:0x8001970C
+	.rodata     start:0x8006B328 end:0x8006B350
+	.bss        start:0x801F9BE8 end:0x801F9BF8
+
 game/gc2.c:
-	.text       start:0x8001970C end:0x8001A500
+	.text       start:0x8001970C end:0x80019D00
+	.bss        start:0x801F9C10 end:0x801FDF68
+
+game/gc3.c:
+	.text       start:0x80019D00 end:0x8001A500
+	.bss        start:0x801FDF68 end:0x80202098
 
 game/util.c:
 	.text       start:0x8001A630 end:0x8001A750

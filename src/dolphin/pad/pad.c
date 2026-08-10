@@ -48,7 +48,7 @@ static u32 CmdProbeDevice[SI_MAX_CHAN];
 
 static BOOL OnReset(BOOL final);
 
-static OSResetFunctionInfo ResetFunctionInfo = {OnReset, 127};
+static OSResetFunctionInfo PADResetFunctionInfo = {OnReset, 127};
 
 static void (*SamplingCallback)(void);
 
@@ -336,7 +336,7 @@ BOOL PADInit() {
   }
 
   SIRefreshSamplingRate();
-  OSRegisterResetFunction(&ResetFunctionInfo);
+  OSRegisterResetFunction(&PADResetFunctionInfo);
 
   return PADReset(PAD_CHAN0_BIT | PAD_CHAN1_BIT | PAD_CHAN2_BIT | PAD_CHAN3_BIT);
 }

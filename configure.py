@@ -642,7 +642,9 @@ config.libs = [
             Object(NonMatching, "game/sys.c"),
             Object(NonMatching, "game/sys2.c"),
             Object(NonMatching, "game/GCGBA.c"),
+            Object(NonMatching, "game/GCGBA2.c"),
             Object(NonMatching, "game/gc2.c"),
+            Object(NonMatching, "game/gc3.c"),
             Object(NonMatching, "game/util.c"),
             Object(NonMatching, "game/unzip.c"),
         ]

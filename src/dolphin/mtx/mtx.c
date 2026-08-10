@@ -4,7 +4,7 @@
 
 static f32 Unit01[] = {0.0f, 1.0f};
 
-extern f32 sinf(f32);
+//extern f32 sinf(f32);
 
 void C_MTXIdentity(Mtx m) {
 #line 189

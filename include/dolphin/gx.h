@@ -25,13 +25,15 @@
 
 #include "dolphin/private/__gx.h"
 //#include "dolphin/gx/GXInit.h"
-static GXData gxData;
+//static GXData gxData;
 
 // unsorted GX externs
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+//extern GXData gxData;
 
 // GXMisc
 void (*GXSetDrawSyncCallback(void (*cb)(u16)))(u16);

@@ -112,7 +112,7 @@ static void stateReadingFST()
     LastState = (stateFunc)stateReadingFST;
 
     if (bootInfo->FSTMaxLength < BB2.FSTLength) {
-        OSPanic("dvd.c", 630, "DVDChangeDisk(): FST in the new disc is too big.   ");
+        OSPanic("dvd.c", 647, "DVDChangeDisk(): FST in the new disc is too big.   ");
     }
 
     DVDLowRead(bootInfo->FSTLocation, OSRoundUp32B(BB2.FSTLength), BB2.FSTPosition, cbForStateReadingFST);
@@ -1190,6 +1190,7 @@ BOOL DVDCancelAsync(DVDCommandBlock *block, DVDCBCallback callback)
 {
     BOOL enabled;
     DVDLowCallback old;
+    u32 unused;
 
     enabled = OSDisableInterrupts();
 

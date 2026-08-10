@@ -67,7 +67,7 @@ static s32 F152(DSPTaskInfo* task) {
   return -1;
 }
 
-static void F23(void* task) {
+static void F23_a(void* task) {
   s32 chan;        // r31
   GBAControl* gba; // r30
   chan = F152(task);
@@ -80,7 +80,7 @@ static void F23(void* task) {
     ;
 }
 
-void F25(void* task) {
+void F25_a(void* task) {
   s32 chan; // r31
   chan = F152(task);
   __GBAX01(chan, 0);
@@ -108,9 +108,9 @@ void __GBAX02(s32 chan, u8* readbuf) {
   task->iram_length = sizeof(D35);
   task->iram_addr = 0;
   task->dsp_init_vector = 16;
-  task->init_cb = F23;
+  task->init_cb = F23_a;
   task->res_cb = NULL;
-  task->done_cb = F25;
+  task->done_cb = F25_a;
   task->req_cb = NULL;
   DSPAddTask(task);
 }

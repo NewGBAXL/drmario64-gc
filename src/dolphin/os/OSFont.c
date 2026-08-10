@@ -272,6 +272,7 @@ static void ReadROM(void* buf, int length, int offset) {
   }
 }
 
+//both this and the ReadROM calls need to be inlined
 static u32 ReadFont(void* img) {
   if (OSGetFontEncode() == OS_FONT_ENCODE_SJIS) {
     ReadROM(img, OS_FONT_ROM_SIZE_SJIS, 0x1AFF00);
